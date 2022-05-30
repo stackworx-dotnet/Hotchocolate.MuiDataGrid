@@ -1,7 +1,3 @@
-include:
-  - project: "stackworx.io/gitlab/ci-templates"
-    file: "/Base.gitlab-ci.v1.yml"
-
 stages:
   - build
   # - publish

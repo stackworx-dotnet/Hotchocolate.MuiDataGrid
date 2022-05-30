@@ -4,15 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
 #nullable disable
 
-namespace MobileMart.Switch.Test.MuiDataGrid.Migrations
+namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 {
-    using Stackworx.Hotchocolate.Muidatagrid.Entities;
-
     [DbContext(typeof(MuiDataGridDbContext))]
-    [Migration("20220530181833_InitialCreate")]
+    [Migration("20220530221033_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +19,7 @@ namespace MobileMart.Switch.Test.MuiDataGrid.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
 
-            modelBuilder.Entity("Hotchocolate.MuiDataGrid.Test.Entities.Person", b =>
+            modelBuilder.Entity("Stackworx.Hotchocolate.Muidatagrid.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -4,9 +4,9 @@ using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MobileMart.Switch.Test.MuiDataGrid.GraphQL;
 using Stackworx.Hotchocolate.MuiDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
+using Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
 public class DbFixture : IDisposable
 {

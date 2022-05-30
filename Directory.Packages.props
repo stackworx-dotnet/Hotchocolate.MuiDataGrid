@@ -4,18 +4,18 @@
     </ItemGroup>
     
     <ItemGroup Label="Microsoft">
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
     </ItemGroup>
     
     <ItemGroup Label="Hotchocolate">
-        <PackageVersion Include="HotChocolate.Abstractions" Version="12.8.2" />
-        <PackageVersion Include="HotChocolate.Data" Version="12.8.2" />
-        <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="12.8.2" />
-        <PackageVersion Include="HotChocolate.Types" Version="12.8.2" />
-        <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="12.8.2" />
+        <PackageVersion Include="HotChocolate.Abstractions" Version="12.9.0" />
+        <PackageVersion Include="HotChocolate.Data" Version="12.9.0" />
+        <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
+        <PackageVersion Include="HotChocolate.Types" Version="12.9.0" />
+        <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="12.9.0" />
     </ItemGroup>
     
     <ItemGroup Label="Test Dependencies">

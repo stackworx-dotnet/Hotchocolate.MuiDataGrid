@@ -1,4 +1,4 @@
-namespace MobileMart.Switch.Test.MuiDataGrid.GraphQL;
+namespace Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
 using HotChocolate;
 using HotChocolate.Data;

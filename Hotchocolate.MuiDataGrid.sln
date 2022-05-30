@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotchocolate.MuiDataGrid", "src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj", "{EE5B833A-3791-4796-A112-3C903900AEB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotchocolate.MuiDataGrid.Test", "tests\Hotchocolate.MuiDataGrid.Test\Hotchocolate.MuiDataGrid.Test.csproj", "{56DE499B-0D98-4017-84AD-DC0153E71642}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE5B833A-3791-4796-A112-3C903900AEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5B833A-3791-4796-A112-3C903900AEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5B833A-3791-4796-A112-3C903900AEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5B833A-3791-4796-A112-3C903900AEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56DE499B-0D98-4017-84AD-DC0153E71642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56DE499B-0D98-4017-84AD-DC0153E71642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56DE499B-0D98-4017-84AD-DC0153E71642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56DE499B-0D98-4017-84AD-DC0153E71642}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

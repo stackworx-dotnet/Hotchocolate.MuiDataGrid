@@ -1,0 +1,30 @@
+<Project>
+    <ItemGroup Label="Misc">
+        <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" />
+    </ItemGroup>
+    
+    <ItemGroup Label="Microsoft">
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+    </ItemGroup>
+    
+    <ItemGroup Label="Hotchocolate">
+        <PackageVersion Include="HotChocolate.Abstractions" Version="12.8.2" />
+        <PackageVersion Include="HotChocolate.Data" Version="12.8.2" />
+        <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="12.8.2" />
+        <PackageVersion Include="HotChocolate.Types" Version="12.8.2" />
+        <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="12.8.2" />
+    </ItemGroup>
+    
+    <ItemGroup Label="Test Dependencies">
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.4" />
+        <PackageVersion Include="xunit" Version="2.4.1" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5"/>
+        <PackageVersion Include="coverlet.collector" Version="3.1.2"/>
+        <PackageVersion Include="Snapshooter.Xunit" Version="0.7.1" />
+        <PackageVersion Include="FluentAssertions" Version="6.7.0" />
+    </ItemGroup>
+</Project>

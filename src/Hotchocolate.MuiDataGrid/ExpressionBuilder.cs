@@ -1,0 +1,108 @@
+namespace Stackworx.Hotchocolate.MuiDataGrid;
+
+using HotChocolate.Language;
+
+public class ExpressionBuilder<T>
+{
+    private readonly Dictionary<string, IExpressionBuilderHandler<T>> handlers = new();
+    private readonly IColumnLookup<T> columnLookup;
+
+    private readonly IExpressionBuilderHandler<T> defaultBooleanHandler = new DefaultBooleanHandler<T>();
+    private readonly IExpressionBuilderHandler<T> defaultStringHandler = new DefaultStringHandler<T>();
+    private readonly IExpressionBuilderHandler<T> defaultNumberHandler = new DefaultNumberHandler<T>();
+    private readonly IExpressionBuilderHandler<T> defaultSingleSelectHandler = new DefaultSingleSelectHandler<T>();
+
+    public ExpressionBuilder(IColumnLookup<T> columnLookup)
+    {
+        this.columnLookup = columnLookup;
+    }
+
+    public void AddHandler(string columnField, IExpressionBuilderHandler<T> handler)
+    {
+        // Validate column
+        if (!this.columnLookup.CanHandle(columnField))
+        {
+            throw new ArgumentException($"{this.columnLookup} cannot handle column {columnField}");
+        }
+
+        if (!this.handlers.ContainsKey(columnField))
+        {
+            this.handlers[columnField] = handler;
+        }
+        else
+        {
+            throw new ArgumentException(
+                $"Handler for column: {columnField} already registered");
+        }
+    }
+
+    public Expression<Func<T, bool>> Filter(MuiDataGridFilterInput filters)
+    {
+        var predicates = new List<Expression<Func<T, bool>>>();
+
+        foreach (var item in filters.Items)
+        {
+            predicates.Add(this.Build(item));
+        }
+
+        switch (predicates.Count)
+        {
+            // short circuit
+            case 0:
+                return _ => true;
+            // skip combine
+            case 1:
+                return predicates[0];
+            default:
+                {
+                    var first = predicates.Pop();
+                    return filters.LinkOperator == MuiDataGridLinkOperator.Or
+                        ? predicates.Aggregate(first, Or)
+                        : predicates.Aggregate(first, And);
+                }
+        }
+    }
+
+    private static Expression<Func<T, bool>> Or(Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
+    {
+        var invokedExpr = Expression.Invoke(expr2, expr1.Parameters);
+        return Expression.Lambda<Func<T, bool>>(Expression.OrElse(expr1.Body, invokedExpr), expr1.Parameters);
+    }
+
+    private static Expression<Func<T, bool>> And(Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
+    {
+        var invokedExpr = Expression.Invoke(expr2, expr1.Parameters);
+        return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
+    }
+
+    // MemberExpression memberAccessor,
+    private Expression<Func<T, bool>> Build(MuiDataGridFilterItemInput filter)
+    {
+        var memberAccessor = this.columnLookup.Lookup(filter.ColumnField);
+
+        if (this.handlers.TryGetValue(filter.ColumnField, out var handler))
+        {
+            return handler.Handle(memberAccessor, filter);
+        }
+
+        var t = memberAccessor.Type.UnwrapNullable();
+
+        switch (t)
+        {
+            case var x when x == typeof(int):
+                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(double):
+                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(float):
+                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(short):
+                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(string):
+                return this.defaultStringHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(bool):
+                return this.defaultBooleanHandler.Handle(memberAccessor, filter);
+            default:
+                throw new ArgumentException($"Unexpected Member Type {t}");
+        }
+    }
+}

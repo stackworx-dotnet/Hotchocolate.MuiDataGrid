@@ -1,0 +1,11 @@
+{
+  "name": "root",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "dprint": "0.27.1"
+  },
+  "scripts": {
+    "fmt": "dprint fmt",
+    "check": "dprint check"
+  }
+}

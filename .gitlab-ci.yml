@@ -1,0 +1,42 @@
+include:
+  - project: "stackworx.io/gitlab/ci-templates"
+    file: "/Base.gitlab-ci.v1.yml"
+
+stages:
+  - build
+  # - publish
+
+.build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  only:
+    - merge_requests
+    - main
+    - tags
+
+build:format:
+  extends: .build
+  image: node:16-buster
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+  script:
+    - npm ci
+    - npm run check
+
+build:dotnet:
+  extends: .build
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  variables:
+    SA_PASSWORD: Strong_!_Password
+    ACCEPT_EULA: "Y"
+    NUGET_PACKAGES: "$CI_PROJECT_DIR/.nuget/packages"
+  cache:
+    paths:
+      - .nuget/packages
+  script:
+    - dotnet build
+    - dotnet test

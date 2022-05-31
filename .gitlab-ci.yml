@@ -34,8 +34,7 @@ build:
 build:release:
   extends: .build
   only:
-    - merge_requests
-    - main
+    - tags
   script:
     - dotnet restore
     - dotnet test --no-restore

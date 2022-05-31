@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>Stackworx.Hotchocolate.MuiDataGrid</RootNamespace>
+        <PackageId>Stackworx.Hotchocolate.MuiDataGrid</PackageId>
         <ImplicitUsings>true</ImplicitUsings>
         <IsPublishable>false</IsPublishable>
     </PropertyGroup>

@@ -31,19 +31,8 @@ build:
     - dotnet restore
     - dotnet test --no-restore
 
-build:release:
-  extends: .build
-  only:
-    - tags
-  script:
-    - dotnet restore
-    - dotnet test --no-restore
-    - dotnet publish --no-restore --no-build --output ./output
-
 build:publish:
   extends: .build
-  needs: 
-    - build:release
   only:
     - tags
   artifacts:

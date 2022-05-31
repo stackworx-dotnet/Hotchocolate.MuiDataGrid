@@ -1,8 +1,8 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
-public class DefaultSingleSelectHandler<T> : IExpressionBuilderHandler<T>
+public class DefaultSingleSelectHandler<T> : ExpressionBuilderHandler<T>
 {
-    public Expression<Func<T, bool>> Handle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
     {
         Expression expression;
         var memberAccessor = member.Expression;
@@ -12,6 +12,13 @@ public class DefaultSingleSelectHandler<T> : IExpressionBuilderHandler<T>
                 {
                     filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
+                    var left = memberAccessor;
+                    var right = val;
+                    var t1 = left.Type;
+                    var t2 = right.Type;
+                    var b1 = left.Type == typeof(object);
+                    var b2 = left.Type.IsEnum;
+                    var b3 = left.Type == typeof(object);
                     expression = Expression.Equal(memberAccessor, val);
                     break;
                 }
@@ -37,23 +44,11 @@ public class DefaultSingleSelectHandler<T> : IExpressionBuilderHandler<T>
                 throw new Exception($"Unknown operator: {filter.OperatorValue}");
         }
 
-        if (memberAccessor.Expression is ParameterExpression p)
-        {
-            return Expression.Lambda<Func<T, bool>>(expression, new[] { p });
-        }
-
-        throw new ArgumentException($"Expected ParameterExpression. Got: {memberAccessor.Expression}");
+        return expression;
     }
 
-    public virtual ConstantExpression GetValueConstantExpression(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
-        filter.Value.AssertNotNull(filter.OperatorValue);
-        return Expression.Constant(filter.Value.AsString());
-    }
-
-    public virtual ConstantExpression GetValueConstantExpressionList(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
-    {
-        filter.Value.AssertNotNull(filter.OperatorValue);
-        return Expression.Constant(filter.Value.AsArray().Select(e => e.AsString()).ToList());
+        return value.AsString();
     }
 }

@@ -1,9 +1,9 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 // https://github.com/mui/mui-x/blob/master/packages/grid/x-data-grid/src/colDef/gridBooleanOperators.ts
-public class DefaultBooleanHandler<T> : IExpressionBuilderHandler<T>
+public class DefaultBooleanHandler<T> : ExpressionBuilderHandler<T>
 {
-    public Expression<Func<T, bool>> Handle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
     {
         Expression expression;
         var memberAccessor = member.Expression;
@@ -21,22 +21,11 @@ public class DefaultBooleanHandler<T> : IExpressionBuilderHandler<T>
                 throw new Exception($"Unknown operator: {filter.OperatorValue}");
         }
 
-        if (memberAccessor.Expression is ParameterExpression p)
-        {
-            return Expression.Lambda<Func<T, bool>>(expression, new[] { p });
-        }
-
-        throw new ArgumentException($"Expected ParameterExpression. Got: {memberAccessor.Expression}");
+        return expression;
     }
 
-    public ConstantExpression GetValueConstantExpression(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
-        filter.Value.AssertNotNull(filter.OperatorValue);
-        return Expression.Constant(filter.Value.AsBoolean());
-    }
-
-    public ConstantExpression GetValueConstantExpressionList(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
-    {
-        throw new NotImplementedException();
+        return value.AsBoolean();
     }
 }

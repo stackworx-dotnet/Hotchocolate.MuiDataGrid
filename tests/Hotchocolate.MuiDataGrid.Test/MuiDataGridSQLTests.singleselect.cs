@@ -8,6 +8,10 @@ using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 public partial class MuiDataGridSQLTests
 {
+    private class PersonGenderHandler : DefaultEnumSingleSelectHandler<Person, Gender>
+    {
+    }
+
     [Fact]
     public async Task TestGenderIsEqual()
     {
@@ -24,7 +28,7 @@ public partial class MuiDataGridSQLTests
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("gender", new DefaultEnumSingleSelectHandler<Person, Gender>());
+        builder.AddHandler("gender", new PersonGenderHandler());
 
         var sql = dbContext.People.Where(p => p.Gender == Gender.MALE).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
@@ -48,7 +52,7 @@ public partial class MuiDataGridSQLTests
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("gender", new PersonGenderSingleSelectHandler());
+        builder.AddHandler("gender", new PersonGenderHandler());
 
         var sql = dbContext.People.Where(p => p.Gender != Gender.MALE).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
@@ -72,7 +76,7 @@ public partial class MuiDataGridSQLTests
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("gender", new PersonGenderSingleSelectHandler());
+        builder.AddHandler("gender", new PersonGenderHandler());
 
         var sql = dbContext.People.Where(p => new List<Gender> { Gender.MALE, Gender.FEMALE }.Contains(p.Gender)).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();

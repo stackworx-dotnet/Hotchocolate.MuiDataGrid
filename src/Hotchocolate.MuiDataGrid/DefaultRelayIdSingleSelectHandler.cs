@@ -13,41 +13,7 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
         this.relayType = relayType;
     }
 
-    public override ConstantExpression GetValueConstantExpression(
-        ColumnLookupMember member,
-        MuiDataGridFilterItemInput filter)
-    {
-        filter.Value.AssertNotNull(filter.OperatorValue);
-        var id = this.Deserialize(filter.Value);
-
-        // TODO: what type should this be?
-        return Expression.Constant(id);
-    }
-
-    public override ConstantExpression GetValueConstantExpressionList(
-        ColumnLookupMember member,
-        MuiDataGridFilterItemInput filter)
-    {
-        filter.Value.AssertNotNull(filter.OperatorValue);
-
-        var list = CreateGenericList(member.Type);
-
-        foreach (var value in filter.Value.AsArray())
-        {
-            list.Add(this.Deserialize(value));
-        }
-
-        return Expression.Constant(list);
-    }
-
-    private static dynamic CreateGenericList(Type t)
-    {
-        var generic = typeof(List<>);
-        var constructed = generic.MakeGenericType(t);
-        return Activator.CreateInstance(constructed) ?? throw new InvalidOperationException();
-    }
-
-    private dynamic Deserialize(MuiValue value)
+    protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
         var id = this.idSerializer.Deserialize(value.AsString());
         if (this.relayType != null && id.TypeName != this.relayType)

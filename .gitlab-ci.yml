@@ -1,14 +1,13 @@
-stages:
-  - build
-  # - publish
+include:
+  - project: "stackworx.io/gitlab/ci-templates"
+    file: "/Library.gitlab-ci.v1.yml"
 
 .build:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:6.0
-  only:
-    - merge_requests
-    - main
-    - tags
+  cache:
+    paths:
+      - .nuget/packages
 
 build:format:
   extends: .build
@@ -23,16 +22,36 @@ build:format:
     - npm ci
     - npm run check
 
-build:dotnet:
+build:
   extends: .build
-  image: mcr.microsoft.com/dotnet/sdk:6.0
-  variables:
-    SA_PASSWORD: Strong_!_Password
-    ACCEPT_EULA: "Y"
-    NUGET_PACKAGES: "$CI_PROJECT_DIR/.nuget/packages"
-  cache:
-    paths:
-      - .nuget/packages
+  only:
+    - merge_requests
+    - main
   script:
-    - dotnet build
-    - dotnet test
+    - dotnet restore
+    - dotnet test --no-restore
+
+build:release:
+  extends: .build
+  only:
+    - merge_requests
+    - main
+  script:
+    - dotnet restore
+    - dotnet test --no-restore
+    - dotnet publish --no-restore --no-build --output ./output
+
+build:publish:
+  extends: .build
+  needs: 
+    - build:release
+  only:
+    - tags
+  artifacts:
+    paths:
+      - out
+  script:
+    - dotnet restore
+    - dotnet pack --output out -p:SymbolPackageFormat=snupkg --no-build --include-symbols --include-source /p:Version=$CI_COMMIT_REF_NAME
+    - dotnet nuget add source "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/nuget/index.json" --name gitlab --username gitlab-ci-token --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet nuget push "./out/*.nupkg" --source gitlab

@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>Stackworx.Hotchocolate.MuiDataGrid</RootNamespace>
         <ImplicitUsings>true</ImplicitUsings>
+        <IsPublishable>false</IsPublishable>
     </PropertyGroup>
 
     <ItemGroup>

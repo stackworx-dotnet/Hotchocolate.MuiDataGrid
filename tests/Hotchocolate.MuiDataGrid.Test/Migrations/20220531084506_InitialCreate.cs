@@ -23,7 +23,9 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                     Married = table.Column<bool>(type: "INTEGER", nullable: false),
                     Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Weight = table.Column<double>(type: "REAL", nullable: true),
-                    RefId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    RefId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IdCardReceivedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                 },
                 constraints: table =>
                 {

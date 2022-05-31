@@ -11,13 +11,13 @@ using Stackworx.Hotchocolate.Muidatagrid.Entities;
 namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 {
     [DbContext(typeof(MuiDataGridDbContext))]
-    [Migration("20220530221033_InitialCreate")]
+    [Migration("20220531084506_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
 
             modelBuilder.Entity("Stackworx.Hotchocolate.Muidatagrid.Entities.Person", b =>
                 {
@@ -31,12 +31,18 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                     b.Property<string>("Bio")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("IdCardReceivedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Lastname")

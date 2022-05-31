@@ -22,6 +22,10 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return true;
             case "refId":
                 return true;
+            case "dateOfBirth":
+                return true;
+            case "idCardReceivedDate":
+                return true;
         }
 
         return false;
@@ -45,6 +49,10 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return this.GetMemberExpression(parameter, p => p.Gender);
             case "refId":
                 return this.GetMemberExpression(parameter, p => p.RefId);
+            case "dateOfBirth":
+                return this.GetMemberExpression(parameter, p => p.DateOfBirth);
+            case "idCardReceivedDate":
+                return this.GetMemberExpression(parameter, p => p.IdCardReceivedDate);
         }
 
         return null;

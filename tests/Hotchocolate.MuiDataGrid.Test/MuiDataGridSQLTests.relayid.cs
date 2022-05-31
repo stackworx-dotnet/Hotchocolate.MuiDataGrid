@@ -65,7 +65,6 @@ public partial class MuiDataGridSQLTests
         muiSql.MatchSnapshot();
     }
 
-    /*
     [Fact]
     public async Task TestRefIdIsAnyOf()
     {
@@ -92,5 +91,4 @@ public partial class MuiDataGridSQLTests
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
     }
-    */
 }

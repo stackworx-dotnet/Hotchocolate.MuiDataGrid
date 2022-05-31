@@ -21,7 +21,7 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
         var id = this.Deserialize(filter.Value);
 
         // TODO: what type should this be?
-        return Expression.Constant(id.Value);
+        return Expression.Constant(id);
     }
 
     public override ConstantExpression GetValueConstantExpressionList(
@@ -29,10 +29,25 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
         MuiDataGridFilterItemInput filter)
     {
         filter.Value.AssertNotNull(filter.OperatorValue);
-        return Expression.Constant(filter.Value.AsArray().Select(this.Deserialize).ToList());
+
+        var list = CreateGenericList(member.Type);
+
+        foreach (var value in filter.Value.AsArray())
+        {
+            list.Add(this.Deserialize(value));
+        }
+
+        return Expression.Constant(list);
     }
 
-    private IdValue Deserialize(MuiValue value)
+    private static dynamic CreateGenericList(Type t)
+    {
+        var generic = typeof(List<>);
+        var constructed = generic.MakeGenericType(t);
+        return Activator.CreateInstance(constructed) ?? throw new InvalidOperationException();
+    }
+
+    private dynamic Deserialize(MuiValue value)
     {
         var id = this.idSerializer.Deserialize(value.AsString());
         if (this.relayType != null && id.TypeName != this.relayType)
@@ -40,6 +55,6 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
             throw new ArgumentException($"Expected Type: {this.relayType} got: {id.TypeName}");
         }
 
-        return id;
+        return id.Value;
     }
 }

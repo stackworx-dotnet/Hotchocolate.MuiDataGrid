@@ -38,6 +38,17 @@ public class ExpressionBuilder<T>
         }
     }
 
+    public IQueryable<T> Sort(IQueryable<T> query, IList<MuiDataGridSortItem> items)
+    {
+        var q = query;
+        foreach (var item in items)
+        {
+            q = this.Sort(q, item);
+        }
+
+        return q;
+    }
+
     public Expression<Func<T, bool>> Filter(MuiDataGridFilterInput filters)
     {
         var predicates = new List<Expression<Func<T, bool>>>();
@@ -112,5 +123,30 @@ public class ExpressionBuilder<T>
             default:
                 throw new ArgumentException($"Unexpected Member Type {t}");
         }
+    }
+
+    private IQueryable<T> Sort(IQueryable<T> query, MuiDataGridSortItem item)
+    {
+        var member = this.columnLookup.Lookup(item.Field);
+        var memberAccessor = member.Expression;
+
+        dynamic expression;
+        if (memberAccessor.Expression is ParameterExpression p)
+        {
+            expression = Expression.Lambda(memberAccessor, p);
+        }
+        else
+        {
+            throw new ArgumentException($"Expected ParameterExpression. Got: {memberAccessor.Expression}");
+        }
+
+        if (item.Sort == MuiGridSortDirection.Desc)
+        {
+            // Extension methods cannot be dynamically dispatched
+            return Queryable.OrderByDescending(query, expression);
+        }
+
+        // Extension methods cannot be dynamically dispatched
+        return Queryable.OrderBy(query, expression);
     }
 }

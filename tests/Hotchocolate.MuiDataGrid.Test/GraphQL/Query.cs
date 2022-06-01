@@ -12,17 +12,21 @@ public class Query
     [UseDbContext(typeof(MuiDataGridDbContext))]
     public async Task<List<Person>> People(
         MuiDataGridFilterInput? filters,
+        IList<MuiDataGridSortItem>? sorting,
         [ScopedService] MuiDataGridDbContext dbContext)
     {
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        // builder.AddHandler();
+
         IQueryable<Person> q = dbContext.People;
         if (filters != null)
         {
             q = q.Where(builder.Filter(filters));
         }
 
-        var s = q.ToQueryString();
+        if (sorting != null)
+        {
+            q = builder.Sort(q, sorting);
+        }
 
         return await q.ToListAsync();
     }

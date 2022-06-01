@@ -8,9 +8,9 @@ public static class IRequestExecutorBuilderExtensions
 {
     public static IRequestExecutorBuilder AddMuiDataGrid(this IRequestExecutorBuilder builder)
     {
-        // TODO
         builder.AddType<MuiValueScalar>();
-        builder.AddType<LinkOperatorEnumType>();
+        builder.AddType<MuiDataGridLinkOperatorEnumType>();
+        builder.AddType<MuiGridSortDirectionEnumType>();
         return builder;
     }
 }

@@ -6,39 +6,6 @@ using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
 public class PersonColumnLookup : BaseColumnLookup<Person>
 {
-    public override bool CanHandle(string column)
-    {
-        switch (column)
-        {
-            case "firstname":
-                return true;
-            case "lastname":
-                return true;
-            case "bio":
-                return true;
-            case "age":
-                return true;
-            case "weight":
-                return true;
-            case "gender":
-                return true;
-            case "refId":
-                return true;
-            case "dateOfBirth":
-                return true;
-            case "idCardReceivedDate":
-                return true;
-            case "createdAtDate":
-                return true;
-            case "updatedAtDAte":
-                return true;
-            case "marriageDate":
-                return true;
-        }
-
-        return false;
-    }
-
     protected override ColumnLookupMember? InternalLookup(ParameterExpression parameter, string column)
     {
         switch (column)

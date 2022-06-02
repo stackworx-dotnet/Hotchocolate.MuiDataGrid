@@ -15,7 +15,12 @@ public abstract class BaseColumnLookup<T> : IColumnLookup<T>
         return e;
     }
 
-    public abstract bool CanHandle(string column);
+    public bool CanHandle(string column)
+    {
+        var parameter = Expression.Parameter(typeof(T), "p");
+        var lookup = this.InternalLookup(parameter, column);
+        return lookup != null;
+    }
 
     protected ColumnLookupMember GetMemberExpression<TProperty>(
         ParameterExpression parameter,
@@ -27,7 +32,6 @@ public abstract class BaseColumnLookup<T> : IColumnLookup<T>
             {
                 var expressionParameter = Expression.Property(parameter, propInfo.Name);
                 return new ColumnLookupMember(expressionParameter, typeof(TProperty));
-                // return expressionParameter;
             }
 
             throw new ArgumentException($"Expression '{propertyLambda}' refers to a field, not a property.");

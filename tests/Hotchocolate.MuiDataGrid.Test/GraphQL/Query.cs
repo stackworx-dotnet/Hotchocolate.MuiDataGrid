@@ -3,7 +3,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 using HotChocolate;
 using HotChocolate.Data;
 using Microsoft.EntityFrameworkCore;
-using Stackworx.Hotchocolate.MuiDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 

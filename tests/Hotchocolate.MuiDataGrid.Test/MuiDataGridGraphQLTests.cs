@@ -3,9 +3,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 using FluentAssertions;
 using HotChocolate.Execution;
 using Snapshooter.Xunit;
-using Stackworx.Hotchocolate.MuiDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
-using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 [Collection(nameof(DbFixtureCollection))]
 public partial class MuiDataGridGraphQLTests

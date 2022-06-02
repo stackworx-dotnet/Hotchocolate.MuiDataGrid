@@ -1,7 +1,6 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using System.Collections.Immutable;
-using Stackworx.Hotchocolate.MuiDataGrid;
 
 public partial class MuiDataGridGraphQLTests
 {

@@ -1,7 +1,6 @@
 namespace Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 using System.Linq.Expressions;
-using Stackworx.Hotchocolate.MuiDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
 public class PersonColumnLookup : BaseColumnLookup<Person>

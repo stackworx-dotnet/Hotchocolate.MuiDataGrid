@@ -5,7 +5,6 @@ using HotChocolate.Execution.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Stackworx.Hotchocolate.MuiDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 

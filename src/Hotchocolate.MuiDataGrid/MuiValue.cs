@@ -38,6 +38,16 @@ public record MuiValue
         return this.node.GetValue<string>();
     }
 
+    public DateOnly AsDateOnly()
+    {
+        return this.node.GetValue<DateOnly>();
+    }
+
+    public DateTime AsDateTime()
+    {
+        return this.node.GetValue<DateTime>();
+    }
+
     public int AsInt()
     {
         return int.Parse(this.node.GetValue<string>());

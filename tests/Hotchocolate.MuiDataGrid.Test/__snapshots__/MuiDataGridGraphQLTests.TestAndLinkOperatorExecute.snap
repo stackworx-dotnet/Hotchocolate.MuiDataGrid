@@ -1,0 +1,16 @@
+﻿{
+  "Label": null,
+  "Path": null,
+  "Data": {
+    "people": [
+      {
+        "firstname": "Celeste",
+        "lastname": "Le Roux"
+      }
+    ]
+  },
+  "Errors": null,
+  "Extensions": null,
+  "ContextData": null,
+  "HasNext": null
+}

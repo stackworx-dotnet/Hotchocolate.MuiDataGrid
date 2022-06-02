@@ -8,10 +8,6 @@ using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 public partial class MuiDataGridSQLTests
 {
-    private class PersonGenderHandler : DefaultEnumSingleSelectHandler<Person, Gender>
-    {
-    }
-
     [Fact]
     public async Task TestGenderIsEqual()
     {
@@ -82,5 +78,9 @@ public partial class MuiDataGridSQLTests
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
+    }
+
+    private class PersonGenderHandler : DefaultEnumSingleSelectHandler<Person, Gender>
+    {
     }
 }

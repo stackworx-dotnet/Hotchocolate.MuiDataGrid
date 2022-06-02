@@ -14,6 +14,13 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
         throw new ArgumentException($"Expected ParameterExpression. Got: {memberAccessor.Expression}");
     }
 
+    protected static MethodInfo GetContainsMethod(ColumnLookupMember member)
+    {
+        var generic = typeof(ICollection<>);
+        var constructed = generic.MakeGenericType(member.Type);
+        return constructed.GetMethod("Contains") ?? throw new InvalidOperationException();
+    }
+
     protected ConstantExpression GetValueConstantExpression(
         ColumnLookupMember member,
         MuiDataGridFilterItemInput filter)
@@ -34,13 +41,6 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
         }
 
         return Expression.Constant(list);
-    }
-
-    protected static MethodInfo GetContainsMethod(ColumnLookupMember member)
-    {
-        var generic = typeof(ICollection<>);
-        var constructed = generic.MakeGenericType(member.Type);
-        return constructed.GetMethod("Contains") ?? throw new InvalidOperationException();
     }
 
     protected abstract Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter);

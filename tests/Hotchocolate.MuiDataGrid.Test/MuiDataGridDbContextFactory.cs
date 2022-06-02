@@ -9,7 +9,7 @@ public class MuiDataGridDbContextFactory : IDesignTimeDbContextFactory<MuiDataGr
     public MuiDataGridDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<MuiDataGridDbContext>();
-        optionsBuilder.UseSqlite("Filename=:memory:");
+        optionsBuilder.UseSqlite("Filename=test.db");
 
         return new MuiDataGridDbContext(optionsBuilder.Options);
     }

@@ -12,6 +12,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
         {
             case "firstname":
                 return true;
+            case "lastname":
+                return true;
             case "bio":
                 return true;
             case "age":
@@ -26,6 +28,12 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return true;
             case "idCardReceivedDate":
                 return true;
+            case "createdAtDate":
+                return true;
+            case "updatedAtDAte":
+                return true;
+            case "marriageDate":
+                return true;
         }
 
         return false;
@@ -37,6 +45,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
         {
             case "firstname":
                 return this.GetMemberExpression(parameter, p => p.Firstname);
+            case "lastname":
+                return this.GetMemberExpression(parameter, p => p.Lastname);
             case "bio":
                 return this.GetMemberExpression(parameter, p => p.Bio);
             case "age":
@@ -53,6 +63,12 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return this.GetMemberExpression(parameter, p => p.DateOfBirth);
             case "idCardReceivedDate":
                 return this.GetMemberExpression(parameter, p => p.IdCardReceivedDate);
+            case "createdAtDate":
+                return this.GetMemberExpression(parameter, p => p.CreatedAtDate);
+            case "updatedAtDate":
+                return this.GetMemberExpression(parameter, p => p.UpdatedAtDate);
+            case "marriageDate":
+                return this.GetMemberExpression(parameter, p => p.MarriageDate);
         }
 
         return null;

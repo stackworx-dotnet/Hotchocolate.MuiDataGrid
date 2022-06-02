@@ -2,6 +2,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Stackworx.Hotchocolate.MuiDataGrid.EnumTypes;
 
 public static class IRequestExecutorBuilderExtensions
 {
@@ -9,6 +10,7 @@ public static class IRequestExecutorBuilderExtensions
     {
         // TODO
         builder.AddType<MuiValueScalar>();
+        builder.AddType<LinkOperatorEnumType>();
         return builder;
     }
 }

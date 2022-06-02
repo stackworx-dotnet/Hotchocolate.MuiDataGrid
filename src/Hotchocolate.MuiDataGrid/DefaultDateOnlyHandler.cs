@@ -1,7 +1,6 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
-// https://github.com/mui/mui-x/blob/master/packages/grid/x-data-grid/src/colDef/gridDateOperators.ts
-public class DefaultDateTimeHandler<T> : ExpressionBuilderHandler<T>
+public class DefaultDateOnlyHandler<T> : ExpressionBuilderHandler<T>
 {
     protected override Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
     {
@@ -86,14 +85,6 @@ public class DefaultDateTimeHandler<T> : ExpressionBuilderHandler<T>
 
     protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
-        switch (member.Type)
-        {
-            case var x when x == typeof(DateTimeOffset):
-                return DateTimeOffset.Parse(value.AsString());
-            case var x when x == typeof(DateTime):
-                return DateTime.Parse(value.AsString());
-            default:
-                throw new ArgumentException($"Invalid type: {member.Type}");
-        }
+        return DateOnly.Parse(value.AsString());
     }
 }

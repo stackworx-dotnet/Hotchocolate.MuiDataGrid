@@ -22,5 +22,11 @@ public class Person
 
     public DateTime DateOfBirth { get; set; }
 
+    public DateTimeOffset? MarriageDate { get; set; }
+
     public DateTime? IdCardReceivedDate { get; set; }
+
+    public DateOnly CreatedAtDate { get; set; }
+
+    public DateOnly? UpdatedAtDate { get; set; }
 }

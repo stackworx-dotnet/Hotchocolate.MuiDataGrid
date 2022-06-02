@@ -12,6 +12,7 @@ public class ExpressionBuilder<T>
     private readonly IExpressionBuilderHandler<T> defaultNumberHandler = new DefaultNumberHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultSingleSelectHandler = new DefaultSingleSelectHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultDateTimeHandler = new DefaultDateTimeHandler<T>();
+    private readonly IExpressionBuilderHandler<T> defaultDateOnlyHandler = new DefaultDateOnlyHandler<T>();
 
     public ExpressionBuilder(IColumnLookup<T> columnLookup)
     {
@@ -104,6 +105,10 @@ public class ExpressionBuilder<T>
                 return this.defaultBooleanHandler.Handle(memberAccessor, filter);
             case var x when x == typeof(DateTime):
                 return this.defaultDateTimeHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(DateTimeOffset):
+                return this.defaultDateTimeHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(DateOnly):
+                return this.defaultDateOnlyHandler.Handle(memberAccessor, filter);
             default:
                 throw new ArgumentException($"Unexpected Member Type {t}");
         }

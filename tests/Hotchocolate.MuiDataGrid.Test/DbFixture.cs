@@ -4,6 +4,7 @@ using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Stackworx.Hotchocolate.MuiDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
@@ -16,6 +17,10 @@ public class DbFixture : IDisposable
         services.AddDb();
 
         IRequestExecutorBuilder requestBuilder = services
+            .AddLogging((config) =>
+            {
+                config.SetMinimumLevel(LogLevel.Warning);
+            })
             .AddGraphQL()
             .AddMuiDataGrid()
             .ModifyOptions(o => o.EnableOneOf = true)

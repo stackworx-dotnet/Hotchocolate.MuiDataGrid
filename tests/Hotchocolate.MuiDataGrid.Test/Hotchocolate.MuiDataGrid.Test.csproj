@@ -39,5 +39,6 @@
     
     <ItemGroup>
         <None Include=".\__snapshots__" />
+        <None Remove="test.db" />
     </ItemGroup>
 </Project>

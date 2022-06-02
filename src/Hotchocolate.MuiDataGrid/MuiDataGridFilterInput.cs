@@ -1,10 +1,14 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
+using System.Text.Json.Serialization;
+using Stackworx.Hotchocolate.MuiDataGrid.Json;
+
 // https://github.com/mui/mui-x/blob/master/packages/grid/x-data-grid/src/models/gridFilterModel.ts
 public record MuiDataGridFilterInput
 {
     public IList<MuiDataGridFilterItemInput> Items { get; set; } = new List<MuiDataGridFilterItemInput>();
 
+    [JsonConverter(typeof(MuiDataGridLinkOperatorConverter))]
     public MuiDataGridLinkOperator? LinkOperator { get; set; }
 
     private static Expression<Func<T, bool>> Or<T>(Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)

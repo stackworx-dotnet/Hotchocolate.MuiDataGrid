@@ -11,7 +11,7 @@ public record MuiValue
         this.node = JsonNode.Parse(val) ?? throw new InvalidOperationException();
     }
 
-    private MuiValue(JsonNode node)
+    internal MuiValue(JsonNode node)
     {
         this.node = node;
     }

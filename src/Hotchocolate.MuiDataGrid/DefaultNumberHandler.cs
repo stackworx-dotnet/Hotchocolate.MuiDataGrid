@@ -11,7 +11,6 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
         {
             case "=":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.Equal(memberAccessor, val);
                     break;
@@ -19,7 +18,6 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 
             case "!=":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.NotEqual(memberAccessor, val);
                     break;
@@ -27,7 +25,6 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 
             case ">":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.GreaterThan(memberAccessor, val);
                     break;
@@ -35,7 +32,6 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 
             case ">=":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.GreaterThanOrEqual(memberAccessor, val);
                     break;
@@ -43,7 +39,6 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 
             case "<":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.LessThan(memberAccessor, val);
                     break;
@@ -51,7 +46,6 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 
             case "<=":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.LessThanOrEqual(memberAccessor, val);
                     break;

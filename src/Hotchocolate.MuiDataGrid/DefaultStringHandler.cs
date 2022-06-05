@@ -34,7 +34,6 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
 
             case "endsWith":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     MethodInfo endsWithMethod = typeof(string).GetMethod("EndsWith", new[] { typeof(string) })!;
                     expression = Expression.Call(memberAccessor, endsWithMethod, val);
@@ -59,7 +58,6 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
 
             case "isAnyOf":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var values = this.GetValueConstantExpressionList(member, filter);
                     MethodInfo method =
                         typeof(ICollection<string>).GetMethod("Contains")!;

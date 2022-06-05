@@ -11,7 +11,6 @@ public class DefaultBooleanHandler<T> : ExpressionBuilderHandler<T>
         {
             case "is":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
                     var val = this.GetValueConstantExpression(member, filter);
                     expression = Expression.Equal(memberAccessor, val);
                     break;

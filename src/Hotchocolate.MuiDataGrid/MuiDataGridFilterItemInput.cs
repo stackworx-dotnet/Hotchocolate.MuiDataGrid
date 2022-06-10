@@ -9,4 +9,5 @@ public record MuiDataGridFilterItemInput(
     string ColumnField,
     [property: GraphQLType(typeof(MuiValueScalar)), JsonConverter(typeof(MuiValueConverter))]
     MuiValue? Value,
-    string OperatorValue);
+    string OperatorValue,
+    string? Id = null);

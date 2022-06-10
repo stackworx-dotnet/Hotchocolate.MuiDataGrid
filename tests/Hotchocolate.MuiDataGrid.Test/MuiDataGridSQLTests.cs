@@ -5,15 +5,18 @@ using Microsoft.EntityFrameworkCore;
 using Snapshooter.Xunit;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
+using Xunit.Abstractions;
 
 [Collection(nameof(DbFixtureCollection))]
 public partial class MuiDataGridSQLTests
 {
     private readonly DbFixture fixture;
+    private readonly ITestOutputHelper outputHelper;
 
-    public MuiDataGridSQLTests(DbFixture fixture)
+    public MuiDataGridSQLTests(DbFixture fixture, ITestOutputHelper outputHelper)
     {
         this.fixture = fixture;
+        this.outputHelper = outputHelper;
     }
 
     [Fact]
@@ -37,7 +40,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"Ciaran\""),
+                    Value: new MuiValue("Ciaran"),
                     ColumnField: "firstname",
                     OperatorValue: "equals"),
             },
@@ -57,7 +60,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"Ciaran\""),
+                    Value: new MuiValue("Ciaran"),
                     ColumnField: "firstname",
                     OperatorValue: "contains"),
             },
@@ -78,7 +81,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"Ciaran\""),
+                    Value: new MuiValue("Ciaran"),
                     ColumnField: "firstname",
                     OperatorValue: "startsWith"),
             },
@@ -99,7 +102,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"Ciaran\""),
+                    Value: new MuiValue("Ciaran"),
                     ColumnField: "firstname",
                     OperatorValue: "endsWith"),
             },
@@ -163,7 +166,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("[\"John\", \"Harry\"]"),
+                    Value: new MuiValue(values),
                     ColumnField: "firstname",
                     OperatorValue: "isAnyOf"),
             },

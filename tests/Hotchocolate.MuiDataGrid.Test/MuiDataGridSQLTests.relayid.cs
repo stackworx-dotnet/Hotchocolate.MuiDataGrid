@@ -24,7 +24,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue($"\"{relayId}\""),
+                    Value: new MuiValue($"{relayId}"),
                     ColumnField: "refId",
                     OperatorValue: "is"),
             },
@@ -51,7 +51,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue($"\"{relayId}\""),
+                    Value: new MuiValue($"{relayId}"),
                     ColumnField: "refId",
                     OperatorValue: "not"),
             },
@@ -78,7 +78,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue($"[\"{relayId}\"]"),
+                    Value: new MuiValue(new List<string> { relayId }),
                     ColumnField: "refId",
                     OperatorValue: "isAnyOf"),
             },

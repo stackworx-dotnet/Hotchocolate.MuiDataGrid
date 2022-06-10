@@ -18,7 +18,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"true\""),
+                    Value: new MuiValue("true"),
                     ColumnField: "married",
                     OperatorValue: "is"),
             },
@@ -39,7 +39,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"false\""),
+                    Value: new MuiValue("false"),
                     ColumnField: "married",
                     OperatorValue: "is"),
             },

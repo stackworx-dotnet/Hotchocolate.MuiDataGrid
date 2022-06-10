@@ -29,4 +29,11 @@ public class Query
 
         return await q.ToListAsync();
     }
+
+    // Endpoint for testing mui value serialization.
+    public string? Input(
+        MuiDataGridFilterItemInput input)
+    {
+        return input.Value?.ToString();
+    }
 }

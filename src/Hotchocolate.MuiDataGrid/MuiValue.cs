@@ -1,33 +1,31 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
-using System.Text.Json.Nodes;
-
 public record MuiValue
 {
-    private readonly JsonNode node;
+    public MuiValue(IList<string> val)
+    {
+        this.Value = val.Select(s => new MuiValue(s));
+    }
 
     public MuiValue(string val)
     {
-        this.node = JsonNode.Parse(val) ?? throw new InvalidOperationException();
+        this.Value = val;
     }
 
-    internal MuiValue(JsonNode node)
-    {
-        this.node = node;
-    }
+    public dynamic? Value { get; }
 
-    public object AsNumber(Type memberType)
+    public dynamic AsNumber(Type memberType)
     {
         switch (memberType)
         {
             case var x when x == typeof(int):
-                return this.AsInt();
+                return int.Parse(this.AsString());
             case var x when x == typeof(double):
-                return this.AsDouble();
+                return double.Parse(this.AsString());
             case var x when x == typeof(float):
-                return this.AsFloat();
+                return float.Parse(this.AsString());
             case var x when x == typeof(short):
-                return this.AsShort();
+                return short.Parse(this.AsString());
             default:
                 throw new ArgumentException($"Invalid type: {memberType}");
         }
@@ -35,55 +33,26 @@ public record MuiValue
 
     public string AsString()
     {
-        return this.node.GetValue<string>();
-    }
+        if (this.Value is null)
+        {
+            throw new ArgumentException("value is null");
+        }
 
-    public DateOnly AsDateOnly()
-    {
-        return this.node.GetValue<DateOnly>();
-    }
-
-    public DateTime AsDateTime()
-    {
-        return this.node.GetValue<DateTime>();
-    }
-
-    public int AsInt()
-    {
-        return int.Parse(this.node.GetValue<string>());
-    }
-
-    public double AsDouble()
-    {
-        return double.Parse(this.node.GetValue<string>());
-    }
-
-    public float AsFloat()
-    {
-        return float.Parse(this.node.GetValue<string>());
-    }
-
-    public short AsShort()
-    {
-        return short.Parse(this.node.GetValue<string>());
-    }
-
-    public bool AsBoolean()
-    {
-        return bool.Parse(this.node.GetValue<string>());
-    }
-
-    public string ToJsonString()
-    {
-        return this.node.ToJsonString();
+        return this.Value.ToString();
     }
 
     public IEnumerable<MuiValue> AsArray()
     {
-        var arr = this.node.AsArray();
-        // TODO: error if any nulls
-        return arr.Where(x => x != null)
-            .Cast<JsonNode>()
-            .Select(a => new MuiValue(a));
+        if (this.Value is null)
+        {
+            throw new ArgumentException("value is null");
+        }
+
+        return this.Value;
+    }
+
+    public override string ToString()
+    {
+        return this.Value?.ToString() ?? "[null]";
     }
 }

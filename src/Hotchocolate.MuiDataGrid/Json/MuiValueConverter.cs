@@ -11,7 +11,12 @@ public class MuiValueConverter : JsonConverter<MuiValue>
         var node = JsonSerializer.Deserialize<JsonNode>(ref reader, options);
         if (node != null)
         {
-            return new MuiValue(node);
+            if (node is JsonArray jArray)
+            {
+                return new MuiValue(jArray.Select(e => e!.GetValue<string>()).ToList());
+            }
+
+            return new MuiValue(node.GetValue<string>());
         }
 
         return null;

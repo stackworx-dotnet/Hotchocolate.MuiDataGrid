@@ -1,9 +1,9 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
+using System.Collections.Immutable;
 using FluentAssertions;
 using HotChocolate.Execution;
 using Snapshooter.Xunit;
-using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
 [Collection(nameof(DbFixtureCollection))]
 public partial class MuiDataGridGraphQLTests
@@ -64,11 +64,11 @@ public partial class MuiDataGridGraphQLTests
                         {
                             new(
                                 ColumnField: "firstname",
-                                Value: new MuiValue("\"Celeste\""),
+                                Value: new MuiValue("Celeste"),
                                 OperatorValue: "equals"),
                             new(
                                 ColumnField: "lastname",
-                                Value: new MuiValue("\"Le Roux\""),
+                                Value: new MuiValue("Le Roux"),
                                 OperatorValue: "equals"),
                         },
                         LinkOperator = MuiDataGridLinkOperator.And,
@@ -93,21 +93,21 @@ public partial class MuiDataGridGraphQLTests
                         {
                             new(
                                 ColumnField: "firstname",
-                                Value: new MuiValue("\"Celeste\""),
+                                Value: new MuiValue("Celeste"),
                                 OperatorValue: "equals"),
                             new(
                                 ColumnField: "lastname",
-                                Value: new MuiValue("\"Le Roux\""),
+                                Value: new MuiValue("Le Roux"),
                                 OperatorValue: "equals"),
                             // new(
                             //     ColumnField: "gender",
-                            //     Value: new MuiValue("\"MALE\""),
+                            //     Value: new MuiValue("MALE"),
                             //     OperatorValue: "is"),
                             // TODO: this breaks on linux
                             /*
                             new(
                                 ColumnField: "dateOfBirth",
-                                Value: new MuiValue("\"2022-05-27T13:41\""),
+                                Value: new MuiValue("2022-05-27T13:41"),
                                 OperatorValue: "after"),
                             */
                             new(
@@ -132,32 +132,122 @@ public partial class MuiDataGridGraphQLTests
         result.MatchSnapshot();
     }
 
-    // [Fact]
-    // public async Task TestSingleSelectEnumExecute()
-    // {
-    //     var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-    //     builder.AddHandler("gender", new PersonGenderHandler());
-    //     var result = await this.fixture.RequestExecutor.ExecuteAsync(
-    //         "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname, lastname } }",
-    //         new Dictionary<string, object?>
-    //         {
-    //             {
-    //                 "filters", this.ConvertFilterInput(new MuiDataGridFilterInput
-    //                 {
-    //                     Items = new List<MuiDataGridFilterItemInput>
-    //                     {
-    //                         new(
-    //                             ColumnField: "gender",
-    //                             Value: new MuiValue("\"MALE\""),
-    //                             OperatorValue: "is"),
-    //                     },
-    //                 })
-    //             },
-    //         });
-    //     result.Errors.Should().BeNull();
-    //     result.MatchSnapshot();
-    // }
-    private class PersonGenderHandler : DefaultEnumSingleSelectHandler<Person, Gender>
+    [Fact]
+    public async Task TestFilterItemOptionalId()
     {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    { "columnField", "firstname" },
+                                    { "value", new MuiValue("Celeste") },
+                                    { "operatorValue", "equals" },
+                                    { "id", 1342532 },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+        result.Errors.Should().BeNull();
+
+        result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    { "columnField", "firstname" },
+                                    { "value", new MuiValue("Celeste") },
+                                    { "operatorValue", "equals" },
+                                    { "id", "1342532" },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task TestHttpStaticQuery()
+    {
+        var server = this.fixture.CreateTestServer();
+
+        var request = new ClientQueryRequest
+        {
+            Query = @"query people { 
+                people(filters: {
+                    items: [{
+                        columnField: ""firstname"",
+                        value: ""Celeste"",
+                        operatorValue: ""equals""
+                    }, {
+                        columnField: ""age"",
+                        value: [""5"", ""6""],
+                        operatorValue: ""isAnyOf""
+                    }]
+                }) { firstname } 
+            }",
+        };
+        var result = await server.PostAsync(request);
+
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestHttpVariableQuery()
+    {
+        var server = this.fixture.CreateTestServer();
+
+        var request = new ClientQueryRequest
+        {
+            Query = @"query people($filters: MuiDataGridFilterInput!) { 
+                people(filters: $filters) { firstname } 
+            }",
+            Variables = new Dictionary<string, object>
+            {
+                {
+                    "filters", new Dictionary<string, object>
+                    {
+                        {
+                            "items", new List<object>
+                            {
+                                new Dictionary<string, object>
+                                {
+                                    { "columnField", "firstname" },
+                                    { "value", "Celeste" },
+                                    { "operatorValue", "equals" },
+                                },
+                                new Dictionary<string, object>
+                                {
+                                    { "columnField", "age" },
+                                    { "value", new List<object> { "5", "6" } },
+                                    { "operatorValue", "isAnyOf" },
+                                },
+                            }
+                        },
+                    }
+                },
+            },
+        };
+        var result = await server.PostAsync(request);
+
+        result.MatchSnapshot();
     }
 }

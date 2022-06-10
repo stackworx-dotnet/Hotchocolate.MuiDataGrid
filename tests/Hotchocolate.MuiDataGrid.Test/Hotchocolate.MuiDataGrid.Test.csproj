@@ -31,6 +31,8 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="HotChocolate.Data.EntityFramework" />
+        <PackageReference Include="HotChocolate.AspNetCore" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" />
     </ItemGroup>
 
     <ItemGroup>
@@ -39,5 +41,13 @@
     
     <ItemGroup>
         <None Include=".\__snapshots__" />
+        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestSchema.snap" />
+        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestOrLinkOperatorExecute.snap" />
+        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestHttpVariableQuery.snap" />
+        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestHttpStaticQuery.snap" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="__snapshots__\__mismatch__" />
     </ItemGroup>
 </Project>

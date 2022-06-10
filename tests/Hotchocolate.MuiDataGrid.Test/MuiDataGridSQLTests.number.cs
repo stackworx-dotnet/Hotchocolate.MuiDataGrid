@@ -18,7 +18,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"5\""),
+                    Value: new MuiValue("5"),
                     ColumnField: "age",
                     OperatorValue: "="),
             },
@@ -39,7 +39,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"5\""),
+                    Value: new MuiValue("5"),
                     ColumnField: "age",
                     OperatorValue: "!="),
             },
@@ -60,7 +60,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"5\""),
+                    Value: new MuiValue("5"),
                     ColumnField: "age",
                     OperatorValue: ">"),
             },
@@ -81,7 +81,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"5\""),
+                    Value: new MuiValue("5"),
                     ColumnField: "age",
                     OperatorValue: ">="),
             },
@@ -102,7 +102,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"5\""),
+                    Value: new MuiValue("5"),
                     ColumnField: "age",
                     OperatorValue: "<"),
             },
@@ -123,7 +123,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"5\""),
+                    Value: new MuiValue("5"),
                     ColumnField: "age",
                     OperatorValue: "<="),
             },
@@ -186,7 +186,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("[\"5\", \"6\"]"),
+                    Value: new MuiValue(new List<string> { "5", "6" }),
                     ColumnField: "age",
                     OperatorValue: "isAnyOf"),
             },

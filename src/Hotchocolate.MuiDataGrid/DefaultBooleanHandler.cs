@@ -25,6 +25,12 @@ public class DefaultBooleanHandler<T> : ExpressionBuilderHandler<T>
 
     protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
-        return value.AsBoolean();
+        if (value.AsString() == "true")
+        {
+            return true;
+        }
+
+        // TODO: handle empty string
+        return false;
     }
 }

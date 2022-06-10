@@ -18,7 +18,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"2022-05-31\""),
+                    Value: new MuiValue("2022-05-31"),
                     ColumnField: "createdAtDate",
                     OperatorValue: "is"),
             },
@@ -40,7 +40,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"2022-05-31\""),
+                    Value: new MuiValue("2022-05-31"),
                     ColumnField: "createdAtDate",
                     OperatorValue: "not"),
             },
@@ -62,7 +62,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"2022-05-31\""),
+                    Value: new MuiValue("2022-05-31"),
                     ColumnField: "createdAtDate",
                     OperatorValue: "after"),
             },
@@ -84,7 +84,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"2022-05-31\""),
+                    Value: new MuiValue("2022-05-31"),
                     ColumnField: "createdAtDate",
                     OperatorValue: "onOrAfter"),
             },
@@ -106,7 +106,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"2022-05-31\""),
+                    Value: new MuiValue("2022-05-31"),
                     ColumnField: "createdAtDate",
                     OperatorValue: "before"),
             },
@@ -128,7 +128,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue("\"2022-05-31\""),
+                    Value: new MuiValue("2022-05-31"),
                     ColumnField: "createdAtDate",
                     OperatorValue: "onOrBefore"),
             },

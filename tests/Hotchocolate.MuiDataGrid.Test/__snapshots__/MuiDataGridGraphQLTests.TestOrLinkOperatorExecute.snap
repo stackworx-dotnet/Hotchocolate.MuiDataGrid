@@ -2,14 +2,7 @@
   "Label": null,
   "Path": null,
   "Data": {
-    "people": [
-      {
-        "firstname": "Johanny"
-      },
-      {
-        "firstname": "Celeste"
-      }
-    ]
+    "people": []
   },
   "Errors": null,
   "Extensions": null,

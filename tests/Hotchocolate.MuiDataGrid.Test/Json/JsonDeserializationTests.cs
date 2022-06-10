@@ -31,8 +31,8 @@ public class JsonDeserializationTests
         {
             Items = new List<MuiDataGridFilterItemInput>
             {
-                new("field1", new MuiValue("\"f\""), "contains"),
-                new("field2", new MuiValue("[\"0.5\"]"), "isAnyOf"),
+                new("field1", new MuiValue("f"), "contains"),
+                new("field2", new MuiValue(new List<string> { "0.5" }), "isAnyOf"),
             },
             LinkOperator = MuiDataGridLinkOperator.Or,
         });

@@ -2,6 +2,22 @@
   query: Query
 }
 
+type Address {
+  id: Int!
+  streetNumber: Int!
+  province: String!
+  streetLine1: String!
+  streetLine2: String!
+  apartmentId: Int!
+  apartment: Apartment!
+}
+
+type Apartment {
+  id: Int!
+  houseNumber: Int!
+  name: String!
+}
+
 type Person {
   id: Int!
   firstname: String!
@@ -17,6 +33,8 @@ type Person {
   idCardReceivedDate: DateTime
   createdAtDate: Date!
   updatedAtDate: Date
+  addressId: Int
+  address: Address
 }
 
 type Query {

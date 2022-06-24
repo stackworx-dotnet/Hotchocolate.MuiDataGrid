@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
@@ -10,9 +11,10 @@ using Stackworx.Hotchocolate.Muidatagrid.Entities;
 namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 {
     [DbContext(typeof(MuiDataGridDbContext))]
-    partial class MuiDataGridDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220623092017_AddressDetails")]
+    partial class AddressDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -77,10 +79,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                     b.Property<int>("HouseNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("Apartment", (string)null);
@@ -89,14 +87,12 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                         new
                         {
                             Id = 1,
-                            HouseNumber = 56,
-                            Name = "House 1"
+                            HouseNumber = 56
                         },
                         new
                         {
                             Id = 2,
-                            HouseNumber = 4,
-                            Name = "House Number 2"
+                            HouseNumber = 4
                         });
                 });
 
@@ -165,10 +161,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 18,
                             Bio = "I like water",
                             CreatedAtDate = new DateOnly(2022, 5, 31),
-                            DateOfBirth = new DateTime(2022, 6, 23, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4720),
+                            DateOfBirth = new DateTime(2022, 6, 23, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8300),
                             Firstname = "Johanny",
                             Gender = "MALE",
-                            IdCardReceivedDate = new DateTime(2022, 6, 23, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4750),
+                            IdCardReceivedDate = new DateTime(2022, 6, 23, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8330),
                             Lastname = "Klein",
                             Married = false,
                             RefId = new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"),
@@ -182,10 +178,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 36,
                             Bio = "I like Chocolate",
                             CreatedAtDate = new DateOnly(2022, 5, 30),
-                            DateOfBirth = new DateTime(2022, 6, 22, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4750),
+                            DateOfBirth = new DateTime(2022, 6, 22, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8330),
                             Firstname = "Stacey",
                             Gender = "FEMALE",
-                            IdCardReceivedDate = new DateTime(2022, 6, 22, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4760),
+                            IdCardReceivedDate = new DateTime(2022, 6, 22, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8340),
                             Lastname = "Pop",
                             Married = true,
                             RefId = new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"),
@@ -199,10 +195,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 11,
                             Bio = "I like toys",
                             CreatedAtDate = new DateOnly(2022, 5, 29),
-                            DateOfBirth = new DateTime(2022, 6, 21, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4760),
+                            DateOfBirth = new DateTime(2022, 6, 21, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8350),
                             Firstname = "Susie",
                             Gender = "FEMALE",
-                            IdCardReceivedDate = new DateTime(2022, 6, 21, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4770),
+                            IdCardReceivedDate = new DateTime(2022, 6, 21, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8350),
                             Lastname = "van zyl",
                             Married = false,
                             RefId = new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"),
@@ -216,10 +212,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 55,
                             Bio = "I like hunting",
                             CreatedAtDate = new DateOnly(2022, 5, 28),
-                            DateOfBirth = new DateTime(2022, 6, 20, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4770),
+                            DateOfBirth = new DateTime(2022, 6, 20, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8350),
                             Firstname = "Johan",
                             Gender = "MALE",
-                            IdCardReceivedDate = new DateTime(2022, 6, 20, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4780),
+                            IdCardReceivedDate = new DateTime(2022, 6, 20, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8360),
                             Lastname = "Groot",
                             Married = true,
                             RefId = new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"),
@@ -233,10 +229,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 26,
                             Bio = "I like art",
                             CreatedAtDate = new DateOnly(2022, 5, 27),
-                            DateOfBirth = new DateTime(2022, 6, 19, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4780),
+                            DateOfBirth = new DateTime(2022, 6, 19, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8360),
                             Firstname = "Celeste",
                             Gender = "FEMALE",
-                            IdCardReceivedDate = new DateTime(2022, 6, 19, 12, 11, 11, 442, DateTimeKind.Local).AddTicks(4780),
+                            IdCardReceivedDate = new DateTime(2022, 6, 19, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8360),
                             Lastname = "Le Roux",
                             Married = false,
                             RefId = new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"),

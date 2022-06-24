@@ -4,8 +4,7 @@ public abstract class BaseColumnLookup<T> : IColumnLookup<T>
 {
     public ColumnLookupMember Lookup(string column)
     {
-        var parameter = Expression.Parameter(typeof(T), "p");
-        var e = this.InternalLookup(parameter, column);
+        var e = this.InternalLookup(column);
 
         if (e == null)
         {
@@ -17,28 +16,22 @@ public abstract class BaseColumnLookup<T> : IColumnLookup<T>
 
     public bool CanHandle(string column)
     {
-        var parameter = Expression.Parameter(typeof(T), "p");
-        var lookup = this.InternalLookup(parameter, column);
+        var lookup = this.InternalLookup(column);
         return lookup != null;
     }
 
     protected ColumnLookupMember GetMemberExpression<TProperty>(
-        ParameterExpression parameter,
-        Expression<Func<T, TProperty>> propertyLambda)
+        Expression<Func<T, TProperty>> expression)
     {
-        if (propertyLambda.Body is MemberExpression member)
+        var memberExpression = ExpressionOperator.GetMemberExpression(expression);
+        if (memberExpression == null)
         {
-            if (member.Member is PropertyInfo propInfo)
-            {
-                var expressionParameter = Expression.Property(parameter, propInfo.Name);
-                return new ColumnLookupMember(expressionParameter, typeof(TProperty));
-            }
-
-            throw new ArgumentException($"Expression '{propertyLambda}' refers to a field, not a property.");
+            throw new ArgumentException($"Expression '{expression}' refers to a field, not a property.");
         }
 
-        throw new ArgumentException($"Expression '{propertyLambda}' refers to a method, not a property.");
+        var parameterExpression = expression.Parameters[0];
+        return new ColumnLookupMember(memberExpression, typeof(TProperty), parameterExpression);
     }
 
-    protected abstract ColumnLookupMember? InternalLookup(ParameterExpression parameter, string column);
+    protected abstract ColumnLookupMember? InternalLookup(string column);
 }

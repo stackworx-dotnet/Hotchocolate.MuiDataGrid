@@ -1,5 +1,7 @@
 namespace Stackworx.Hotchocolate.Muidatagrid.Entities;
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 public class Person
 {
     public int Id { get; set; }
@@ -29,4 +31,9 @@ public class Person
     public DateOnly CreatedAtDate { get; set; }
 
     public DateOnly? UpdatedAtDate { get; set; }
+
+    public int? AddressId { get; set; }
+
+    [ForeignKey(nameof(AddressId))]
+    public Address? Address { get; set; }
 }

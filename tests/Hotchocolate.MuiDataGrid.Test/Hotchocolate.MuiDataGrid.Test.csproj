@@ -46,8 +46,4 @@
         <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestHttpVariableQuery.snap" />
         <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestHttpStaticQuery.snap" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="__snapshots__\__mismatch__" />
-    </ItemGroup>
 </Project>

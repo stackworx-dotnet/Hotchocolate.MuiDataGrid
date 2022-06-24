@@ -133,6 +133,43 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestPersonAddressNestedQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { houseNumber name } } } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "apartmentName"
+                                    },
+                                    {
+                                        "value", new MuiValue("Number")
+                                    },
+                                    {
+                                        "operatorValue", "contains"
+                                    },
+                                    {
+                                        "id", 1342532
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
     public async Task TestFilterItemOptionalId()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
@@ -147,10 +184,18 @@ public partial class MuiDataGridGraphQLTests
                             {
                                 new()
                                 {
-                                    { "columnField", "firstname" },
-                                    { "value", new MuiValue("Celeste") },
-                                    { "operatorValue", "equals" },
-                                    { "id", 1342532 },
+                                    {
+                                        "columnField", "firstname"
+                                    },
+                                    {
+                                        "value", new MuiValue("Celeste")
+                                    },
+                                    {
+                                        "operatorValue", "equals"
+                                    },
+                                    {
+                                        "id", 1342532
+                                    },
                                 },
                             }
                         },
@@ -171,10 +216,18 @@ public partial class MuiDataGridGraphQLTests
                             {
                                 new()
                                 {
-                                    { "columnField", "firstname" },
-                                    { "value", new MuiValue("Celeste") },
-                                    { "operatorValue", "equals" },
-                                    { "id", "1342532" },
+                                    {
+                                        "columnField", "firstname"
+                                    },
+                                    {
+                                        "value", new MuiValue("Celeste")
+                                    },
+                                    {
+                                        "operatorValue", "equals"
+                                    },
+                                    {
+                                        "id", "1342532"
+                                    },
                                 },
                             }
                         },
@@ -230,15 +283,31 @@ public partial class MuiDataGridGraphQLTests
                             {
                                 new Dictionary<string, object>
                                 {
-                                    { "columnField", "firstname" },
-                                    { "value", "Celeste" },
-                                    { "operatorValue", "equals" },
+                                    {
+                                        "columnField", "firstname"
+                                    },
+                                    {
+                                        "value", "Celeste"
+                                    },
+                                    {
+                                        "operatorValue", "equals"
+                                    },
                                 },
                                 new Dictionary<string, object>
                                 {
-                                    { "columnField", "age" },
-                                    { "value", new List<object> { "5", "6" } },
-                                    { "operatorValue", "isAnyOf" },
+                                    {
+                                        "columnField", "age"
+                                    },
+                                    {
+                                        "value", new List<object>
+                                        {
+                                            "5",
+                                            "6",
+                                        }
+                                    },
+                                    {
+                                        "operatorValue", "isAnyOf"
+                                    },
                                 },
                             }
                         },

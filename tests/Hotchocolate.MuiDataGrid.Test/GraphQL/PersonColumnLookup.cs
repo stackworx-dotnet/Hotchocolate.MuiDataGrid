@@ -5,36 +5,38 @@ using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
 public class PersonColumnLookup : BaseColumnLookup<Person>
 {
-    protected override ColumnLookupMember? InternalLookup(ParameterExpression parameter, string column)
+    protected override ColumnLookupMember? InternalLookup(string column)
     {
         switch (column)
         {
             case "firstname":
-                return this.GetMemberExpression(parameter, p => p.Firstname);
+                return this.GetMemberExpression(p => p.Firstname);
             case "lastname":
-                return this.GetMemberExpression(parameter, p => p.Lastname);
+                return this.GetMemberExpression(p => p.Lastname);
             case "bio":
-                return this.GetMemberExpression(parameter, p => p.Bio);
+                return this.GetMemberExpression(p => p.Bio);
             case "age":
-                return this.GetMemberExpression(parameter, p => p.Age);
+                return this.GetMemberExpression(p => p.Age);
             case "weight":
-                return this.GetMemberExpression(parameter, p => p.Weight);
+                return this.GetMemberExpression(p => p.Weight);
             case "married":
-                return this.GetMemberExpression(parameter, p => p.Married);
+                return this.GetMemberExpression(p => p.Married);
             case "gender":
-                return this.GetMemberExpression(parameter, p => p.Gender);
+                return this.GetMemberExpression(p => p.Gender);
             case "refId":
-                return this.GetMemberExpression(parameter, p => p.RefId);
+                return this.GetMemberExpression(p => p.RefId);
             case "dateOfBirth":
-                return this.GetMemberExpression(parameter, p => p.DateOfBirth);
+                return this.GetMemberExpression(p => p.DateOfBirth);
             case "idCardReceivedDate":
-                return this.GetMemberExpression(parameter, p => p.IdCardReceivedDate);
+                return this.GetMemberExpression(p => p.IdCardReceivedDate);
             case "createdAtDate":
-                return this.GetMemberExpression(parameter, p => p.CreatedAtDate);
+                return this.GetMemberExpression(p => p.CreatedAtDate);
             case "updatedAtDate":
-                return this.GetMemberExpression(parameter, p => p.UpdatedAtDate);
+                return this.GetMemberExpression(p => p.UpdatedAtDate);
             case "marriageDate":
-                return this.GetMemberExpression(parameter, p => p.MarriageDate);
+                return this.GetMemberExpression(p => p.MarriageDate);
+            case "apartmentName":
+                return this.GetMemberExpression(p => p.Address!.Apartment.Name);
         }
 
         return null;

@@ -16,7 +16,7 @@ public class Query
     {
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
 
-        IQueryable<Person> q = dbContext.People;
+        IQueryable<Person> q = dbContext.People.Include(p => p.Address.Apartment);
         if (filters != null)
         {
             q = q.Where(builder.Filter(filters));
@@ -27,7 +27,9 @@ public class Query
             q = builder.Sort(q, sorting);
         }
 
-        return await q.ToListAsync();
+        var res = await q.ToListAsync();
+
+        return res;
     }
 
     // Endpoint for testing mui value serialization.

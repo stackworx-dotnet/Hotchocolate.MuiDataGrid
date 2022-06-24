@@ -11,6 +11,10 @@ public class MuiDataGridDbContext : DbContext
 
     public DbSet<Person> People => this.Set<Person>();
 
+    public DbSet<Address> Addresses => this.Set<Address>();
+
+    public DbSet<Apartment> Apartments => this.Set<Apartment>();
+
     protected override void ConfigureConventions(ModelConfigurationBuilder builder)
     {
         builder.Properties(typeof(Enum))
@@ -21,6 +25,43 @@ public class MuiDataGridDbContext : DbContext
     {
         base.OnModelCreating(builder);
         var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
+
+        var apartment1 = new Apartment()
+        {
+            Id = 1,
+            Name = "House 1",
+            HouseNumber = 56,
+        };
+
+        var apartment2 = new Apartment()
+        {
+            Id = 2,
+            Name = "House Number 2",
+            HouseNumber = 4,
+        };
+
+        builder.Entity<Apartment>().ToTable("Apartment").HasData(
+            apartment1,
+            apartment2);
+
+        var address1 = new Address()
+        {
+            Id = 1,
+            Province = "Limpopo",
+            StreetLine1 = "Wroxham Road",
+            ApartmentId = 1,
+        };
+
+        var address2 = new Address()
+        {
+            Id = 2,
+            Province = "Gauteng",
+            ApartmentId = 2,
+        };
+
+        builder.Entity<Address>().ToTable("Address").HasData(
+            address1,
+            address2);
 
         builder.Entity<Person>().ToTable("People").HasData(
             new Person()
@@ -38,6 +79,7 @@ public class MuiDataGridDbContext : DbContext
                 DateOfBirth = DateTime.Now,
                 UpdatedAtDate = DateOnly.Parse("2022-05-31"),
                 IdCardReceivedDate = DateTime.Now,
+                AddressId = 1,
             },
             new Person()
             {
@@ -54,6 +96,7 @@ public class MuiDataGridDbContext : DbContext
                 DateOfBirth = DateTime.Now.AddDays(-1),
                 UpdatedAtDate = DateOnly.Parse("2022-05-30"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-1),
+                AddressId = 2,
             },
             new Person()
             {
@@ -70,6 +113,7 @@ public class MuiDataGridDbContext : DbContext
                 DateOfBirth = DateTime.Now.AddDays(-2),
                 UpdatedAtDate = DateOnly.Parse("2022-05-29"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-2),
+                AddressId = 2,
             },
             new Person()
             {
@@ -86,6 +130,7 @@ public class MuiDataGridDbContext : DbContext
                 DateOfBirth = DateTime.Now.AddDays(-3),
                 UpdatedAtDate = DateOnly.Parse("2022-05-28"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-3),
+                AddressId = 1,
             },
             new Person()
             {
@@ -102,6 +147,7 @@ public class MuiDataGridDbContext : DbContext
                 DateOfBirth = DateTime.Now.AddDays(-4),
                 UpdatedAtDate = DateOnly.Parse("2022-05-27"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-4),
+                AddressId = 2,
             });
     }
 }

@@ -4,14 +4,8 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
 {
     public Expression<Func<T, bool>> Handle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
     {
-        var memberAccessor = member.Expression;
         var expression = this.InternalHandle(member, filter);
-        if (memberAccessor.Expression is ParameterExpression p)
-        {
-            return Expression.Lambda<Func<T, bool>>(expression, p);
-        }
-
-        throw new ArgumentException($"Expected ParameterExpression. Got: {memberAccessor.Expression}");
+        return Expression.Lambda<Func<T, bool>>(expression, member.ParameterExpression);
     }
 
     protected static MethodInfo GetContainsMethod(ColumnLookupMember member)
@@ -44,7 +38,6 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
     }
 
     protected abstract Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter);
-
     protected abstract dynamic ParseValue(ColumnLookupMember member, MuiValue value);
 
     private static dynamic CreateGenericList(Type t)

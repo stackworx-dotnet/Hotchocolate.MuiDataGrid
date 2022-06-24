@@ -1,3 +1,5 @@
 ﻿SELECT "p"."Id", "p"."AddressId", "p"."Age", "p"."Bio", "p"."CreatedAtDate", "p"."DateOfBirth", "p"."Firstname", "p"."Gender", "p"."IdCardReceivedDate", "p"."Lastname", "p"."MarriageDate", "p"."Married", "p"."RefId", "p"."UpdatedAtDate", "p"."Weight"
 FROM "People" AS "p"
-WHERE "p"."CreatedAtDate" > '2022-05-31'
+LEFT JOIN "Address" AS "a" ON "p"."AddressId" = "a"."Id"
+LEFT JOIN "Apartment" AS "a0" ON "a"."ApartmentId" = "a0"."Id"
+WHERE ('Hello' = '') OR (instr("a0"."Name", 'Hello') > 0)

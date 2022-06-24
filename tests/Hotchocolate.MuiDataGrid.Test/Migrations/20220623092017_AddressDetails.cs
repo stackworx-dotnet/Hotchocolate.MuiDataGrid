@@ -1,0 +1,183 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
+{
+    public partial class AddressDetails : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "AddressId",
+                table: "People",
+                type: "INTEGER",
+                nullable: true);
+
+            migrationBuilder.CreateTable(
+                name: "Apartment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    HouseNumber = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Apartment", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StreetNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    Province = table.Column<string>(type: "TEXT", nullable: false),
+                    StreetLine1 = table.Column<string>(type: "TEXT", nullable: false),
+                    StreetLine2 = table.Column<string>(type: "TEXT", nullable: false),
+                    ApartmentId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Address_Apartment_ApartmentId",
+                        column: x => x.ApartmentId,
+                        principalTable: "Apartment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Apartment",
+                columns: new[] { "Id", "HouseNumber" },
+                values: new object[] { 1, 56 });
+
+            migrationBuilder.InsertData(
+                table: "Apartment",
+                columns: new[] { "Id", "HouseNumber" },
+                values: new object[] { 2, 4 });
+
+            migrationBuilder.InsertData(
+                table: "Address",
+                columns: new[] { "Id", "ApartmentId", "Province", "StreetLine1", "StreetLine2", "StreetNumber" },
+                values: new object[] { 1, 1, "Limpopo", "Wroxham Road", "", 0 });
+
+            migrationBuilder.InsertData(
+                table: "Address",
+                columns: new[] { "Id", "ApartmentId", "Province", "StreetLine1", "StreetLine2", "StreetNumber" },
+                values: new object[] { 2, 2, "Gauteng", "", "", 0 });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 1,
+                columns: new[] { "AddressId", "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { 1, new DateTime(2022, 6, 23, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8300), new DateTime(2022, 6, 23, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8330) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 2,
+                columns: new[] { "AddressId", "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { 2, new DateTime(2022, 6, 22, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8330), new DateTime(2022, 6, 22, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8340) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 3,
+                columns: new[] { "AddressId", "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { 2, new DateTime(2022, 6, 21, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8350), new DateTime(2022, 6, 21, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8350) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 4,
+                columns: new[] { "AddressId", "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { 1, new DateTime(2022, 6, 20, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8350), new DateTime(2022, 6, 20, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8360) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 5,
+                columns: new[] { "AddressId", "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { 2, new DateTime(2022, 6, 19, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8360), new DateTime(2022, 6, 19, 11, 20, 17, 295, DateTimeKind.Local).AddTicks(8360) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_People_AddressId",
+                table: "People",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_ApartmentId",
+                table: "Address",
+                column: "ApartmentId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_People_Address_AddressId",
+                table: "People",
+                column: "AddressId",
+                principalTable: "Address",
+                principalColumn: "Id");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_People_Address_AddressId",
+                table: "People");
+
+            migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
+                name: "Apartment");
+
+            migrationBuilder.DropIndex(
+                name: "IX_People_AddressId",
+                table: "People");
+
+            migrationBuilder.DropColumn(
+                name: "AddressId",
+                table: "People");
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 1,
+                columns: new[] { "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { new DateTime(2022, 6, 2, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8250), new DateTime(2022, 6, 2, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8280) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 2,
+                columns: new[] { "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { new DateTime(2022, 6, 1, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8280), new DateTime(2022, 6, 1, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8290) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 3,
+                columns: new[] { "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { new DateTime(2022, 5, 31, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8290), new DateTime(2022, 5, 31, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8300) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 4,
+                columns: new[] { "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { new DateTime(2022, 5, 30, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8300), new DateTime(2022, 5, 30, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8310) });
+
+            migrationBuilder.UpdateData(
+                table: "People",
+                keyColumn: "Id",
+                keyValue: 5,
+                columns: new[] { "DateOfBirth", "IdCardReceivedDate" },
+                values: new object[] { new DateTime(2022, 5, 29, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8310), new DateTime(2022, 5, 29, 11, 49, 26, 811, DateTimeKind.Local).AddTicks(8310) });
+        }
+    }
+}

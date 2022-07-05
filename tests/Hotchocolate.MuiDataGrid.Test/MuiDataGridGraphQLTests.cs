@@ -188,7 +188,7 @@ public partial class MuiDataGridGraphQLTests
                                         "columnField", "price"
                                     },
                                     {
-                                        "value", new MuiValue("14")
+                                        "value", new MuiValue("14.01")
                                     },
                                     {
                                         "operatorValue", ">="

@@ -1,5 +1,7 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
+using System.Globalization;
+
 public record MuiValue
 {
     public MuiValue(IList<string> val)
@@ -16,18 +18,22 @@ public record MuiValue
 
     public dynamic AsNumber(Type memberType)
     {
+        var numberFormatProvider = new NumberFormatInfo()
+        {
+            NumberDecimalSeparator = ".",
+        };
         switch (memberType)
         {
             case var x when x == typeof(int):
-                return int.Parse(this.AsString());
+                return int.Parse(this.AsString(), numberFormatProvider);
             case var x when x == typeof(double):
-                return double.Parse(this.AsString());
+                return double.Parse(this.AsString(), numberFormatProvider);
             case var x when x == typeof(float):
-                return float.Parse(this.AsString());
+                return float.Parse(this.AsString(), numberFormatProvider);
             case var x when x == typeof(short):
-                return short.Parse(this.AsString());
+                return short.Parse(this.AsString(), numberFormatProvider);
             case var x when x == typeof(decimal):
-                return decimal.Parse(this.AsString());
+                return decimal.Parse(this.AsString(), numberFormatProvider);
             default:
                 throw new ArgumentException($"Invalid type: {memberType}");
         }

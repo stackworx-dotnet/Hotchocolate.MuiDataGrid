@@ -31,6 +31,7 @@ public class MuiDataGridDbContext : DbContext
             Id = 1,
             Name = "House 1",
             HouseNumber = 56,
+            Price = 13.89m,
         };
 
         var apartment2 = new Apartment()
@@ -38,6 +39,7 @@ public class MuiDataGridDbContext : DbContext
             Id = 2,
             Name = "House Number 2",
             HouseNumber = 4,
+            Price = 15.78m,
         };
 
         builder.Entity<Apartment>().ToTable("Apartment").HasData(

@@ -16,6 +16,7 @@ type Apartment {
   id: Int!
   houseNumber: Int!
   name: String!
+  price: Decimal!
 }
 
 type Person {
@@ -94,6 +95,9 @@ scalar Date
 
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
 
 scalar MuiValue
 

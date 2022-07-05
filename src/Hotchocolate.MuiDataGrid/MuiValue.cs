@@ -26,6 +26,8 @@ public record MuiValue
                 return float.Parse(this.AsString());
             case var x when x == typeof(short):
                 return short.Parse(this.AsString());
+            case var x when x == typeof(decimal):
+                return decimal.Parse(this.AsString());
             default:
                 throw new ArgumentException($"Invalid type: {memberType}");
         }

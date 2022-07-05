@@ -170,6 +170,43 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestDecimalQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { houseNumber price } } } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "price"
+                                    },
+                                    {
+                                        "value", new MuiValue("14")
+                                    },
+                                    {
+                                        "operatorValue", ">="
+                                    },
+                                    {
+                                        "id", 1342531
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
     public async Task TestFilterItemOptionalId()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(

@@ -38,6 +38,7 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
     }
 
     protected abstract Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter);
+
     protected abstract dynamic ParseValue(ColumnLookupMember member, MuiValue value);
 
     private static dynamic CreateGenericList(Type t)

@@ -110,6 +110,8 @@ public class ExpressionBuilder<T>
                 return this.defaultNumberHandler.Handle(memberAccessor, filter);
             case var x when x == typeof(short):
                 return this.defaultNumberHandler.Handle(memberAccessor, filter);
+            case var x when x == typeof(decimal):
+                return this.defaultNumberHandler.Handle(memberAccessor, filter);
             case var x when x == typeof(string):
                 return this.defaultStringHandler.Handle(memberAccessor, filter);
             case var x when x == typeof(bool):

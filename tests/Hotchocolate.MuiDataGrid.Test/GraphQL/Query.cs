@@ -16,7 +16,7 @@ public class Query
     {
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
 
-        IQueryable<Person> q = dbContext.People.Include(p => p.Address.Apartment);
+        IQueryable<Person> q = dbContext.People;
         if (filters != null)
         {
             q = q.Where(builder.Filter(filters));

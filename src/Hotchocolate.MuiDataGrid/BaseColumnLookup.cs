@@ -29,6 +29,11 @@ public abstract class BaseColumnLookup<T> : IColumnLookup<T>
             throw new ArgumentException($"Expression '{expression}' refers to a field, not a property.");
         }
 
+        if (expression.Parameters.Count == 0)
+        {
+            throw new Exception("Expected 1 parameter and received none");
+        }
+
         var parameterExpression = expression.Parameters[0];
         return new ColumnLookupMember(memberExpression, typeof(TProperty), parameterExpression);
     }

@@ -39,6 +39,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return this.GetMemberExpression(p => p.Address!.Apartment.Name);
             case "price":
                 return this.GetMemberExpression(p => p.Address!.Apartment.Price);
+            case "sellDate":
+                return this.GetMemberExpression(p => p.Address!.Apartment.SellDate);
         }
 
         return null;

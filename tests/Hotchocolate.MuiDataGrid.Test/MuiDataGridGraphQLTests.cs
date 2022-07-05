@@ -170,6 +170,43 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestDateTimeNullableQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { sellDate } } } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "sellDate"
+                                    },
+                                    {
+                                        "value", new MuiValue("2022-07-08")
+                                    },
+                                    {
+                                        "operatorValue", "is"
+                                    },
+                                    {
+                                        "id", 1342530
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
     public async Task TestDecimalQuery()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(

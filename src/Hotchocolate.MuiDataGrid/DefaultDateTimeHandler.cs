@@ -86,6 +86,8 @@ public class DefaultDateTimeHandler<T> : ExpressionBuilderHandler<T>
                 return DateTimeOffset.Parse(value.AsString());
             case var x when x == typeof(DateTime):
                 return DateTime.Parse(value.AsString());
+            case var x when x == typeof(DateTime?):
+                return DateTime.Parse(value.AsString());
             default:
                 throw new ArgumentException($"Invalid type: {member.Type}");
         }

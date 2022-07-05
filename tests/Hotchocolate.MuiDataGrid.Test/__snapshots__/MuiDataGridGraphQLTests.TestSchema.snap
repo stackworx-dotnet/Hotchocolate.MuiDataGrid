@@ -17,6 +17,7 @@ type Apartment {
   houseNumber: Int!
   name: String!
   price: Decimal!
+  sellDate: DateTime
 }
 
 type Person {

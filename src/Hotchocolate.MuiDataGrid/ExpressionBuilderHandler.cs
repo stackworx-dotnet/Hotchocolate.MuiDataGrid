@@ -20,7 +20,7 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
         MuiDataGridFilterItemInput filter)
     {
         filter.Value.AssertNotNull(filter.OperatorValue);
-        return Expression.Constant(this.ParseValue(member, filter.Value));
+        return Expression.Constant(this.ParseValue(member, filter.Value), member.Expression.Type);
     }
 
     protected ConstantExpression GetValueConstantExpressionList(

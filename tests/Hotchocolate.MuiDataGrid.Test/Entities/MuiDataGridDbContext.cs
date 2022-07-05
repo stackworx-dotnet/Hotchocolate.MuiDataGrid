@@ -40,6 +40,7 @@ public class MuiDataGridDbContext : DbContext
             Name = "House Number 2",
             HouseNumber = 4,
             Price = 15.78m,
+            SellDate = DateTime.Now,
         };
 
         builder.Entity<Apartment>().ToTable("Apartment").HasData(

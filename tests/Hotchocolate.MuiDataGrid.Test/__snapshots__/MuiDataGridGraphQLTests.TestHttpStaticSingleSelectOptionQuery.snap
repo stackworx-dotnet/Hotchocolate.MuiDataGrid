@@ -1,0 +1,13 @@
+﻿{
+  "ContentType": "application/json; charset=utf-8",
+  "StatusCode": "OK",
+  "Data": {
+    "people": [
+      {
+        "firstname": "Celeste"
+      }
+    ]
+  },
+  "Errors": [],
+  "Extensions": {}
+}

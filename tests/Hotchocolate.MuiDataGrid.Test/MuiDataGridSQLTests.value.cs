@@ -47,6 +47,17 @@ public partial class MuiDataGridSQLTests
         input.Should().Be("2022-06-24");
     }
 
+    [Fact]
+    public async Task TestSingleSelectOptionMuiValue()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            @"query { input(input: {value: {label: ""Person"", value: ""UHJvZHVjdAppMQ==""}, columnField: ""column"", operatorValue: ""equals""} ) }",
+            new Dictionary<string, object?>());
+        result.Errors.Should().BeNull();
+        var input = result.ExpectQueryResult().Data!["input"]?.ToString();
+        input.Should().Be("UHJvZHVjdAppMQ==");
+    }
+
     /*
     [Fact]
     public async Task TestStringListMuiValue()

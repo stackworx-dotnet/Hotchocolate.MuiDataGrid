@@ -37,8 +37,7 @@ public sealed class MuiValueType : ScalarType
             case FloatValueNode:
             case BooleanValueNode:
             case ListValueNode:
-            // Objects disallowed
-            // case ObjectValueNode:
+            case ObjectValueNode:
             case NullValueNode:
                 return true;
 
@@ -57,6 +56,16 @@ public sealed class MuiValueType : ScalarType
                 return new MuiValue(ivn.Value);
             case FloatValueNode fvn:
                 return new MuiValue(fvn.Value);
+            case ObjectValueNode ovn:
+                var valueField = ovn.Fields.SingleOrDefault(f => f.Name.Value == "value")
+                                 ?? throw new ArgumentException("Expected field with name 'value'");
+
+                if (valueField.Value is StringValueNode n)
+                {
+                    return new MuiValue(n.Value);
+                }
+
+                throw new ArgumentException($"Expected StringValueNode, got {valueField.Value.Kind}");
             case ListValueNode lvn:
                 {
                     var items = new List<string>();
@@ -66,6 +75,7 @@ public sealed class MuiValueType : ScalarType
                         {
                             items.Add(svn.Value);
                         }
+                        // TODO: If object, for option case we need to get the value from the object
                         else
                         {
                             throw new ArgumentException($"Expected a string node. Got: {node.GetType()}");

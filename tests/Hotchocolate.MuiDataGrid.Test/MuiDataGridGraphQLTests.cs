@@ -3,6 +3,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 using System.Collections.Immutable;
 using FluentAssertions;
 using HotChocolate.Execution;
+using Microsoft.Extensions.DependencyInjection;
 using Snapshooter.Xunit;
 
 [Collection(nameof(DbFixtureCollection))]
@@ -391,6 +392,27 @@ public partial class MuiDataGridGraphQLTests
         };
         var result = await server.PostAsync(request);
 
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestHttpStaticSingleSelectOptionQuery()
+    {
+        var server = this.fixture.CreateTestServer();
+        var request = new ClientQueryRequest
+        {
+            Query = @"query people { 
+                people(filters: {
+                    items: [{
+                        columnField: ""refId"",
+                        value: {label: ""Reference1"", value: ""9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C""},
+                        operatorValue: ""is""
+                    }]
+                }) { firstname } 
+            }",
+        };
+        var result = await server.PostAsync(request);
+        result.Errors.Should().BeEmpty();
         result.MatchSnapshot();
     }
 }

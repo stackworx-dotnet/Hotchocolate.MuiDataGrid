@@ -24,7 +24,8 @@ public class MuiDataGridDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
+        var g1 = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
+        var g2 = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C");
 
         var apartment1 = new Apartment()
         {
@@ -77,7 +78,7 @@ public class MuiDataGridDbContext : DbContext
                 Gender = Gender.MALE,
                 Married = false,
                 Weight = 100,
-                RefId = g,
+                RefId = g1,
                 CreatedAtDate = DateOnly.Parse("2022-05-31"),
                 DateOfBirth = DateTime.Now,
                 UpdatedAtDate = DateOnly.Parse("2022-05-31"),
@@ -94,7 +95,7 @@ public class MuiDataGridDbContext : DbContext
                 Gender = Gender.FEMALE,
                 Married = true,
                 Weight = 76,
-                RefId = g,
+                RefId = g1,
                 CreatedAtDate = DateOnly.Parse("2022-05-30"),
                 DateOfBirth = DateTime.Now.AddDays(-1),
                 UpdatedAtDate = DateOnly.Parse("2022-05-30"),
@@ -111,7 +112,7 @@ public class MuiDataGridDbContext : DbContext
                 Gender = Gender.FEMALE,
                 Married = false,
                 Weight = 30,
-                RefId = g,
+                RefId = g1,
                 CreatedAtDate = DateOnly.Parse("2022-05-29"),
                 DateOfBirth = DateTime.Now.AddDays(-2),
                 UpdatedAtDate = DateOnly.Parse("2022-05-29"),
@@ -128,7 +129,7 @@ public class MuiDataGridDbContext : DbContext
                 Gender = Gender.MALE,
                 Married = true,
                 Weight = 112,
-                RefId = g,
+                RefId = g1,
                 CreatedAtDate = DateOnly.Parse("2022-05-28"),
                 DateOfBirth = DateTime.Now.AddDays(-3),
                 UpdatedAtDate = DateOnly.Parse("2022-05-28"),
@@ -145,7 +146,7 @@ public class MuiDataGridDbContext : DbContext
                 Gender = Gender.FEMALE,
                 Married = false,
                 Weight = 74,
-                RefId = g,
+                RefId = g2,
                 CreatedAtDate = DateOnly.Parse("2022-05-27"),
                 DateOfBirth = DateTime.Now.AddDays(-4),
                 UpdatedAtDate = DateOnly.Parse("2022-05-27"),

@@ -75,9 +75,9 @@ public sealed class MuiValueType : ScalarType
                         {
                             items.Add(svn.Value);
                         }
-                        // TODO: If object, for option case we need to get the value from the object
                         else
                         {
+                            // TODO: If object, for option case we need to get the value from the object
                             throw new ArgumentException($"Expected a string node. Got: {node.GetType()}");
                         }
                     }

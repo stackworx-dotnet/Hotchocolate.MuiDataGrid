@@ -6,7 +6,7 @@ public class DefaultEnumSingleSelectHandler<T, TEnum> : DefaultSingleSelectHandl
     protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
         var v = value.AsString();
-        if (Enum.TryParse<TEnum>(v, out var g))
+        if (Enum.TryParse<TEnum>(v, true, out var g))
         {
             return g;
         }

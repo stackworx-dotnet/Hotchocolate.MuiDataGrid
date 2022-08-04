@@ -19,7 +19,8 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                     HouseNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
-                    SellDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    SellDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ApartmentType = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,13 +83,13 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 
             migrationBuilder.InsertData(
                 table: "Apartment",
-                columns: new[] { "Id", "HouseNumber", "Name", "Price", "SellDate" },
-                values: new object[] { 1, 56, "House 1", 13.89m, null });
+                columns: new[] { "Id", "ApartmentType", "HouseNumber", "Name", "Price", "SellDate" },
+                values: new object[] { 1, "OwnedProperty", 56, "House 1", 13.89m, null });
 
             migrationBuilder.InsertData(
                 table: "Apartment",
-                columns: new[] { "Id", "HouseNumber", "Name", "Price", "SellDate" },
-                values: new object[] { 2, 4, "House Number 2", 15.78m, new DateTime(2022, 8, 3, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5480) });
+                columns: new[] { "Id", "ApartmentType", "HouseNumber", "Name", "Price", "SellDate" },
+                values: new object[] { 2, "RentalProperty", 4, "House Number 2", 15.78m, new DateTime(2022, 8, 4, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(7640) });
 
             migrationBuilder.InsertData(
                 table: "Address",
@@ -103,27 +104,27 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
             migrationBuilder.InsertData(
                 table: "People",
                 columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 1, 1, 18, "I like water", new DateOnly(2022, 5, 31), new DateTime(2022, 8, 3, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5940), "Johanny", "MALE", new DateTime(2022, 8, 3, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5950), "Klein", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 31), 100.0 });
+                values: new object[] { 1, 1, 18, "I like water", new DateOnly(2022, 5, 31), new DateTime(2022, 8, 4, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8490), "Johanny", "Male", new DateTime(2022, 8, 4, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8500), "Klein", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 31), 100.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
                 columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 2, 2, 36, "I like Chocolate", new DateOnly(2022, 5, 30), new DateTime(2022, 8, 2, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5950), "Stacey", "FEMALE", new DateTime(2022, 8, 2, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5960), "Pop", null, true, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 30), 76.0 });
+                values: new object[] { 2, 2, 36, "I like Chocolate", new DateOnly(2022, 5, 30), new DateTime(2022, 8, 3, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8500), "Stacey", "Female", new DateTime(2022, 8, 3, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8510), "Pop", null, true, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 30), 76.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
                 columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 3, 2, 11, "I like toys", new DateOnly(2022, 5, 29), new DateTime(2022, 8, 1, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5960), "Susie", "FEMALE", new DateTime(2022, 8, 1, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5970), "van zyl", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 29), 30.0 });
+                values: new object[] { 3, 2, 11, "I like toys", new DateOnly(2022, 5, 29), new DateTime(2022, 8, 2, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8510), "Susie", "Female", new DateTime(2022, 8, 2, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8520), "van zyl", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 29), 30.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
                 columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 4, 1, 55, "I like hunting", new DateOnly(2022, 5, 28), new DateTime(2022, 7, 31, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5970), "Johan", "MALE", new DateTime(2022, 7, 31, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5970), "Groot", null, true, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 28), 112.0 });
+                values: new object[] { 4, 1, 55, "I like hunting", new DateOnly(2022, 5, 28), new DateTime(2022, 8, 1, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8520), "Johan", "Male", new DateTime(2022, 8, 1, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8530), "Groot", null, true, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 28), 112.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
                 columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 5, 2, 26, "I like art", new DateOnly(2022, 5, 27), new DateTime(2022, 7, 30, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5980), "Celeste", "FEMALE", new DateTime(2022, 7, 30, 12, 8, 35, 510, DateTimeKind.Local).AddTicks(5980), "Le Roux", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180c"), new DateOnly(2022, 5, 27), 74.0 });
+                values: new object[] { 5, 2, 26, "I like art", new DateOnly(2022, 5, 27), new DateTime(2022, 7, 31, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8530), "Celeste", "Female", new DateTime(2022, 7, 31, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8530), "Le Roux", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180c"), new DateOnly(2022, 5, 27), 74.0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_ApartmentId",

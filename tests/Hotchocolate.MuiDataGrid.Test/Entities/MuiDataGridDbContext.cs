@@ -33,6 +33,7 @@ public class MuiDataGridDbContext : DbContext
             Name = "House 1",
             HouseNumber = 56,
             Price = 13.89m,
+            ApartmentType = ApartmentType.OwnedProperty,
         };
 
         var apartment2 = new Apartment()
@@ -42,6 +43,7 @@ public class MuiDataGridDbContext : DbContext
             HouseNumber = 4,
             Price = 15.78m,
             SellDate = DateTime.Now,
+            ApartmentType = ApartmentType.RentalProperty,
         };
 
         builder.Entity<Apartment>().ToTable("Apartment").HasData(
@@ -75,7 +77,7 @@ public class MuiDataGridDbContext : DbContext
                 Lastname = "Klein",
                 Age = 18,
                 Bio = "I like water",
-                Gender = Gender.MALE,
+                Gender = Gender.Male,
                 Married = false,
                 Weight = 100,
                 RefId = g1,
@@ -92,7 +94,7 @@ public class MuiDataGridDbContext : DbContext
                 Lastname = "Pop",
                 Age = 36,
                 Bio = "I like Chocolate",
-                Gender = Gender.FEMALE,
+                Gender = Gender.Female,
                 Married = true,
                 Weight = 76,
                 RefId = g1,
@@ -109,7 +111,7 @@ public class MuiDataGridDbContext : DbContext
                 Lastname = "van zyl",
                 Age = 11,
                 Bio = "I like toys",
-                Gender = Gender.FEMALE,
+                Gender = Gender.Female,
                 Married = false,
                 Weight = 30,
                 RefId = g1,
@@ -126,7 +128,7 @@ public class MuiDataGridDbContext : DbContext
                 Lastname = "Groot",
                 Age = 55,
                 Bio = "I like hunting",
-                Gender = Gender.MALE,
+                Gender = Gender.Male,
                 Married = true,
                 Weight = 112,
                 RefId = g1,
@@ -143,7 +145,7 @@ public class MuiDataGridDbContext : DbContext
                 Lastname = "Le Roux",
                 Age = 26,
                 Bio = "I like art",
-                Gender = Gender.FEMALE,
+                Gender = Gender.Female,
                 Married = false,
                 Weight = 74,
                 RefId = g2,

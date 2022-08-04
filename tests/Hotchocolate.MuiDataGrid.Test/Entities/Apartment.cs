@@ -1,5 +1,11 @@
 namespace Stackworx.Hotchocolate.Muidatagrid.Entities;
 
+public enum ApartmentType
+{
+    RentalProperty,
+    OwnedProperty,
+}
+
 public class Apartment
 {
     public int Id { get; set; }
@@ -11,4 +17,6 @@ public class Apartment
     public decimal Price { get; set; }
 
     public DateTime? SellDate { get; set; }
+
+    public ApartmentType ApartmentType { get; set; }
 }

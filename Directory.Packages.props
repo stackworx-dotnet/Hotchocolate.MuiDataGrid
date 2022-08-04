@@ -1,6 +1,7 @@
 <Project>
     <ItemGroup Label="Misc">
         <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all" />
+        <PackageVersion Include="Humanizer.Core" Version="2.14.1" />
     </ItemGroup>
     
     <ItemGroup Label="Microsoft">

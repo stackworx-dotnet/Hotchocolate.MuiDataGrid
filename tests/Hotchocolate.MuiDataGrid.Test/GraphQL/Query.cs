@@ -15,6 +15,7 @@ public class Query
         [ScopedService] MuiDataGridDbContext dbContext)
     {
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
 
         IQueryable<Person> q = dbContext.People;
         if (filters != null)

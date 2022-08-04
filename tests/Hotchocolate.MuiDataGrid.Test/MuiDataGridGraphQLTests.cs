@@ -245,6 +245,43 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestSingleSelectEnumWithQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { apartmentType } } } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "apartmentType"
+                                    },
+                                    {
+                                        "value", new MuiValue("RENTAL_PROPERTY")
+                                    },
+                                    {
+                                        "operatorValue", "is"
+                                    },
+                                    {
+                                        "id", 19216
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
     public async Task TestFilterItemOptionalId()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(

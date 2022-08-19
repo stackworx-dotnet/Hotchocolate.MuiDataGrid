@@ -22,6 +22,8 @@ public class Person
 
     public Guid RefId { get; set; }
 
+    public Guid NonGraphQlSerialisedId { get; set; }
+
     public DateTime DateOfBirth { get; set; }
 
     public DateTimeOffset? MarriageDate { get; set; }

@@ -64,6 +64,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                     Gender = table.Column<string>(type: "TEXT", nullable: false),
                     Weight = table.Column<double>(type: "REAL", nullable: true),
                     RefId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    NonGraphQlSerialisedId = table.Column<Guid>(type: "TEXT", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
                     MarriageDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
                     IdCardReceivedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
@@ -89,7 +90,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
             migrationBuilder.InsertData(
                 table: "Apartment",
                 columns: new[] { "Id", "ApartmentType", "HouseNumber", "Name", "Price", "SellDate" },
-                values: new object[] { 2, "RentalProperty", 4, "House Number 2", 15.78m, new DateTime(2022, 8, 4, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(7640) });
+                values: new object[] { 2, "RentalProperty", 4, "House Number 2", 15.78m, new DateTime(2022, 8, 18, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(6550) });
 
             migrationBuilder.InsertData(
                 table: "Address",
@@ -103,28 +104,28 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 
             migrationBuilder.InsertData(
                 table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 1, 1, 18, "I like water", new DateOnly(2022, 5, 31), new DateTime(2022, 8, 4, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8490), "Johanny", "Male", new DateTime(2022, 8, 4, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8500), "Klein", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 31), 100.0 });
+                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "UpdatedAtDate", "Weight" },
+                values: new object[] { 1, 1, 18, "I like water", new DateOnly(2022, 5, 31), new DateTime(2022, 8, 18, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7170), "Johanny", "Male", new DateTime(2022, 8, 18, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7180), "Klein", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 31), 100.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 2, 2, 36, "I like Chocolate", new DateOnly(2022, 5, 30), new DateTime(2022, 8, 3, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8500), "Stacey", "Female", new DateTime(2022, 8, 3, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8510), "Pop", null, true, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 30), 76.0 });
+                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "UpdatedAtDate", "Weight" },
+                values: new object[] { 2, 2, 36, "I like Chocolate", new DateOnly(2022, 5, 30), new DateTime(2022, 8, 17, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7190), "Stacey", "Female", new DateTime(2022, 8, 17, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7190), "Pop", null, true, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 30), 76.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 3, 2, 11, "I like toys", new DateOnly(2022, 5, 29), new DateTime(2022, 8, 2, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8510), "Susie", "Female", new DateTime(2022, 8, 2, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8520), "van zyl", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 29), 30.0 });
+                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "UpdatedAtDate", "Weight" },
+                values: new object[] { 3, 2, 11, "I like toys", new DateOnly(2022, 5, 29), new DateTime(2022, 8, 16, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7200), "Susie", "Female", new DateTime(2022, 8, 16, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7200), "van zyl", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 29), 30.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 4, 1, 55, "I like hunting", new DateOnly(2022, 5, 28), new DateTime(2022, 8, 1, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8520), "Johan", "Male", new DateTime(2022, 8, 1, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8530), "Groot", null, true, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 28), 112.0 });
+                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "UpdatedAtDate", "Weight" },
+                values: new object[] { 4, 1, 55, "I like hunting", new DateOnly(2022, 5, 28), new DateTime(2022, 8, 15, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7200), "Johan", "Male", new DateTime(2022, 8, 15, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7210), "Groot", null, true, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), new DateOnly(2022, 5, 28), 112.0 });
 
             migrationBuilder.InsertData(
                 table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "RefId", "UpdatedAtDate", "Weight" },
-                values: new object[] { 5, 2, 26, "I like art", new DateOnly(2022, 5, 27), new DateTime(2022, 7, 31, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8530), "Celeste", "Female", new DateTime(2022, 7, 31, 10, 55, 23, 731, DateTimeKind.Local).AddTicks(8530), "Le Roux", null, false, new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180c"), new DateOnly(2022, 5, 27), 74.0 });
+                columns: new[] { "Id", "AddressId", "Age", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "UpdatedAtDate", "Weight" },
+                values: new object[] { 5, 2, 26, "I like art", new DateOnly(2022, 5, 27), new DateTime(2022, 8, 14, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7210), "Celeste", "Female", new DateTime(2022, 8, 14, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7220), "Le Roux", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180c"), new DateOnly(2022, 5, 27), 74.0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_ApartmentId",

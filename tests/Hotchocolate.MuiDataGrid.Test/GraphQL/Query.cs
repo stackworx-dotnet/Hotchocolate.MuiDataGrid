@@ -16,6 +16,8 @@ public class Query
     {
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
         builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
+        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(new IdSerializer(), "Ref"));
+        builder.AddHandler("id", new DefaultRelayIdSingleSelectHandler<Person>(new IdSerializer(), "Person"));
 
         IQueryable<Person> q = dbContext.People;
         if (filters != null)

@@ -9,6 +9,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
     {
         switch (column)
         {
+            case "id":
+                return this.GetMemberExpression(p => p.Id);
             case "firstname":
                 return this.GetMemberExpression(p => p.Firstname);
             case "lastname":
@@ -25,6 +27,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return this.GetMemberExpression(p => p.Gender);
             case "refId":
                 return this.GetMemberExpression(p => p.RefId);
+            case "nonGraphQlSerialisedId":
+                return this.GetMemberExpression(p => p.NonGraphQlSerialisedId);
             case "dateOfBirth":
                 return this.GetMemberExpression(p => p.DateOfBirth);
             case "idCardReceivedDate":

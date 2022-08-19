@@ -3,7 +3,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 using System.Collections.Immutable;
 using FluentAssertions;
 using HotChocolate.Execution;
-using Microsoft.Extensions.DependencyInjection;
 using Snapshooter.Xunit;
 
 [Collection(nameof(DbFixtureCollection))]
@@ -245,6 +244,81 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestRelayIdIntQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { id } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "id"
+                                    },
+                                    {
+                                        "value", new MuiValue(new IdSerializer().Serialize("Person", 1))
+                                    },
+                                    {
+                                        "operatorValue", "is"
+                                    },
+                                    {
+                                        "id", 134253732
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task TestRelayIdGuidQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { refId } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "refId"
+                                    },
+                                    {
+                                        "value",
+                                        new MuiValue(new IdSerializer().Serialize("Ref", "9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C"))
+                                    },
+                                    {
+                                        "operatorValue", "is"
+                                    },
+                                    {
+                                        "id", 1425372
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
     public async Task TestSingleSelectEnumWithQuery()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
@@ -441,11 +515,11 @@ public partial class MuiDataGridGraphQLTests
             Query = @"query people { 
                 people(filters: {
                     items: [{
-                        columnField: ""refId"",
-                        value: {label: ""Reference1"", value: ""9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C""},
+                        columnField: ""nonGraphQlSerialisedId"",
+                        value: {label: ""Reference1"", value: ""9F1EF691-2C5C-4BDE-B0BE-635BDD4E180C""},
                         operatorValue: ""is""
                     }]
-                }) { firstname } 
+                }) { firstname }
             }",
         };
         var result = await server.PostAsync(request);

@@ -32,7 +32,7 @@ public class DefaultSingleSelectHandler<T> : ExpressionBuilderHandler<T>
                 }
 
             default:
-                throw new Exception($"Unknown operator: {filter.OperatorValue}");
+                throw new ArgumentException($"Unknown operator: {filter.OperatorValue}");
         }
 
         return expression;

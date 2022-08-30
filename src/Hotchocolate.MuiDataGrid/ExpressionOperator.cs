@@ -1,7 +1,5 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
-using System.Text;
-
 internal static class ExpressionOperator
 {
     public static MemberExpression? GetMemberExpression(Expression? expression)

@@ -30,6 +30,7 @@ type Person {
   married: Boolean!
   gender: Gender!
   weight: Float
+  bankAccountBalance: Decimal
   refId: UUID!
   nonGraphQlSerialisedId: UUID!
   dateOfBirth: DateTime!

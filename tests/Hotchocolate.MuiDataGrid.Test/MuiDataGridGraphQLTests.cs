@@ -244,6 +244,80 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestNullableDecimalQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { bankAccountBalance } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "bankAccountBalance"
+                                    },
+                                    {
+                                        "value", new MuiValue("10.51")
+                                    },
+                                    {
+                                        "operatorValue", ">="
+                                    },
+                                    {
+                                        "id", 1842790
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task TestNullableDoubleQuery()
+    {
+        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { weight } }",
+            new Dictionary<string, object?>
+            {
+                {
+                    "filters", new Dictionary<string, object?>
+                    {
+                        {
+                            "items", new List<Dictionary<string, object>>
+                            {
+                                new()
+                                {
+                                    {
+                                        "columnField", "weight"
+                                    },
+                                    {
+                                        "value", new MuiValue("70.02")
+                                    },
+                                    {
+                                        "operatorValue", ">="
+                                    },
+                                    {
+                                        "id", 1942723
+                                    },
+                                },
+                            }
+                        },
+                    }.ToImmutableDictionary()
+                },
+            });
+
+        result.Errors.Should().BeNull();
+    }
+
+    [Fact]
     public async Task TestRelayIdIntQuery()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
@@ -299,8 +373,7 @@ public partial class MuiDataGridGraphQLTests
                                         "columnField", "refId"
                                     },
                                     {
-                                        "value",
-                                        new MuiValue(new IdSerializer().Serialize("Ref", "9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C"))
+                                        "value", new MuiValue(new IdSerializer().Serialize("Ref", "9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C"))
                                     },
                                     {
                                         "operatorValue", "is"

@@ -21,19 +21,47 @@ public record MuiValue
         var numberFormatProvider = new NumberFormatInfo()
         {
             NumberDecimalSeparator = ".",
+            NumberDecimalDigits = 6,
         };
         switch (memberType)
         {
-            case var x when x == typeof(int):
-                return int.Parse(this.AsString(), numberFormatProvider);
-            case var x when x == typeof(double):
-                return double.Parse(this.AsString(), numberFormatProvider);
-            case var x when x == typeof(float):
-                return float.Parse(this.AsString(), numberFormatProvider);
-            case var x when x == typeof(short):
-                return short.Parse(this.AsString(), numberFormatProvider);
-            case var x when x == typeof(decimal):
-                return decimal.Parse(this.AsString(), numberFormatProvider);
+            case var x when x == typeof(int) || x == typeof(int?):
+                return int.TryParse(
+                    this.AsString(),
+                    out var i)
+                    ? i
+                    : 0;
+            case var x when x == typeof(double) || x == typeof(double?):
+                return double.TryParse(
+                    this.AsString(),
+                    NumberStyles.AllowDecimalPoint,
+                    numberFormatProvider,
+                    out var d)
+                    ? d
+                    : 0d;
+            case var x when x == typeof(float) || x == typeof(float?):
+                return float.TryParse(
+                    this.AsString(),
+                    NumberStyles.AllowDecimalPoint,
+                    numberFormatProvider,
+                    out var f)
+                    ? f
+                    : 0f;
+            case var x when x == typeof(short) || x == typeof(short?):
+                return short.TryParse(
+                    this.AsString(),
+                    out var s)
+                    ? s
+                    : short.Parse("0");
+            case var x when x == typeof(decimal) || x == typeof(decimal?):
+                return decimal.TryParse(
+                    this.AsString(),
+                    NumberStyles.AllowDecimalPoint,
+                    numberFormatProvider,
+                    out var m)
+                    ? m
+                    : 0m;
+
             default:
                 throw new ArgumentException($"Invalid type: {memberType}");
         }

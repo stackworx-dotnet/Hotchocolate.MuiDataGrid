@@ -20,6 +20,8 @@ public class Person
 
     public double? Weight { get; set; }
 
+    public decimal? BankAccountBalance { get; set; }
+
     public Guid RefId { get; set; }
 
     public Guid NonGraphQlSerialisedId { get; set; }

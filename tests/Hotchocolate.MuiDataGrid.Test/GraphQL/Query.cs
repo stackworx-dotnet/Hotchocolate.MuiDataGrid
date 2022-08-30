@@ -1,18 +1,15 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
-using HotChocolate;
-using HotChocolate.Data;
 using Microsoft.EntityFrameworkCore;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 public class Query
 {
-    [UseDbContext(typeof(MuiDataGridDbContext))]
     public async Task<List<Person>> People(
         MuiDataGridFilterInput? filters,
         IList<MuiDataGridSortItem>? sorting,
-        [ScopedService] MuiDataGridDbContext dbContext)
+        MuiDataGridDbContext dbContext)
     {
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
         builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());

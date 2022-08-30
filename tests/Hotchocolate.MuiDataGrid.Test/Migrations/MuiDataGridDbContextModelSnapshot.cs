@@ -111,7 +111,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             HouseNumber = 4,
                             Name = "House Number 2",
                             Price = 15.78m,
-                            SellDate = new DateTime(2022, 8, 18, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(6550)
+                            SellDate = new DateTime(2022, 8, 24, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8140)
                         });
                 });
 
@@ -126,6 +126,9 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER");
+
+                    b.Property<decimal?>("BankAccountBalance")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Bio")
                         .HasColumnType("TEXT");
@@ -183,10 +186,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 18,
                             Bio = "I like water",
                             CreatedAtDate = new DateOnly(2022, 5, 31),
-                            DateOfBirth = new DateTime(2022, 8, 18, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7170),
+                            DateOfBirth = new DateTime(2022, 8, 24, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8630),
                             Firstname = "Johanny",
                             Gender = "Male",
-                            IdCardReceivedDate = new DateTime(2022, 8, 18, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7180),
+                            IdCardReceivedDate = new DateTime(2022, 8, 24, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8640),
                             Lastname = "Klein",
                             Married = false,
                             NonGraphQlSerialisedId = new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"),
@@ -199,12 +202,13 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Id = 2,
                             AddressId = 2,
                             Age = 36,
+                            BankAccountBalance = 200.90m,
                             Bio = "I like Chocolate",
                             CreatedAtDate = new DateOnly(2022, 5, 30),
-                            DateOfBirth = new DateTime(2022, 8, 17, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7190),
+                            DateOfBirth = new DateTime(2022, 8, 23, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8640),
                             Firstname = "Stacey",
                             Gender = "Female",
-                            IdCardReceivedDate = new DateTime(2022, 8, 17, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7190),
+                            IdCardReceivedDate = new DateTime(2022, 8, 23, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8650),
                             Lastname = "Pop",
                             Married = true,
                             NonGraphQlSerialisedId = new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"),
@@ -217,12 +221,13 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Id = 3,
                             AddressId = 2,
                             Age = 11,
+                            BankAccountBalance = 1000000.90m,
                             Bio = "I like toys",
                             CreatedAtDate = new DateOnly(2022, 5, 29),
-                            DateOfBirth = new DateTime(2022, 8, 16, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7200),
+                            DateOfBirth = new DateTime(2022, 8, 22, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8660),
                             Firstname = "Susie",
                             Gender = "Female",
-                            IdCardReceivedDate = new DateTime(2022, 8, 16, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7200),
+                            IdCardReceivedDate = new DateTime(2022, 8, 22, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8660),
                             Lastname = "van zyl",
                             Married = false,
                             NonGraphQlSerialisedId = new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"),
@@ -237,10 +242,10 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Age = 55,
                             Bio = "I like hunting",
                             CreatedAtDate = new DateOnly(2022, 5, 28),
-                            DateOfBirth = new DateTime(2022, 8, 15, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7200),
+                            DateOfBirth = new DateTime(2022, 8, 21, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8660),
                             Firstname = "Johan",
                             Gender = "Male",
-                            IdCardReceivedDate = new DateTime(2022, 8, 15, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7210),
+                            IdCardReceivedDate = new DateTime(2022, 8, 21, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8670),
                             Lastname = "Groot",
                             Married = true,
                             NonGraphQlSerialisedId = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -253,12 +258,13 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                             Id = 5,
                             AddressId = 2,
                             Age = 26,
+                            BankAccountBalance = 50.99m,
                             Bio = "I like art",
                             CreatedAtDate = new DateOnly(2022, 5, 27),
-                            DateOfBirth = new DateTime(2022, 8, 14, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7210),
+                            DateOfBirth = new DateTime(2022, 8, 20, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8670),
                             Firstname = "Celeste",
                             Gender = "Female",
-                            IdCardReceivedDate = new DateTime(2022, 8, 14, 16, 56, 46, 551, DateTimeKind.Local).AddTicks(7220),
+                            IdCardReceivedDate = new DateTime(2022, 8, 20, 10, 34, 37, 696, DateTimeKind.Local).AddTicks(8670),
                             Lastname = "Le Roux",
                             Married = false,
                             NonGraphQlSerialisedId = new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"),

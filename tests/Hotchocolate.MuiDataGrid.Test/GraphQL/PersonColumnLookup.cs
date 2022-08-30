@@ -1,6 +1,5 @@
 namespace Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
-using System.Linq.Expressions;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 
 public class PersonColumnLookup : BaseColumnLookup<Person>
@@ -21,6 +20,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return this.GetMemberExpression(p => p.Age);
             case "weight":
                 return this.GetMemberExpression(p => p.Weight);
+            case "bankAccountBalance":
+                return this.GetMemberExpression(p => p.BankAccountBalance);
             case "married":
                 return this.GetMemberExpression(p => p.Married);
             case "gender":

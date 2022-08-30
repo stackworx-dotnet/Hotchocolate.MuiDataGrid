@@ -88,6 +88,7 @@ public class MuiDataGridDbContext : DbContext
                 UpdatedAtDate = DateOnly.Parse("2022-05-31"),
                 IdCardReceivedDate = DateTime.Now,
                 AddressId = 1,
+                BankAccountBalance = null,
             },
             new Person()
             {
@@ -106,6 +107,7 @@ public class MuiDataGridDbContext : DbContext
                 UpdatedAtDate = DateOnly.Parse("2022-05-30"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-1),
                 AddressId = 2,
+                BankAccountBalance = 200.90m,
             },
             new Person()
             {
@@ -124,6 +126,7 @@ public class MuiDataGridDbContext : DbContext
                 UpdatedAtDate = DateOnly.Parse("2022-05-29"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-2),
                 AddressId = 2,
+                BankAccountBalance = 1000000.90m,
             },
             new Person()
             {
@@ -141,6 +144,7 @@ public class MuiDataGridDbContext : DbContext
                 UpdatedAtDate = DateOnly.Parse("2022-05-28"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-3),
                 AddressId = 1,
+                BankAccountBalance = null,
             },
             new Person()
             {
@@ -159,6 +163,7 @@ public class MuiDataGridDbContext : DbContext
                 UpdatedAtDate = DateOnly.Parse("2022-05-27"),
                 IdCardReceivedDate = DateTime.Now.AddDays(-4),
                 AddressId = 2,
+                BankAccountBalance = 50.99m,
             });
     }
 }

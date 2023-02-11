@@ -13,7 +13,7 @@ public sealed class MuiValueType : ScalarType
     }
 
     public MuiValueType(
-        NameString name,
+        string name,
         string? description = null,
         BindingBehavior bind = BindingBehavior.Explicit)
         : base(name, bind)

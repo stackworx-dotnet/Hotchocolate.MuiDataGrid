@@ -78,7 +78,7 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue(new List<string> { relayId }),
+                    Value: new MuiValue(new List<string> { relayId! }),
                     ColumnField: "refId",
                     OperatorValue: "isAnyOf"),
             },

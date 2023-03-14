@@ -35,7 +35,7 @@ public abstract class BaseColumnLookup<T> : IColumnLookup<T>
         }
 
         var parameterExpression = expression.Parameters[0];
-        return new ColumnLookupMember(memberExpression, typeof(TProperty), parameterExpression);
+        return new ColumnLookupMember(memberExpression, memberExpression.Member, typeof(TProperty), parameterExpression);
     }
 
     protected abstract ColumnLookupMember? InternalLookup(string column);

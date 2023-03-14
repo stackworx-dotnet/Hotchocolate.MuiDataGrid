@@ -41,9 +41,18 @@
     
     <ItemGroup>
         <None Include=".\__snapshots__" />
-        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestSchema.snap" />
-        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestOrLinkOperatorExecute.snap" />
-        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestHttpVariableQuery.snap" />
-        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestHttpStaticQuery.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestStringIsAnyOf.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestRefIdIsAnyOf.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberIsEqual.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberIsEmpty.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberGreaterThan.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateTimeOnOrAfter.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyOnOrAfter.snap" />
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyIsNotEmpty.snap" />
+        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestPersonQuery.snap" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="__snapshots__" />
     </ItemGroup>
 </Project>

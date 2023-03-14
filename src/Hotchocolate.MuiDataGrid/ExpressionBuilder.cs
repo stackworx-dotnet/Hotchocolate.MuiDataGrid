@@ -6,6 +6,7 @@ public class ExpressionBuilder<T>
 {
     private readonly Dictionary<string, IExpressionBuilderHandler<T>> handlers = new();
     private readonly IColumnLookup<T> columnLookup;
+    private readonly ExpressionBuilderFlavour flavour;
 
     private readonly IExpressionBuilderHandler<T> defaultBooleanHandler = new DefaultBooleanHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultStringHandler = new DefaultStringHandler<T>();
@@ -15,9 +16,10 @@ public class ExpressionBuilder<T>
     private readonly IExpressionBuilderHandler<T> defaultDateOnlyHandler = new DefaultDateOnlyHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultGuidHandler = new DefaultGuidHandler<T>();
 
-    public ExpressionBuilder(IColumnLookup<T> columnLookup)
+    public ExpressionBuilder(IColumnLookup<T> columnLookup, ExpressionBuilderFlavour flavour = ExpressionBuilderFlavour.EFCORE)
     {
         this.columnLookup = columnLookup;
+        this.flavour = flavour;
     }
 
     public void AddHandler(string columnField, IExpressionBuilderHandler<T> handler)
@@ -96,7 +98,7 @@ public class ExpressionBuilder<T>
 
         if (this.handlers.TryGetValue(filter.ColumnField, out var handler))
         {
-            return handler.Handle(memberAccessor, filter);
+            return handler.Handle(memberAccessor, this.flavour, filter);
         }
 
         var t = memberAccessor.Type.UnwrapNullable();
@@ -104,27 +106,27 @@ public class ExpressionBuilder<T>
         switch (t)
         {
             case var x when x == typeof(int):
-                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+                return this.defaultNumberHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(double):
-                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+                return this.defaultNumberHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(float):
-                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+                return this.defaultNumberHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(short):
-                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+                return this.defaultNumberHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(decimal):
-                return this.defaultNumberHandler.Handle(memberAccessor, filter);
+                return this.defaultNumberHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(string):
-                return this.defaultStringHandler.Handle(memberAccessor, filter);
+                return this.defaultStringHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(bool):
-                return this.defaultBooleanHandler.Handle(memberAccessor, filter);
+                return this.defaultBooleanHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(DateTime):
-                return this.defaultDateTimeHandler.Handle(memberAccessor, filter);
+                return this.defaultDateTimeHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(DateTimeOffset):
-                return this.defaultDateTimeHandler.Handle(memberAccessor, filter);
+                return this.defaultDateTimeHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(DateOnly):
-                return this.defaultDateOnlyHandler.Handle(memberAccessor, filter);
+                return this.defaultDateOnlyHandler.Handle(memberAccessor, this.flavour, filter);
             case var x when x == typeof(Guid):
-                return this.defaultGuidHandler.Handle(memberAccessor, filter);
+                return this.defaultGuidHandler.Handle(memberAccessor, this.flavour, filter);
             default:
                 throw new ArgumentException($"Unexpected Member Type {t}");
         }

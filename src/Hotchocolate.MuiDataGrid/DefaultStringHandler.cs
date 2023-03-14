@@ -3,7 +3,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 // https://github.com/mui/mui-x/blob/master/packages/grid/x-data-grid/src/colDef/gridStringOperators.ts
 public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
 {
-    protected override Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override Expression InternalHandle(ColumnLookupMember member, ExpressionBuilderFlavour flavour, MuiDataGridFilterItemInput filter)
     {
         Expression expression;
         var memberAccessor = member.Expression;
@@ -20,7 +20,17 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
                 {
                     var val = this.GetValueConstantExpression(member, filter);
                     var method = typeof(string).GetMethod("Contains", new[] { typeof(string) })!;
-                    expression = Expression.Call(memberAccessor, method, val);
+                    var callExpression = Expression.Call(memberAccessor, method, val);
+
+                    if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
+                    {
+                        expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                    }
+                    else
+                    {
+                        expression = callExpression;
+                    }
+
                     break;
                 }
 
@@ -28,7 +38,17 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
                 {
                     var val = this.GetValueConstantExpression(member, filter);
                     var method = typeof(string).GetMethod("StartsWith", new[] { typeof(string) })!;
-                    expression = Expression.Call(memberAccessor, method, val);
+                    var callExpression = Expression.Call(memberAccessor, method, val);
+
+                    if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
+                    {
+                        expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                    }
+                    else
+                    {
+                        expression = callExpression;
+                    }
+
                     break;
                 }
 
@@ -36,21 +56,51 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
                 {
                     var val = this.GetValueConstantExpression(member, filter);
                     var method = typeof(string).GetMethod("EndsWith", new[] { typeof(string) })!;
-                    expression = Expression.Call(memberAccessor, method, val);
+                    var callExpression = Expression.Call(memberAccessor, method, val);
+
+                    if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
+                    {
+                        expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                    }
+                    else
+                    {
+                        expression = callExpression;
+                    }
+
                     break;
                 }
 
             case "isEmpty":
                 {
                     var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
-                    expression = Expression.Call(method, memberAccessor);
+                    var callExpression = Expression.Call(method, memberAccessor);
+
+                    if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
+                    {
+                        expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                    }
+                    else
+                    {
+                        expression = callExpression;
+                    }
+
                     break;
                 }
 
             case "isNotEmpty":
                 {
                     var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
-                    expression = Expression.Not(Expression.Call(method, memberAccessor));
+                    var callExpression = Expression.Not(Expression.Call(method, memberAccessor));
+
+                    if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
+                    {
+                        expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                    }
+                    else
+                    {
+                        expression = callExpression;
+                    }
+
                     break;
                 }
 
@@ -58,7 +108,17 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
                 {
                     var values = this.GetValueConstantExpressionList(member, filter);
                     var method = typeof(ICollection<string>).GetMethod("Contains")!;
-                    expression = Expression.Call(values, method, memberAccessor);
+                    var callExpression = Expression.Call(values, method, memberAccessor);
+
+                    if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
+                    {
+                        expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                    }
+                    else
+                    {
+                        expression = callExpression;
+                    }
+
                     break;
                 }
 

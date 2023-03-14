@@ -3,7 +3,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 // https://github.com/mui/mui-x/blob/master/packages/grid/x-data-grid/src/colDef/gridNumericOperators.ts
 public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 {
-    protected override Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override Expression InternalHandle(ColumnLookupMember member, ExpressionBuilderFlavour flavour, MuiDataGridFilterItemInput filter)
     {
         Expression expression;
         var memberAccessor = member.Expression;

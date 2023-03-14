@@ -2,7 +2,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 public class DefaultGuidHandler<T> : ExpressionBuilderHandler<T>
 {
-    protected override Expression InternalHandle(ColumnLookupMember member, MuiDataGridFilterItemInput filter)
+    protected override Expression InternalHandle(ColumnLookupMember member, ExpressionBuilderFlavour flavour, MuiDataGridFilterItemInput filter)
     {
         Expression expression;
         var memberAccessor = member.Expression;

@@ -75,7 +75,7 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
                 {
                     filter.Value.AssertNotNull(filter.OperatorValue);
                     var values = this.GetValueConstantExpressionList(member, filter);
-                    MethodInfo method = GetContainsMethod(member);
+                    var method = GetContainsMethod(member);
                     expression = Expression.Call(values, method, memberAccessor);
                     break;
                 }

@@ -19,7 +19,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
             case "contains":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("Contains", new[] { typeof(string) })!;
                     expression = Expression.Call(memberAccessor, method, val);
                     break;
                 }
@@ -27,7 +27,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
             case "startsWith":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    MethodInfo method = typeof(string).GetMethod("StartsWith", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("StartsWith", new[] { typeof(string) })!;
                     expression = Expression.Call(memberAccessor, method, val);
                     break;
                 }
@@ -35,32 +35,29 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
             case "endsWith":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    MethodInfo endsWithMethod = typeof(string).GetMethod("EndsWith", new[] { typeof(string) })!;
-                    expression = Expression.Call(memberAccessor, endsWithMethod, val);
+                    var method = typeof(string).GetMethod("EndsWith", new[] { typeof(string) })!;
+                    expression = Expression.Call(memberAccessor, method, val);
                     break;
                 }
 
             case "isEmpty":
                 {
-                    MethodInfo method =
-                        typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
                     expression = Expression.Call(method, memberAccessor);
                     break;
                 }
 
             case "isNotEmpty":
                 {
-                    MethodInfo isNullOrEmptyMethod =
-                        typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
-                    expression = Expression.Not(Expression.Call(isNullOrEmptyMethod, memberAccessor));
+                    var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
+                    expression = Expression.Not(Expression.Call(method, memberAccessor));
                     break;
                 }
 
             case "isAnyOf":
                 {
                     var values = this.GetValueConstantExpressionList(member, filter);
-                    MethodInfo method =
-                        typeof(ICollection<string>).GetMethod("Contains")!;
+                    var method = typeof(ICollection<string>).GetMethod("Contains")!;
                     expression = Expression.Call(values, method, memberAccessor);
                     break;
                 }

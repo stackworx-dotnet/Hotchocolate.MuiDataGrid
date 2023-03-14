@@ -18,7 +18,7 @@ public class DefaultPredicateHandler<T> : ExpressionBuilderHandler<T>
             case "contains":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    MethodInfo method = typeof(string).GetMethod(
+                    var method = typeof(string).GetMethod(
                         "Contains",
                         new[]
                         {
@@ -31,7 +31,7 @@ public class DefaultPredicateHandler<T> : ExpressionBuilderHandler<T>
             case "startsWith":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    MethodInfo method = typeof(string).GetMethod(
+                    var method = typeof(string).GetMethod(
                         "StartsWith",
                         new[]
                         {
@@ -44,7 +44,7 @@ public class DefaultPredicateHandler<T> : ExpressionBuilderHandler<T>
             case "endsWith":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    MethodInfo endsWithMethod = typeof(string).GetMethod(
+                    var endsWithMethod = typeof(string).GetMethod(
                         "EndsWith",
                         new[]
                         {
@@ -56,7 +56,7 @@ public class DefaultPredicateHandler<T> : ExpressionBuilderHandler<T>
 
             case "isEmpty":
                 {
-                    MethodInfo method =
+                    var method =
                         typeof(string).GetMethod(
                             "IsNullOrEmpty",
                             new[]
@@ -69,7 +69,7 @@ public class DefaultPredicateHandler<T> : ExpressionBuilderHandler<T>
 
             case "isNotEmpty":
                 {
-                    MethodInfo isNullOrEmptyMethod =
+                    var isNullOrEmptyMethod =
                         typeof(string).GetMethod(
                             "IsNullOrEmpty",
                             new[]
@@ -83,8 +83,7 @@ public class DefaultPredicateHandler<T> : ExpressionBuilderHandler<T>
             case "isAnyOf":
                 {
                     var values = this.GetValueConstantExpressionList(member, filter);
-                    MethodInfo method =
-                        typeof(ICollection<string>).GetMethod("Contains")!;
+                    var method = typeof(ICollection<string>).GetMethod("Contains")!;
                     expression = Expression.Call(values, method, memberAccessor);
                     break;
                 }

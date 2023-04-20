@@ -25,10 +25,11 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
 
         return type switch
         {
-            var x when x == typeof(Guid) => Guid.Parse(id.Value.ToString()!),
-            var x when x == typeof(int) => int.Parse(id.Value.ToString()!),
-            var x when x == typeof(long) => long.Parse(id.Value.ToString()!),
-            var x when x == typeof(short) => short.Parse(id.Value.ToString()!),
+            _ when type == typeof(string) => id.Value.ToString()!,
+            _ when type == typeof(Guid) => Guid.Parse(id.Value.ToString()!),
+            _ when type == typeof(int) => int.Parse(id.Value.ToString()!),
+            _ when type == typeof(long) => long.Parse(id.Value.ToString()!),
+            _ when type == typeof(short) => short.Parse(id.Value.ToString()!),
             _ => throw new ArgumentException($"Invalid type: {member.Type}"),
         };
     }

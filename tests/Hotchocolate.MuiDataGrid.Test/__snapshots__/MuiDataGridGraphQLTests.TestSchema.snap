@@ -32,6 +32,7 @@ type Person {
   weight: Float
   bankAccountBalance: Decimal
   refId: UUID!
+  refIdNullable: UUID
   nonGraphQlSerialisedId: UUID!
   dateOfBirth: DateTime!
   marriageDate: DateTime

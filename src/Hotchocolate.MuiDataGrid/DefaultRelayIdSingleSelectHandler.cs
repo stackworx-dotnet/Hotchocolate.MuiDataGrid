@@ -21,7 +21,9 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
             throw new ArgumentException($"Expected Type: {this.relayType} got: {id.TypeName}");
         }
 
-        return member.Type switch
+        var type = member.Type.UnwrapNullable();
+
+        return type switch
         {
             var x when x == typeof(Guid) => Guid.Parse(id.Value.ToString()!),
             var x when x == typeof(int) => int.Parse(id.Value.ToString()!),

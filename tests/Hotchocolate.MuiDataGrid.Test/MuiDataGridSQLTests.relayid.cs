@@ -91,4 +91,32 @@ public partial class MuiDataGridSQLTests
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
     }
+
+    [Fact]
+    public async Task TestNullableRelayHandler()
+    {
+        var idSerializer = this.fixture.Services.GetRequiredService<IIdSerializer>();
+        var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
+        var relayId = idSerializer.Serialize(Schema.DefaultName, "Ref", g);
+        await using var dbContext = await this.fixture.CreateDbContextAsync();
+
+        var filters = new MuiDataGridFilterInput
+        {
+            Items = new List<MuiDataGridFilterItemInput>
+            {
+                new(
+                    Value: new MuiValue($"{relayId}"),
+                    ColumnField: "refIdNullable",
+                    OperatorValue: "is"),
+            },
+        };
+        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
+        builder.AddHandler("refIdNullable", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
+
+        var sql = dbContext.People.Where(p => p.RefIdNullable == Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B")).ToQueryString();
+        var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
+        muiSql.Should().Be(sql);
+        muiSql.MatchSnapshot();
+    }
 }

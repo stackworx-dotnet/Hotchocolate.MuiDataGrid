@@ -28,6 +28,8 @@ public class PersonColumnLookup : BaseColumnLookup<Person>
                 return this.GetMemberExpression(p => p.Gender);
             case "refId":
                 return this.GetMemberExpression(p => p.RefId);
+            case "refIdNullable":
+                return this.GetMemberExpression(p => p.RefIdNullable);
             case "nonGraphQlSerialisedId":
                 return this.GetMemberExpression(p => p.NonGraphQlSerialisedId);
             case "dateOfBirth":

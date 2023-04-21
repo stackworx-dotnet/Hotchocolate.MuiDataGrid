@@ -8,28 +8,64 @@ public class DefaultGuidHandler<T> : ExpressionBuilderHandler<T>
         var memberAccessor = member.Expression;
         switch (filter.OperatorValue)
         {
-            case "is":
+            case "equals":
+            {
+                var val = this.GetValueConstantExpression(member, filter);
+                expression = Expression.Equal(memberAccessor, val);
+                break;
+            }
+
+            case "isEmpty":
+            {
+                var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
+                var callExpression = Expression.Call(method, memberAccessor);
+
+                if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
                 {
-                    var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.Equal(memberAccessor, val);
-                    break;
+                    expression = this.WrapWithNullCheck(member.Expression, callExpression);
+                }
+                else
+                {
+                    expression = callExpression;
                 }
 
-            case "not":
+                break;
+            }
+
+            case "isNotEmpty":
+            {
+                var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
+                var callExpression = Expression.Not(Expression.Call(method, memberAccessor));
+
+                if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
                 {
-                    var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.Not(Expression.Equal(memberAccessor, val));
-                    break;
+                    expression = this.WrapWithNullCheck(member.Expression, callExpression);
                 }
+                else
+                {
+                    expression = callExpression;
+                }
+
+                break;
+            }
 
             case "isAnyOf":
+            {
+                var values = this.GetValueConstantExpressionList(member, filter);
+                var method = typeof(ICollection<string>).GetMethod("Contains")!;
+                var callExpression = Expression.Call(values, method, memberAccessor);
+
+                if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
                 {
-                    var generic = typeof(ICollection<>);
-                    var constructed = generic.MakeGenericType(member.Type);
-                    var method = constructed.GetMethod("Contains")!;
-                    expression = Expression.Call(this.GetValueConstantExpressionList(member, filter), method, memberAccessor);
-                    break;
+                    expression = this.WrapWithNullCheck(member.Expression, callExpression);
                 }
+                else
+                {
+                    expression = callExpression;
+                }
+
+                break;
+            }
 
             default:
                 throw new Exception($"Unknown operator: {filter.OperatorValue}");

@@ -590,7 +590,7 @@ public partial class MuiDataGridGraphQLTests
                     items: [{
                         columnField: ""nonGraphQlSerialisedId"",
                         value: {label: ""Reference1"", value: ""9F1EF691-2C5C-4BDE-B0BE-635BDD4E180C""},
-                        operatorValue: ""is""
+                        operatorValue: ""equals""
                     }]
                 }) { firstname }
             }",

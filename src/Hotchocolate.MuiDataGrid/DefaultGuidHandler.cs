@@ -18,55 +18,16 @@ public class DefaultGuidHandler<T> : ExpressionBuilderHandler<T>
             case "not":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.NotEqual(memberAccessor, val);
+                    expression = Expression.Not(Expression.Equal(memberAccessor, val));
                     break;
                 }
 
-            case "after":
+            case "isAnyOf":
                 {
-                    var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.GreaterThan(memberAccessor, val);
-                    break;
-                }
-
-            case "onOrAfter":
-                {
-                    var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.GreaterThanOrEqual(memberAccessor, val);
-                    break;
-                }
-
-            case "before":
-                {
-                    var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.LessThan(memberAccessor, val);
-                    break;
-                }
-
-            case "onOrBefore":
-                {
-                    var val = this.GetValueConstantExpression(member, filter);
-                    expression = Expression.LessThanOrEqual(memberAccessor, val);
-                    break;
-                }
-
-            case "isEmpty":
-                {
-                    if (memberAccessor.Type.IsNullable())
-                    {
-                        expression = Expression.Equal(Expression.Constant(null), memberAccessor);
-                    }
-                    else
-                    {
-                        expression = Expression.Constant(true);
-                    }
-
-                    break;
-                }
-
-            case "isNotEmpty":
-                {
-                    expression = Expression.NotEqual(memberAccessor, Expression.Constant(null));
+                    var generic = typeof(ICollection<>);
+                    var constructed = generic.MakeGenericType(member.Type);
+                    var method = constructed.GetMethod("Contains")!;
+                    expression = Expression.Call(this.GetValueConstantExpressionList(member, filter), method, memberAccessor);
                     break;
                 }
 

@@ -19,8 +19,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("5"),
-                    ColumnField: "age",
-                    OperatorValue: "="),
+                    Field: "age",
+                    Operator: "="),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -40,8 +40,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("5"),
-                    ColumnField: "age",
-                    OperatorValue: "!="),
+                    Field: "age",
+                    Operator: "!="),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -61,8 +61,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("5"),
-                    ColumnField: "age",
-                    OperatorValue: ">"),
+                    Field: "age",
+                    Operator: ">"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -82,8 +82,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("5"),
-                    ColumnField: "age",
-                    OperatorValue: ">="),
+                    Field: "age",
+                    Operator: ">="),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -103,8 +103,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("5"),
-                    ColumnField: "age",
-                    OperatorValue: "<"),
+                    Field: "age",
+                    Operator: "<"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -124,8 +124,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("5"),
-                    ColumnField: "age",
-                    OperatorValue: "<="),
+                    Field: "age",
+                    Operator: "<="),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -145,8 +145,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: null,
-                    ColumnField: "weight",
-                    OperatorValue: "isEmpty"),
+                    Field: "weight",
+                    Operator: "isEmpty"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -166,8 +166,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: null,
-                    ColumnField: "weight",
-                    OperatorValue: "isNotEmpty"),
+                    Field: "weight",
+                    Operator: "isNotEmpty"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -187,8 +187,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue(new List<string> { "5", "6" }),
-                    ColumnField: "age",
-                    OperatorValue: "isAnyOf"),
+                    Field: "age",
+                    Operator: "isAnyOf"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());

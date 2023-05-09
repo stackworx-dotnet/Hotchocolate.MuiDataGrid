@@ -11,15 +11,15 @@ public class JsonDeserializationTests
         // given
         var jsonString = @"{
     ""items"": [{
-        ""columnField"": ""field1"",
+        ""field"": ""field1"",
         ""value"": ""f"",
-        ""operatorValue"": ""contains""
+        ""operator"": ""contains""
     }, {
-        ""columnField"": ""field2"",
+        ""field"": ""field2"",
         ""value"": [""0.5""],
-        ""operatorValue"": ""isAnyOf""
+        ""operator"": ""isAnyOf""
     }],
-    ""linkOperator"": ""or""
+    ""logicOperator"": ""or""
 }";
 
         // when
@@ -34,7 +34,7 @@ public class JsonDeserializationTests
                 new("field1", new MuiValue("f"), "contains"),
                 new("field2", new MuiValue(new List<string> { "0.5" }), "isAnyOf"),
             },
-            LinkOperator = MuiDataGridLinkOperator.Or,
+            LogicOperator = MuiDataGridLogicOperator.Or,
         });
     }
 

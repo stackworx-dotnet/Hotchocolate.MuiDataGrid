@@ -72,7 +72,7 @@ public class ExpressionBuilder<T>
             default:
                 {
                     var first = predicates.Pop();
-                    return filters.LinkOperator == MuiDataGridLinkOperator.Or
+                    return filters.LogicOperator == MuiDataGridLogicOperator.Or
                         ? predicates.Aggregate(first, Or)
                         : predicates.Aggregate(first, And);
                 }
@@ -94,9 +94,9 @@ public class ExpressionBuilder<T>
     // MemberExpression memberAccessor,
     private Expression<Func<T, bool>> Build(MuiDataGridFilterItemInput filter)
     {
-        var memberAccessor = this.columnLookup.Lookup(filter.ColumnField);
+        var memberAccessor = this.columnLookup.Lookup(filter.Field);
 
-        if (this.handlers.TryGetValue(filter.ColumnField, out var handler))
+        if (this.handlers.TryGetValue(filter.Field, out var handler))
         {
             return handler.Handle(memberAccessor, this.flavour, filter);
         }

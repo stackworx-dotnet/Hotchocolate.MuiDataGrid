@@ -41,8 +41,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("Ciaran"),
-                    ColumnField: "firstname",
-                    OperatorValue: "equals"),
+                    Field: "firstname",
+                    Operator: "equals"),
             },
         };
         var sql = dbContext.People.Where(p => p.Firstname.Equals("Ciaran")).ToQueryString();
@@ -61,8 +61,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("Ciaran"),
-                    ColumnField: "firstname",
-                    OperatorValue: "contains"),
+                    Field: "firstname",
+                    Operator: "contains"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -82,8 +82,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("Ciaran"),
-                    ColumnField: "firstname",
-                    OperatorValue: "startsWith"),
+                    Field: "firstname",
+                    Operator: "startsWith"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -103,8 +103,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("Ciaran"),
-                    ColumnField: "firstname",
-                    OperatorValue: "endsWith"),
+                    Field: "firstname",
+                    Operator: "endsWith"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -124,8 +124,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: null,
-                    ColumnField: "bio",
-                    OperatorValue: "isEmpty"),
+                    Field: "bio",
+                    Operator: "isEmpty"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -145,8 +145,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: null,
-                    ColumnField: "bio",
-                    OperatorValue: "isNotEmpty"),
+                    Field: "bio",
+                    Operator: "isNotEmpty"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -167,8 +167,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue(values),
-                    ColumnField: "firstname",
-                    OperatorValue: "isAnyOf"),
+                    Field: "firstname",
+                    Operator: "isAnyOf"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());

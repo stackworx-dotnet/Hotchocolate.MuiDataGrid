@@ -9,5 +9,5 @@ public record MuiDataGridFilterInput
     public IList<MuiDataGridFilterItemInput> Items { get; set; } = new List<MuiDataGridFilterItemInput>();
 
     [JsonConverter(typeof(MuiDataGridLinkOperatorConverter))]
-    public MuiDataGridLinkOperator? LinkOperator { get; set; }
+    public MuiDataGridLogicOperator? LogicOperator { get; set; }
 }

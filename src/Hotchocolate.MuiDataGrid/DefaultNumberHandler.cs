@@ -7,7 +7,7 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
     {
         Expression expression;
         var memberAccessor = member.Expression;
-        switch (filter.OperatorValue)
+        switch (filter.Operator)
         {
             case "=":
                 {
@@ -73,7 +73,7 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
 
             case "isAnyOf":
                 {
-                    filter.Value.AssertNotNull(filter.OperatorValue);
+                    filter.Value.AssertNotNull(filter.Operator);
                     var values = this.GetValueConstantExpressionList(member, filter);
                     var method = GetContainsMethod(member);
                     expression = Expression.Call(values, method, memberAccessor);
@@ -81,7 +81,7 @@ public class DefaultNumberHandler<T> : ExpressionBuilderHandler<T>
                 }
 
             default:
-                throw new ArgumentException($"Unknown operator: {filter.OperatorValue}");
+                throw new ArgumentException($"Unknown operator: {filter.Operator}");
         }
 
         return expression;

@@ -34,15 +34,15 @@ public partial class MuiDataGridGraphQLTests
                         Items = new List<MuiDataGridFilterItemInput>
                         {
                             new(
-                                ColumnField: "firstname",
+                                Field: "firstname",
                                 Value: new MuiValue("\"Celeste\""),
-                                OperatorValue: "equals"),
+                                Operator: "equals"),
                             new(
-                                ColumnField: "firstname",
+                                Field: "firstname",
                                 Value: new MuiValue("\"Johanny\""),
-                                OperatorValue: "equals"),
+                                Operator: "equals"),
                         },
-                        LinkOperator = MuiDataGridLinkOperator.Or,
+                        LogicOperator = MuiDataGridLogicOperator.Or,
                     })
                 },
             });
@@ -63,15 +63,15 @@ public partial class MuiDataGridGraphQLTests
                         Items = new List<MuiDataGridFilterItemInput>
                         {
                             new(
-                                ColumnField: "firstname",
+                                Field: "firstname",
                                 Value: new MuiValue("Celeste"),
-                                OperatorValue: "equals"),
+                                Operator: "equals"),
                             new(
-                                ColumnField: "lastname",
+                                Field: "lastname",
                                 Value: new MuiValue("Le Roux"),
-                                OperatorValue: "equals"),
+                                Operator: "equals"),
                         },
-                        LinkOperator = MuiDataGridLinkOperator.And,
+                        LogicOperator = MuiDataGridLogicOperator.And,
                     })
                 },
             });
@@ -92,30 +92,30 @@ public partial class MuiDataGridGraphQLTests
                         Items = new List<MuiDataGridFilterItemInput>
                         {
                             new(
-                                ColumnField: "firstname",
+                                Field: "firstname",
                                 Value: new MuiValue("Celeste"),
-                                OperatorValue: "equals"),
+                                Operator: "equals"),
                             new(
-                                ColumnField: "lastname",
+                                Field: "lastname",
                                 Value: new MuiValue("Le Roux"),
-                                OperatorValue: "equals"),
+                                Operator: "equals"),
                             // new(
-                            //     ColumnField: "gender",
+                            //     Field: "gender",
                             //     Value: new MuiValue("MALE"),
-                            //     OperatorValue: "is"),
+                            //     Operator: "is"),
                             // TODO: this breaks on linux
                             /*
                             new(
-                                ColumnField: "dateOfBirth",
+                                Field: "dateOfBirth",
                                 Value: new MuiValue("2022-05-27T13:41"),
-                                OperatorValue: "after"),
+                                Operator: "after"),
                             */
                             new(
-                                ColumnField: "marriageDate",
+                                Field: "marriageDate",
                                 Value: null,
-                                OperatorValue: "isNotEmpty"),
+                                Operator: "isNotEmpty"),
                         },
-                        LinkOperator = MuiDataGridLinkOperator.And,
+                        LogicOperator = MuiDataGridLogicOperator.And,
                     })
                 },
             });
@@ -148,13 +148,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "apartmentName"
+                                        "field", "apartmentName"
                                     },
                                     {
                                         "value", new MuiValue("Number")
                                     },
                                     {
-                                        "operatorValue", "contains"
+                                        "operator", "contains"
                                     },
                                     {
                                         "id", 1342532
@@ -185,13 +185,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "sellDate"
+                                        "field", "sellDate"
                                     },
                                     {
                                         "value", new MuiValue("2022-07-08")
                                     },
                                     {
-                                        "operatorValue", "is"
+                                        "operator", "is"
                                     },
                                     {
                                         "id", 1342530
@@ -222,13 +222,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "price"
+                                        "field", "price"
                                     },
                                     {
                                         "value", new MuiValue("14.01")
                                     },
                                     {
-                                        "operatorValue", ">="
+                                        "operator", ">="
                                     },
                                     {
                                         "id", 1342531
@@ -259,13 +259,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "bankAccountBalance"
+                                        "field", "bankAccountBalance"
                                     },
                                     {
                                         "value", new MuiValue("10.51")
                                     },
                                     {
-                                        "operatorValue", ">="
+                                        "operator", ">="
                                     },
                                     {
                                         "id", 1842790
@@ -296,13 +296,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "weight"
+                                        "field", "weight"
                                     },
                                     {
                                         "value", new MuiValue("70.02")
                                     },
                                     {
-                                        "operatorValue", ">="
+                                        "operator", ">="
                                     },
                                     {
                                         "id", 1942723
@@ -333,13 +333,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "id"
+                                        "field", "id"
                                     },
                                     {
                                         "value", new MuiValue(new IdSerializer().Serialize("Person", 1)!)
                                     },
                                     {
-                                        "operatorValue", "is"
+                                        "operator", "is"
                                     },
                                     {
                                         "id", 134253732
@@ -370,13 +370,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "refId"
+                                        "field", "refId"
                                     },
                                     {
                                         "value", new MuiValue(new IdSerializer().Serialize("Ref", "9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C")!)
                                     },
                                     {
-                                        "operatorValue", "is"
+                                        "operator", "is"
                                     },
                                     {
                                         "id", 1425372
@@ -407,13 +407,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "apartmentType"
+                                        "field", "apartmentType"
                                     },
                                     {
                                         "value", new MuiValue("RENTAL_PROPERTY")
                                     },
                                     {
-                                        "operatorValue", "is"
+                                        "operator", "is"
                                     },
                                     {
                                         "id", 19216
@@ -444,13 +444,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "firstname"
+                                        "field", "firstname"
                                     },
                                     {
                                         "value", new MuiValue("Celeste")
                                     },
                                     {
-                                        "operatorValue", "equals"
+                                        "operator", "equals"
                                     },
                                     {
                                         "id", 1342532
@@ -476,13 +476,13 @@ public partial class MuiDataGridGraphQLTests
                                 new()
                                 {
                                     {
-                                        "columnField", "firstname"
+                                        "field", "firstname"
                                     },
                                     {
                                         "value", new MuiValue("Celeste")
                                     },
                                     {
-                                        "operatorValue", "equals"
+                                        "operator", "equals"
                                     },
                                     {
                                         "id", "1342532"
@@ -506,13 +506,13 @@ public partial class MuiDataGridGraphQLTests
             Query = @"query people { 
                 people(filters: {
                     items: [{
-                        columnField: ""firstname"",
+                        field: ""firstname"",
                         value: ""Celeste"",
-                        operatorValue: ""equals""
+                        operator: ""equals""
                     }, {
-                        columnField: ""age"",
+                        field: ""age"",
                         value: [""5"", ""6""],
-                        operatorValue: ""isAnyOf""
+                        operator: ""isAnyOf""
                     }]
                 }) { firstname } 
             }",
@@ -543,19 +543,19 @@ public partial class MuiDataGridGraphQLTests
                                 new Dictionary<string, object>
                                 {
                                     {
-                                        "columnField", "firstname"
+                                        "field", "firstname"
                                     },
                                     {
                                         "value", "Celeste"
                                     },
                                     {
-                                        "operatorValue", "equals"
+                                        "operator", "equals"
                                     },
                                 },
                                 new Dictionary<string, object>
                                 {
                                     {
-                                        "columnField", "age"
+                                        "field", "age"
                                     },
                                     {
                                         "value", new List<object>
@@ -565,7 +565,7 @@ public partial class MuiDataGridGraphQLTests
                                         }
                                     },
                                     {
-                                        "operatorValue", "isAnyOf"
+                                        "operator", "isAnyOf"
                                     },
                                 },
                             }
@@ -588,9 +588,9 @@ public partial class MuiDataGridGraphQLTests
             Query = @"query people { 
                 people(filters: {
                     items: [{
-                        columnField: ""nonGraphQlSerialisedId"",
+                        field: ""nonGraphQlSerialisedId"",
                         value: {label: ""Reference1"", value: ""9F1EF691-2C5C-4BDE-B0BE-635BDD4E180C""},
-                        operatorValue: ""equals""
+                        operator: ""equals""
                     }]
                 }) { firstname }
             }",

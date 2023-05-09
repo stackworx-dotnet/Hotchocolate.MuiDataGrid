@@ -8,9 +8,9 @@ using Stackworx.Hotchocolate.MuiDataGrid.Types;
 
 // https://github.com/mui/mui-x/blob/master/packages/grid/x-data-grid/src/models/gridFilterItem.ts
 public record MuiDataGridFilterItemInput(
-    string ColumnField,
+    string Field,
     [property: GraphQLType(typeof(MuiValueType)), JsonConverter(typeof(MuiValueConverter))]
     MuiValue? Value,
-    string OperatorValue,
+    string Operator,
     [property: GraphQLType(typeof(AnyType))]
     object? Id = null);

@@ -2,12 +2,12 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.EnumTypes;
 
 using HotChocolate.Types;
 
-public class MuiDataGridLinkOperatorEnumType : EnumType<MuiDataGridLinkOperator>
+public class MuiDataGridLinkOperatorEnumType : EnumType<MuiDataGridLogicOperator>
 {
-    protected override void Configure(IEnumTypeDescriptor<MuiDataGridLinkOperator> descriptor)
+    protected override void Configure(IEnumTypeDescriptor<MuiDataGridLogicOperator> descriptor)
     {
         descriptor.Name("MuiDataGridLinkOperator");
-        descriptor.Value(MuiDataGridLinkOperator.Or).Name("or");
-        descriptor.Value(MuiDataGridLinkOperator.And).Name("and");
+        descriptor.Value(MuiDataGridLogicOperator.Or).Name("or");
+        descriptor.Value(MuiDataGridLogicOperator.And).Name("and");
     }
 }

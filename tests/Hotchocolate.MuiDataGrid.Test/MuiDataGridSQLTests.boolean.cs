@@ -19,8 +19,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("true"),
-                    ColumnField: "married",
-                    OperatorValue: "is"),
+                    Field: "married",
+                    Operator: "is"),
             },
         };
         var sql = dbContext.People.Where(p => p.Married == true).ToQueryString();
@@ -40,8 +40,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("false"),
-                    ColumnField: "married",
-                    OperatorValue: "is"),
+                    Field: "married",
+                    Operator: "is"),
             },
         };
         var sql = dbContext.People.Where(p => p.Married == false).ToQueryString();

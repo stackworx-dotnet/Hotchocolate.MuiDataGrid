@@ -19,8 +19,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("MALE"),
-                    ColumnField: "gender",
-                    OperatorValue: "is"),
+                    Field: "gender",
+                    Operator: "is"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -43,8 +43,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("MALE"),
-                    ColumnField: "gender",
-                    OperatorValue: "not"),
+                    Field: "gender",
+                    Operator: "not"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -67,8 +67,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("RENTAL_PROPERTY"),
-                    ColumnField: "apartmentType",
-                    OperatorValue: "is"),
+                    Field: "apartmentType",
+                    Operator: "is"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -97,8 +97,8 @@ public partial class MuiDataGridSQLTests
                         "MALE",
                         "FEMALE",
                     }),
-                    ColumnField: "gender",
-                    OperatorValue: "isAnyOf"),
+                    Field: "gender",
+                    Operator: "isAnyOf"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());

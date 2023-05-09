@@ -13,7 +13,7 @@ public partial class MuiDataGridGraphQLTests
                 "items", input.Items
             },
             {
-                "linkOperator", input.LinkOperator
+                "logicOperator", input.LogicOperator
             },
         }.ToImmutableDictionary();
     }

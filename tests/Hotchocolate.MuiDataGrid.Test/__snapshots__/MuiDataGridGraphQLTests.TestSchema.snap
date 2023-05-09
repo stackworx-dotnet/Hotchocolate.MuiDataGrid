@@ -50,13 +50,13 @@ type Query {
 
 input MuiDataGridFilterInput {
   items: [MuiDataGridFilterItemInput!]!
-  linkOperator: MuiDataGridLinkOperator
+  logicOperator: MuiDataGridLinkOperator
 }
 
 input MuiDataGridFilterItemInput {
-  columnField: String!
+  field: String!
   value: MuiValue
-  operatorValue: String!
+  operator: String!
   id: Any
 }
 

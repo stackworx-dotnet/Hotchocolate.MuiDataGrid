@@ -6,7 +6,7 @@ public class DefaultGuidHandler<T> : ExpressionBuilderHandler<T>
     {
         Expression expression;
         var memberAccessor = member.Expression;
-        switch (filter.OperatorValue)
+        switch (filter.Operator)
         {
             case "equals":
                 {
@@ -68,7 +68,7 @@ public class DefaultGuidHandler<T> : ExpressionBuilderHandler<T>
                 }
 
             default:
-                throw new Exception($"Unknown operator: {filter.OperatorValue}");
+                throw new Exception($"Unknown operator: {filter.Operator}");
         }
 
         return expression;

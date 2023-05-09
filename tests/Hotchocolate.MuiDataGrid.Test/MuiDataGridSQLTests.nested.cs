@@ -19,8 +19,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("Hello"),
-                    ColumnField: "apartmentName",
-                    OperatorValue: "contains"),
+                    Field: "apartmentName",
+                    Operator: "contains"),
             },
         };
         var sql = dbContext.People.Where(p => p.Address!.Apartment.Name.Contains("Hello")).ToQueryString();

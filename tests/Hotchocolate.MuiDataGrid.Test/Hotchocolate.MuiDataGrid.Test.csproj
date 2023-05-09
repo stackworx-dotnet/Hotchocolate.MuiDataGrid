@@ -50,8 +50,4 @@
         <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyIsNotEmpty.snap" />
         <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestPersonQuery.snap" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="__snapshots__" />
-    </ItemGroup>
 </Project>

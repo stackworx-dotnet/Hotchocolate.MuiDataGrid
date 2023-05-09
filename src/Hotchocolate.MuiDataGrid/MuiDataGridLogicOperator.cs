@@ -1,6 +1,6 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
-public enum MuiDataGridLinkOperator
+public enum MuiDataGridLogicOperator
 {
     And,
     Or,

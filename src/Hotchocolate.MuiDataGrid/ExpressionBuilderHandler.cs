@@ -24,7 +24,7 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
         ColumnLookupMember member,
         MuiDataGridFilterItemInput filter)
     {
-        filter.Value.AssertNotNull(filter.OperatorValue);
+        filter.Value.AssertNotNull(filter.Operator);
         return Expression.Constant(this.ParseValue(member, filter.Value), member.Expression.Type);
     }
 
@@ -32,7 +32,7 @@ public abstract class ExpressionBuilderHandler<T> : IExpressionBuilderHandler<T>
         ColumnLookupMember member,
         MuiDataGridFilterItemInput filter)
     {
-        filter.Value.AssertNotNull(filter.OperatorValue);
+        filter.Value.AssertNotNull(filter.Operator);
         var list = CreateGenericList(member.Type);
         foreach (var value in filter.Value.AsArray())
         {

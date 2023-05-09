@@ -19,8 +19,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("2022-05-31"),
-                    ColumnField: "createdAtDate",
-                    OperatorValue: "is"),
+                    Field: "createdAtDate",
+                    Operator: "is"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -41,8 +41,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("2022-05-31"),
-                    ColumnField: "createdAtDate",
-                    OperatorValue: "not"),
+                    Field: "createdAtDate",
+                    Operator: "not"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -63,8 +63,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("2022-05-31"),
-                    ColumnField: "createdAtDate",
-                    OperatorValue: "after"),
+                    Field: "createdAtDate",
+                    Operator: "after"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -85,8 +85,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("2022-05-31"),
-                    ColumnField: "createdAtDate",
-                    OperatorValue: "onOrAfter"),
+                    Field: "createdAtDate",
+                    Operator: "onOrAfter"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -107,8 +107,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("2022-05-31"),
-                    ColumnField: "createdAtDate",
-                    OperatorValue: "before"),
+                    Field: "createdAtDate",
+                    Operator: "before"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -129,8 +129,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue("2022-05-31"),
-                    ColumnField: "createdAtDate",
-                    OperatorValue: "onOrBefore"),
+                    Field: "createdAtDate",
+                    Operator: "onOrBefore"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -151,8 +151,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: null,
-                    ColumnField: "updatedAtDate",
-                    OperatorValue: "isEmpty"),
+                    Field: "updatedAtDate",
+                    Operator: "isEmpty"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -173,8 +173,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: null,
-                    ColumnField: "updatedAtDate",
-                    OperatorValue: "isNotEmpty"),
+                    Field: "updatedAtDate",
+                    Operator: "isNotEmpty"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());

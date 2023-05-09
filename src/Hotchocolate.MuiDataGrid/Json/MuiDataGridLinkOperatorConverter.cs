@@ -3,9 +3,9 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLinkOperator>
+public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLogicOperator>
 {
-    public override MuiDataGridLinkOperator Read(
+    public override MuiDataGridLogicOperator Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options)
@@ -18,13 +18,13 @@ public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLinkOpe
         var s = reader.GetString();
         return s switch
         {
-            "and" => MuiDataGridLinkOperator.And,
-            "or" => MuiDataGridLinkOperator.Or,
-            _ => throw new JsonException($"Could not parse {nameof(MuiDataGridLinkOperator)}: {s}"),
+            "and" => MuiDataGridLogicOperator.And,
+            "or" => MuiDataGridLogicOperator.Or,
+            _ => throw new JsonException($"Could not parse {nameof(MuiDataGridLogicOperator)}: {s}"),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, MuiDataGridLinkOperator value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, MuiDataGridLogicOperator value, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

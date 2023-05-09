@@ -25,8 +25,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue($"{relayId}"),
-                    ColumnField: "refId",
-                    OperatorValue: "is"),
+                    Field: "refId",
+                    Operator: "is"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -52,8 +52,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue($"{relayId}"),
-                    ColumnField: "refId",
-                    OperatorValue: "not"),
+                    Field: "refId",
+                    Operator: "not"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -79,8 +79,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue(new List<string> { relayId! }),
-                    ColumnField: "refId",
-                    OperatorValue: "isAnyOf"),
+                    Field: "refId",
+                    Operator: "isAnyOf"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
@@ -106,8 +106,8 @@ public partial class MuiDataGridSQLTests
             {
                 new(
                     Value: new MuiValue($"{relayId}"),
-                    ColumnField: "refIdNullable",
-                    OperatorValue: "is"),
+                    Field: "refIdNullable",
+                    Operator: "is"),
             },
         };
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());

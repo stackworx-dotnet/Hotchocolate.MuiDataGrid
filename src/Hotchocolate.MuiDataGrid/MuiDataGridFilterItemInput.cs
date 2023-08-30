@@ -13,4 +13,5 @@ public record MuiDataGridFilterItemInput(
     MuiValue? Value,
     string Operator,
     [property: GraphQLType(typeof(AnyType))]
-    object? Id = null);
+    object? Id = null,
+    string? FromInput = null);

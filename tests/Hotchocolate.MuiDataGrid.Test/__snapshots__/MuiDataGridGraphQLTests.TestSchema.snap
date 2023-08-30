@@ -58,6 +58,7 @@ input MuiDataGridFilterItemInput {
   value: MuiValue
   operator: String!
   id: Any
+  fromInput: String
 }
 
 input MuiDataGridSortItemInput {

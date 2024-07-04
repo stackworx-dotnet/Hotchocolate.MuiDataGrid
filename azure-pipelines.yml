@@ -68,6 +68,7 @@ stages:
 
   - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
       - stage: Publish
+        dependsOn: Test
         jobs:
           - job: Publish
             steps:

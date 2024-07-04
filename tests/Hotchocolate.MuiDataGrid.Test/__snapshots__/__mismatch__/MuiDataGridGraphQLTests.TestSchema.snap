@@ -1,0 +1,103 @@
+﻿schema {
+  query: Query
+}
+
+type Address {
+  id: Int!
+  streetNumber: Int!
+  province: String!
+  streetLine1: String!
+  streetLine2: String!
+  apartmentId: Int!
+  apartment: Apartment!
+}
+
+type Apartment {
+  id: Int!
+  houseNumber: Int!
+  name: String!
+  price: Decimal!
+  sellDate: DateTime
+  apartmentType: ApartmentType!
+}
+
+type Person {
+  id: Int!
+  firstname: String!
+  lastname: String!
+  bio: String
+  age: Int!
+  married: Boolean!
+  gender: Gender!
+  weight: Float
+  bankAccountBalance: Decimal
+  refId: UUID!
+  refIdNullable: UUID
+  nonGraphQlSerialisedId: UUID!
+  dateOfBirth: DateTime!
+  marriageDate: DateTime
+  idCardReceivedDate: DateTime
+  createdAtDate: Date!
+  updatedAtDate: Date
+  addressId: Int
+  address: Address
+}
+
+type Query {
+  people(filters: MuiDataGridFilterInput sorting: [MuiDataGridSortItemInput!]): [Person!]!
+  input(input: MuiDataGridFilterItemInput!): String
+}
+
+input MuiDataGridFilterInput {
+  items: [MuiDataGridFilterItemInput!]!
+  logicOperator: MuiDataGridLinkOperator
+}
+
+input MuiDataGridFilterItemInput {
+  field: String!
+  value: MuiValue
+  operator: String!
+  id: Any
+  fromInput: String
+}
+
+input MuiDataGridSortItemInput {
+  field: String!
+  sort: MuiGridSortDirection!
+}
+
+enum ApartmentType {
+  RENTAL_PROPERTY
+  OWNED_PROPERTY
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MuiDataGridLinkOperator {
+  or
+  and
+}
+
+enum MuiGridSortDirection {
+  asc
+  desc
+}
+
+scalar Any
+
+"The `Date` scalar represents an ISO-8601 compliant date type."
+scalar Date
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
+
+scalar MuiValue
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

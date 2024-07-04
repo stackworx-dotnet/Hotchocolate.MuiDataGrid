@@ -1,0 +1,5 @@
+﻿SELECT "p"."Id", "p"."AddressId", "p"."Age", "p"."BankAccountBalance", "p"."Bio", "p"."CreatedAtDate", "p"."DateOfBirth", "p"."Firstname", "p"."Gender", "p"."IdCardReceivedDate", "p"."Lastname", "p"."MarriageDate", "p"."Married", "p"."NonGraphQlSerialisedId", "p"."RefId", "p"."RefIdNullable", "p"."UpdatedAtDate", "p"."Weight"
+FROM "People" AS "p"
+LEFT JOIN "Address" AS "a" ON "p"."AddressId" = "a"."Id"
+LEFT JOIN "Apartment" AS "a0" ON "a"."ApartmentId" = "a0"."Id"
+WHERE "a0"."Name" IS NOT NULL AND instr("a0"."Name", 'Hello') > 0

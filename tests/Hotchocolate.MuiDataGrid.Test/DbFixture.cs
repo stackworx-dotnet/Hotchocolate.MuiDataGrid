@@ -52,22 +52,25 @@ public class DbFixture : IDisposable
     public TestServer CreateTestServer()
     {
         IWebHostBuilder builder = new WebHostBuilder()
-            .Configure(app =>
-            {
-                app
-                    .UseWebSockets()
-                    .UseRouting();
-
-                app.UseEndpoints(endpoints =>
+            .Configure(
+                app =>
                 {
-                    endpoints.MapGraphQL();
+                    app
+                        .UseWebSockets()
+                        .UseRouting();
+
+                    app.UseEndpoints(
+                        endpoints =>
+                        {
+                            endpoints.MapGraphQL();
+                        });
+                })
+            .ConfigureServices(
+                services =>
+                {
+                    services.AddHttpContextAccessor();
+                    this.AddServices(services);
                 });
-            })
-            .ConfigureServices(services =>
-            {
-                services.AddHttpContextAccessor();
-                this.AddServices(services);
-            });
 
         var server = new TestServer(builder);
         this.instances.Add(server);

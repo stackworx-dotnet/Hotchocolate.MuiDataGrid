@@ -29,21 +29,22 @@ public partial class MuiDataGridGraphQLTests
             new Dictionary<string, object?>
             {
                 {
-                    "filters", this.ConvertFilterInput(new MuiDataGridFilterInput
-                    {
-                        Items = new List<MuiDataGridFilterItemInput>
+                    "filters", this.ConvertFilterInput(
+                        new MuiDataGridFilterInput
                         {
-                            new(
-                                Field: "firstname",
-                                Value: new MuiValue("\"Celeste\""),
-                                Operator: "equals"),
-                            new(
-                                Field: "firstname",
-                                Value: new MuiValue("\"Johanny\""),
-                                Operator: "equals"),
-                        },
-                        LogicOperator = MuiDataGridLogicOperator.Or,
-                    })
+                            Items = new List<MuiDataGridFilterItemInput>
+                            {
+                                new(
+                                    Field: "firstname",
+                                    Value: new MuiValue("\"Celeste\""),
+                                    Operator: "equals"),
+                                new(
+                                    Field: "firstname",
+                                    Value: new MuiValue("\"Johanny\""),
+                                    Operator: "equals"),
+                            },
+                            LogicOperator = MuiDataGridLogicOperator.Or,
+                        })
                 },
             });
         result.ExpectQueryResult().Errors.Should().BeNull();
@@ -58,21 +59,22 @@ public partial class MuiDataGridGraphQLTests
             new Dictionary<string, object?>
             {
                 {
-                    "filters", this.ConvertFilterInput(new MuiDataGridFilterInput
-                    {
-                        Items = new List<MuiDataGridFilterItemInput>
+                    "filters", this.ConvertFilterInput(
+                        new MuiDataGridFilterInput
                         {
-                            new(
-                                Field: "firstname",
-                                Value: new MuiValue("Celeste"),
-                                Operator: "equals"),
-                            new(
-                                Field: "lastname",
-                                Value: new MuiValue("Le Roux"),
-                                Operator: "equals"),
-                        },
-                        LogicOperator = MuiDataGridLogicOperator.And,
-                    })
+                            Items = new List<MuiDataGridFilterItemInput>
+                            {
+                                new(
+                                    Field: "firstname",
+                                    Value: new MuiValue("Celeste"),
+                                    Operator: "equals"),
+                                new(
+                                    Field: "lastname",
+                                    Value: new MuiValue("Le Roux"),
+                                    Operator: "equals"),
+                            },
+                            LogicOperator = MuiDataGridLogicOperator.And,
+                        })
                 },
             });
         result.ExpectQueryResult().Errors.Should().BeNull();
@@ -83,40 +85,41 @@ public partial class MuiDataGridGraphQLTests
     public async Task TestChainFiltersTogetherExecute()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
-            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname, lastname,gender, dateOfBirth } }",
+            "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname, lastname, gender, dateOfBirth } }",
             new Dictionary<string, object?>
             {
                 {
-                    "filters", this.ConvertFilterInput(new MuiDataGridFilterInput
-                    {
-                        Items = new List<MuiDataGridFilterItemInput>
+                    "filters", this.ConvertFilterInput(
+                        new MuiDataGridFilterInput
                         {
-                            new(
-                                Field: "firstname",
-                                Value: new MuiValue("Celeste"),
-                                Operator: "equals"),
-                            new(
-                                Field: "lastname",
-                                Value: new MuiValue("Le Roux"),
-                                Operator: "equals"),
-                            // new(
-                            //     Field: "gender",
-                            //     Value: new MuiValue("MALE"),
-                            //     Operator: "is"),
-                            // TODO: this breaks on linux
-                            /*
-                            new(
-                                Field: "dateOfBirth",
-                                Value: new MuiValue("2022-05-27T13:41"),
-                                Operator: "after"),
-                            */
-                            new(
-                                Field: "marriageDate",
-                                Value: null,
-                                Operator: "isNotEmpty"),
-                        },
-                        LogicOperator = MuiDataGridLogicOperator.And,
-                    })
+                            Items = new List<MuiDataGridFilterItemInput>
+                            {
+                                new(
+                                    Field: "firstname",
+                                    Value: new MuiValue("Celeste"),
+                                    Operator: "equals"),
+                                new(
+                                    Field: "lastname",
+                                    Value: new MuiValue("Le Roux"),
+                                    Operator: "equals"),
+                                // new(
+                                //     Field: "gender",
+                                //     Value: new MuiValue("MALE"),
+                                //     Operator: "is"),
+                                // TODO: this breaks on linux
+                                /*
+                                new(
+                                    Field: "dateOfBirth",
+                                    Value: new MuiValue("2022-05-27T13:41"),
+                                    Operator: "after"),
+                                */
+                                new(
+                                    Field: "marriageDate",
+                                    Value: null,
+                                    Operator: "isNotEmpty"),
+                            },
+                            LogicOperator = MuiDataGridLogicOperator.And,
+                        })
                 },
             });
         result.ExpectQueryResult().Errors.Should().BeNull();

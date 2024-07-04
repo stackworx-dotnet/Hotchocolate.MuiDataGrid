@@ -1,22 +1,11 @@
 ﻿{
   "ContentType": "application/graphql-response+json; charset=utf-8",
   "StatusCode": "OK",
-  "Data": {
-    "people": [
-      {
-        "firstname": "Johanny"
-      },
-      {
-        "firstname": "Stacey"
-      },
-      {
-        "firstname": "Susie"
-      },
-      {
-        "firstname": "Celeste"
-      }
-    ]
-  },
+  "Data": {},
   "Errors": [],
-  "Extensions": {}
+  "Extensions": {},
+  "Incremental": null,
+  "ContextData": {},
+  "HasNext": null,
+  "IsDataSet": false
 }

@@ -87,12 +87,6 @@ enum MuiGridSortDirection {
   desc
 }
 
-"The `@oneOf` directive is used within the type system definition language\n to indicate:\n\n - an Input Object is a Oneof Input Object, or\n - an Object Type's Field is a Oneof Field."
-directive @oneOf on INPUT_OBJECT
-
-"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
-directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
-
 scalar Any
 
 "The `Date` scalar represents an ISO-8601 compliant date type."

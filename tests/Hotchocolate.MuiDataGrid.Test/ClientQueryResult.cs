@@ -1,6 +1,7 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using System.Net;
+using HotChocolate.Execution;
 
 public class ClientQueryResult
 {
@@ -10,7 +11,15 @@ public class ClientQueryResult
 
     public Dictionary<string, object> Data { get; set; } = new();
 
-    public List<Dictionary<string, object>> Errors { get; set; } = new();
+    public IReadOnlyList<IError> Errors { get; set; } = [];
 
     public Dictionary<string, object> Extensions { get; set; } = new();
+
+    public IReadOnlyList<IQueryResult>? Incremental { get; set; }
+
+    public Dictionary<string, object> ContextData { get; set; } = new();
+
+    public bool? HasNext { get; set; }
+
+    public bool IsDataSet { get; set; }
 }

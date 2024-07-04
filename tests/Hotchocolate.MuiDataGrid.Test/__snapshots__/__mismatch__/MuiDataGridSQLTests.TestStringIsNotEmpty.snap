@@ -1,3 +1,0 @@
-﻿SELECT "p"."Id", "p"."AddressId", "p"."Age", "p"."BankAccountBalance", "p"."Bio", "p"."CreatedAtDate", "p"."DateOfBirth", "p"."Firstname", "p"."Gender", "p"."IdCardReceivedDate", "p"."Lastname", "p"."MarriageDate", "p"."Married", "p"."NonGraphQlSerialisedId", "p"."RefId", "p"."RefIdNullable", "p"."UpdatedAtDate", "p"."Weight"
-FROM "People" AS "p"
-WHERE "p"."Bio" IS NOT NULL AND "p"."Bio" <> ''

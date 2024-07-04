@@ -159,7 +159,7 @@ public partial class MuiDataGridSQLTests
     [Fact]
     public async Task TestStringIsAnyOf()
     {
-        var values = new List<string> { "John", "Harry" };
+        List<string> values = ["John", "Harry"];
         await using var dbContext = await this.fixture.CreateDbContextAsync();
         var filters = new MuiDataGridFilterInput
         {

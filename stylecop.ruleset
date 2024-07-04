@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="Name" Description="Description" ToolsVersion="16">
-  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1600" Action="None" />
-    <Rule Id="SA1633" Action="None" />
-    <Rule Id="SA1602" Action="None" />
-    <Rule Id="SA1515" Action="None" />
-    <Rule Id="SA1601" Action="None" />
-  </Rules>
-  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
-    <Rule Id="CS1591" Action="None" />
-  </Rules>
+    <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+        <Rule Id="SA1600" Action="None"/>
+        <Rule Id="SA1633" Action="None"/>
+        <Rule Id="SA1602" Action="None"/>
+        <Rule Id="SA1515" Action="None"/>
+        <Rule Id="SA1601" Action="None"/>
+        <Rule Id="SA1010" Action="None"/>
+    </Rules>
+    <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+        <Rule Id="CS1591" Action="None"/>
+    </Rules>
 </RuleSet>

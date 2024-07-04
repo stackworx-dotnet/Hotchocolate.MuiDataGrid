@@ -18,7 +18,7 @@ public record MuiValue
 
     public dynamic AsNumber(Type memberType)
     {
-        var numberFormatProvider = new NumberFormatInfo()
+        var numberFormatProvider = new NumberFormatInfo
         {
             NumberDecimalSeparator = ".",
             NumberDecimalDigits = 6,

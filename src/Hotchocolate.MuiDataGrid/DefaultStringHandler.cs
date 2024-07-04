@@ -19,7 +19,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
             case "contains":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    var method = typeof(string).GetMethod("Contains", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("Contains", [typeof(string)])!;
                     var callExpression = Expression.Call(memberAccessor, method, val);
 
                     if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
@@ -37,7 +37,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
             case "startsWith":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    var method = typeof(string).GetMethod("StartsWith", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("StartsWith", [typeof(string)])!;
                     var callExpression = Expression.Call(memberAccessor, method, val);
 
                     if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
@@ -55,7 +55,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
             case "endsWith":
                 {
                     var val = this.GetValueConstantExpression(member, filter);
-                    var method = typeof(string).GetMethod("EndsWith", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("EndsWith", [typeof(string)])!;
                     var callExpression = Expression.Call(memberAccessor, method, val);
 
                     if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
@@ -72,7 +72,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
 
             case "isEmpty":
                 {
-                    var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("IsNullOrEmpty", [typeof(string)])!;
                     var callExpression = Expression.Call(method, memberAccessor);
 
                     if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)
@@ -89,7 +89,7 @@ public class DefaultStringHandler<T> : ExpressionBuilderHandler<T>
 
             case "isNotEmpty":
                 {
-                    var method = typeof(string).GetMethod("IsNullOrEmpty", new[] { typeof(string) })!;
+                    var method = typeof(string).GetMethod("IsNullOrEmpty", [typeof(string)])!;
                     var callExpression = Expression.Not(Expression.Call(method, memberAccessor));
 
                     if (member.IsNullable && flavour == ExpressionBuilderFlavour.IN_MEMORY)

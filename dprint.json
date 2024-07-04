@@ -2,19 +2,12 @@
   "incremental": true,
   "lineWidth": 80,
   "indentWidth": 2,
-  "typescript": {
-    "locked": true,
-    "spaceSurroundingProperties": false,
-    "importDeclaration.spaceSurroundingNamedImports": false,
-    "typeLiteral.spaceSurroundingProperties": false,
-    "exportDeclaration.spaceSurroundingNamedExports": false,
-    "quoteStyle": "preferSingle",
-    "module.sortImportDeclarations": "maintain"
-  },
   "json": {
     "locked": true
   },
-  "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,cs}"],
+  "includes": [
+    "**/*.{ts,tsx,js,jsx,cjs,mjs,json,cs}"
+  ],
   "excludes": [
     "**/node_modules",
     "**/*-lock.json",
@@ -31,8 +24,7 @@
     "indentWidth": 4
   },
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.68.2.wasm",
-    "https://plugins.dprint.dev/json-0.15.2.wasm",
-    "https://plugins.dprint.dev/roslyn-0.6.1.exe-plugin@e8dbd4794e1e89400c4f2311508a863d28161b626dd71c594c4147f547d47fa1"
+    "https://plugins.dprint.dev/json-0.17.4.wasm",
+    "https://plugins.dprint.dev/roslyn-0.17.1.json@9e9bbbd9f0536c779e83e1aacfe4b316bdddd71c269d64468eb8af838ab9a1af"
   ]
 }

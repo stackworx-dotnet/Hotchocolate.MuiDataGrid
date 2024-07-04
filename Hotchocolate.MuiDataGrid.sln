@@ -3,9 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotchocolate.MuiDataGrid", "src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj", "{EE5B833A-3791-4796-A112-3C903900AEB5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B60ED9D7-B0A3-40D6-9FFD-AE8A02BE489B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotchocolate.MuiDataGrid.Test", "tests\Hotchocolate.MuiDataGrid.Test\Hotchocolate.MuiDataGrid.Test.csproj", "{56DE499B-0D98-4017-84AD-DC0153E71642}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{83EEF3A3-8190-4E33-9381-DED09E02C761}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotchocolate.MuiDataGrid", "src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj", "{B30C7E9B-46F5-44E6-8F62-8D4031967906}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4910F8F0-2741-4BB5-B052-47C285BD52BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotchocolate.MuiDataGrid.Test", "tests\Hotchocolate.MuiDataGrid.Test\Hotchocolate.MuiDataGrid.Test.csproj", "{96EA2723-05CE-4D41-A4AE-41CF3EC475F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +27,17 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE5B833A-3791-4796-A112-3C903900AEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE5B833A-3791-4796-A112-3C903900AEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE5B833A-3791-4796-A112-3C903900AEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE5B833A-3791-4796-A112-3C903900AEB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56DE499B-0D98-4017-84AD-DC0153E71642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56DE499B-0D98-4017-84AD-DC0153E71642}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56DE499B-0D98-4017-84AD-DC0153E71642}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56DE499B-0D98-4017-84AD-DC0153E71642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B30C7E9B-46F5-44E6-8F62-8D4031967906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30C7E9B-46F5-44E6-8F62-8D4031967906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30C7E9B-46F5-44E6-8F62-8D4031967906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30C7E9B-46F5-44E6-8F62-8D4031967906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96EA2723-05CE-4D41-A4AE-41CF3EC475F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EA2723-05CE-4D41-A4AE-41CF3EC475F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96EA2723-05CE-4D41-A4AE-41CF3EC475F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96EA2723-05CE-4D41-A4AE-41CF3EC475F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B30C7E9B-46F5-44E6-8F62-8D4031967906} = {B60ED9D7-B0A3-40D6-9FFD-AE8A02BE489B}
+		{96EA2723-05CE-4D41-A4AE-41CF3EC475F1} = {4910F8F0-2741-4BB5-B052-47C285BD52BE}
 	EndGlobalSection
 EndGlobal

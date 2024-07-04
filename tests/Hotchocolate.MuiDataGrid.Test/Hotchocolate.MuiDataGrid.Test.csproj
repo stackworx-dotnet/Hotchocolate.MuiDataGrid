@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
         <RootNamespace>Stackworx.Hotchocolate.MuiDataGrid</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit"/>
         <PackageReference Include="xunit.runner.visualstudio">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -18,9 +15,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Snapshooter.Xunit" />
-        <PackageReference Include="FluentAssertions" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+        <PackageReference Include="Snapshooter.Xunit"/>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -29,25 +26,25 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="HotChocolate.Data.EntityFramework" />
-        <PackageReference Include="HotChocolate.AspNetCore" />
-        <PackageReference Include="Microsoft.AspNetCore.TestHost" />
+        <PackageReference Include="HotChocolate.Data.EntityFramework"/>
+        <PackageReference Include="HotChocolate.AspNetCore"/>
+        <PackageReference Include="Microsoft.AspNetCore.TestHost"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj" />
+        <ProjectReference Include="..\..\src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <None Include=".\__snapshots__" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestStringIsAnyOf.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestRefIdIsAnyOf.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberIsEqual.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberIsEmpty.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberGreaterThan.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateTimeOnOrAfter.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyOnOrAfter.snap" />
-        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyIsNotEmpty.snap" />
-        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestPersonQuery.snap" />
+        <None Include=".\__snapshots__"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestStringIsAnyOf.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestRefIdIsAnyOf.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberIsEqual.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberIsEmpty.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestNumberGreaterThan.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateTimeOnOrAfter.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyOnOrAfter.snap"/>
+        <None Remove="__snapshots__\MuiDataGridSQLTests.TestDateOnlyIsNotEmpty.snap"/>
+        <None Remove="__snapshots__\MuiDataGridGraphQLTests.TestPersonQuery.snap"/>
     </ItemGroup>
 </Project>

@@ -1,20 +1,17 @@
-
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>Stackworx.Hotchocolate.MuiDataGrid</RootNamespace>
         <PackageId>Stackworx.Hotchocolate.MuiDataGrid</PackageId>
-        <ImplicitUsings>true</ImplicitUsings>
         <IsPublishable>false</IsPublishable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="HotChocolate.Abstractions" />
-        <PackageReference Include="HotChocolate.Data" />
-        <PackageReference Include="HotChocolate.Types" />
+        <PackageReference Include="HotChocolate.Abstractions"/>
+        <PackageReference Include="HotChocolate.Data"/>
+        <PackageReference Include="HotChocolate.Types"/>
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore" />
-        <PackageReference Include="Humanizer.Core" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+        <PackageReference Include="Humanizer.Core"/>
     </ItemGroup>
 </Project>

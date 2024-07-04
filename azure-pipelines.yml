@@ -46,8 +46,6 @@ stages:
     dependsOn: Build
     jobs:
       - job: IntegrationTests
-        services:
-          mssql: mssql
         displayName: Integration Tests
         steps:
           - task: UseDotNet@2

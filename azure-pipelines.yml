@@ -72,4 +72,4 @@ stages:
                 inputs:
                   command: 'push'
                   searchPatternPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-                  feedPublish: 'f6baa679-d2a7-49f5-a0c1-962ab9471a6d/Fulcrum'
+                  feedPublish: 'stackworx'

@@ -60,7 +60,8 @@ stages:
             displayName: Run Tests
             inputs:
               targetType: inline
-              script: ./scripts/tests.sh
+              script: |
+                ./scripts/tests.sh
           - task: PublishTestResults@2
             condition: succeededOrFailed()
             inputs:

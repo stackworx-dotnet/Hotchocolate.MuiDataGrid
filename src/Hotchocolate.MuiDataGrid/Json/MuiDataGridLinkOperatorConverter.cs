@@ -16,7 +16,8 @@ public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLogicOp
         }
 
         var s = reader.GetString();
-        return s switch
+        ArgumentNullException.ThrowIfNull(s);
+        return s.ToLower() switch
         {
             "and" => MuiDataGridLogicOperator.And,
             "or" => MuiDataGridLogicOperator.Or,
@@ -26,6 +27,6 @@ public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLogicOp
 
     public override void Write(Utf8JsonWriter writer, MuiDataGridLogicOperator value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue(value.ToString());
     }
 }

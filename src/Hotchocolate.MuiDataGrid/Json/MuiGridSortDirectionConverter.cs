@@ -16,7 +16,8 @@ public class MuiGridSortDirectionConverter : JsonConverter<MuiGridSortDirection>
         }
 
         var s = reader.GetString();
-        return s switch
+        ArgumentNullException.ThrowIfNull(s);
+        return s.ToLower() switch
         {
             "asc" => MuiGridSortDirection.Asc,
             "desc" => MuiGridSortDirection.Desc,
@@ -26,6 +27,6 @@ public class MuiGridSortDirectionConverter : JsonConverter<MuiGridSortDirection>
 
     public override void Write(Utf8JsonWriter writer, MuiGridSortDirection value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue(value.ToString());
     }
 }

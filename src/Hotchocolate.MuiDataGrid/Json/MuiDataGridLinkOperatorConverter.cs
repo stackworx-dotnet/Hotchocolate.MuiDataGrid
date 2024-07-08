@@ -16,11 +16,10 @@ public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLogicOp
         }
 
         var s = reader.GetString();
-        return s switch
+        ArgumentNullException.ThrowIfNull(s);
+        return s.ToLower() switch
         {
             "and" => MuiDataGridLogicOperator.And,
-            "And" => MuiDataGridLogicOperator.And,
-            "Or" => MuiDataGridLogicOperator.Or,
             "or" => MuiDataGridLogicOperator.Or,
             _ => throw new JsonException($"Could not parse {nameof(MuiDataGridLogicOperator)}: {s}"),
         };

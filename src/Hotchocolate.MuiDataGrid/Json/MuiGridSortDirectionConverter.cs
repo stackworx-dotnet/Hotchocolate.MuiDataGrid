@@ -16,12 +16,11 @@ public class MuiGridSortDirectionConverter : JsonConverter<MuiGridSortDirection>
         }
 
         var s = reader.GetString();
-        return s switch
+        ArgumentNullException.ThrowIfNull(s);
+        return s.ToLower() switch
         {
             "asc" => MuiGridSortDirection.Asc,
-            "Asc" => MuiGridSortDirection.Asc,
             "desc" => MuiGridSortDirection.Desc,
-            "Desc" => MuiGridSortDirection.Desc,
             _ => throw new JsonException($"Could not parse {nameof(MuiGridSortDirection)}: {s}"),
         };
     }

@@ -19,13 +19,15 @@ public class MuiGridSortDirectionConverter : JsonConverter<MuiGridSortDirection>
         return s switch
         {
             "asc" => MuiGridSortDirection.Asc,
+            "Asc" => MuiGridSortDirection.Asc,
             "desc" => MuiGridSortDirection.Desc,
+            "Desc" => MuiGridSortDirection.Desc,
             _ => throw new JsonException($"Could not parse {nameof(MuiGridSortDirection)}: {s}"),
         };
     }
 
     public override void Write(Utf8JsonWriter writer, MuiGridSortDirection value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue(value.ToString());
     }
 }

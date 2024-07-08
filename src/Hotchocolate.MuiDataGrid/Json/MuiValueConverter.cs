@@ -24,6 +24,6 @@ public class MuiValueConverter : JsonConverter<MuiValue>
 
     public override void Write(Utf8JsonWriter writer, MuiValue value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue(value.ToString());
     }
 }

@@ -19,6 +19,8 @@ public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLogicOp
         return s switch
         {
             "and" => MuiDataGridLogicOperator.And,
+            "And" => MuiDataGridLogicOperator.And,
+            "Or" => MuiDataGridLogicOperator.Or,
             "or" => MuiDataGridLogicOperator.Or,
             _ => throw new JsonException($"Could not parse {nameof(MuiDataGridLogicOperator)}: {s}"),
         };
@@ -26,6 +28,6 @@ public class MuiDataGridLinkOperatorConverter : JsonConverter<MuiDataGridLogicOp
 
     public override void Write(Utf8JsonWriter writer, MuiDataGridLogicOperator value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue(value.ToString());
     }
 }

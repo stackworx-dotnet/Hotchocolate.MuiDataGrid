@@ -15,8 +15,8 @@ public class DefaultRelayIdSingleSelectHandler<T> : DefaultSingleSelectHandler<T
 
     protected override dynamic ParseValue(ColumnLookupMember member, MuiValue value)
     {
-        var id = this.idSerializer.Deserialize(value.AsString());
-        if (this.relayType != null && id.TypeName != this.relayType)
+        var id = idSerializer.Parse(value.AsString(), typeof(T));
+        if (relayType != null && id.TypeName != relayType)
         {
             throw new ArgumentException($"Expected Type: {this.relayType} got: {id.TypeName}");
         }

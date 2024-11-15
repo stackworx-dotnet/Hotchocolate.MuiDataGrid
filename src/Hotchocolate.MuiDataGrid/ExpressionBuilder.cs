@@ -62,12 +62,12 @@ public class ExpressionBuilder<T>(IColumnLookup<T> columnLookup, ExpressionBuild
             case 1:
                 return predicates[0];
             default:
-            {
-                var first = predicates.Pop();
-                return filters.LogicOperator == MuiDataGridLogicOperator.Or
-                    ? predicates.Aggregate(first, Or)
-                    : predicates.Aggregate(first, And);
-            }
+                {
+                    var first = predicates.Pop();
+                    return filters.LogicOperator == MuiDataGridLogicOperator.Or
+                        ? predicates.Aggregate(first, Or)
+                        : predicates.Aggregate(first, And);
+                }
         }
     }
 

@@ -504,7 +504,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
         var request = new ClientQueryRequest
         {
             Query = """
-                    query people { 
+                    query people {
                                     people(filters: {
                                         items: [{
                                             field: "firstname",
@@ -512,7 +512,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                                             operator: "equals"
                                         }, {
                                             field: "age",
-                                            value: ["5", "6"],
+                                            value: [5, 6],
                                             operator: "isAnyOf"
                                         }]
                                     }) { firstname } 

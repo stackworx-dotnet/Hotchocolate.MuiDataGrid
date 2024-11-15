@@ -1,0 +1,109 @@
+﻿schema {
+  query: Query
+}
+
+type Address {
+  id: Int!
+  streetNumber: Int!
+  province: String!
+  streetLine1: String!
+  streetLine2: String!
+  apartmentId: Int!
+  apartment: Apartment!
+}
+
+type Apartment {
+  id: Int!
+  houseNumber: Int!
+  name: String!
+  price: Decimal!
+  sellDate: DateTime
+  apartmentType: ApartmentType!
+}
+
+type Person {
+  id: Int!
+  firstname: String!
+  lastname: String!
+  bio: String
+  age: Int!
+  married: Boolean!
+  gender: Gender!
+  weight: Float
+  bankAccountBalance: Decimal
+  refId: UUID!
+  refIdNullable: UUID
+  nonGraphQlSerialisedId: UUID!
+  dateOfBirth: DateTime!
+  marriageDate: DateTime
+  idCardReceivedDate: DateTime
+  createdAtDate: Date!
+  updatedAtDate: Date
+  addressId: Int
+  address: Address
+}
+
+type Query {
+  people(filters: MuiDataGridFilterInput sorting: [MuiDataGridSortItemInput!]): [Person!]! @cost(weight: "10")
+  input(input: MuiDataGridFilterItemInput!): String
+}
+
+input MuiDataGridFilterInput {
+  items: [MuiDataGridFilterItemInput!]!
+  logicOperator: MuiDataGridLinkOperator
+}
+
+input MuiDataGridFilterItemInput {
+  field: String!
+  value: MuiValue
+  operator: String!
+  id: Any
+  fromInput: String
+}
+
+input MuiDataGridSortItemInput {
+  field: String!
+  sort: MuiGridSortDirection!
+}
+
+enum ApartmentType {
+  RENTAL_PROPERTY
+  OWNED_PROPERTY
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MuiDataGridLinkOperator {
+  or
+  and
+}
+
+enum MuiGridSortDirection {
+  asc
+  desc
+}
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy("The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types." url: String!) on SCALAR
+
+scalar Any
+
+"The `Date` scalar represents an ISO-8601 compliant date type."
+scalar Date
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+
+"The `Decimal` scalar type represents a decimal floating-point number."
+scalar Decimal
+
+scalar MuiValue
+
+scalar UUID @specifiedBy(url: "https:\/\/tools.ietf.org\/html\/rfc4122")

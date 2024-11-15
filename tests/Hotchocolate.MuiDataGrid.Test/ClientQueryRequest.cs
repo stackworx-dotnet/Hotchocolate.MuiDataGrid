@@ -25,7 +25,6 @@ public class ClientQueryRequest
         query.Append($"id={this.Id}");
         query.Append('&');
         query.Append($"query={this.Query.Replace("\r", string.Empty).Replace("\n", string.Empty)}");
-        // query.Append($"&operationName={this.OperationName}");
         query.Append("&variables=" + JsonSerializer.Serialize(this.Variables));
         query.Append("&extensions=" + JsonSerializer.Serialize(this.Extensions));
 

@@ -4,10 +4,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
 {
+    /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -87,47 +91,32 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
             migrationBuilder.InsertData(
                 table: "Apartment",
                 columns: new[] { "Id", "ApartmentType", "HouseNumber", "Name", "Price", "SellDate" },
-                values: new object[] { 1, "OwnedProperty", 56, "House 1", 13.89m, null });
-
-            migrationBuilder.InsertData(
-                table: "Apartment",
-                columns: new[] { "Id", "ApartmentType", "HouseNumber", "Name", "Price", "SellDate" },
-                values: new object[] { 2, "RentalProperty", 4, "House Number 2", 15.78m, new DateTime(2023, 4, 20, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(8760) });
-
-            migrationBuilder.InsertData(
-                table: "Address",
-                columns: new[] { "Id", "ApartmentId", "Province", "StreetLine1", "StreetLine2", "StreetNumber" },
-                values: new object[] { 1, 1, "Limpopo", "Wroxham Road", "", 0 });
+                values: new object[,]
+                {
+                    { 1, "OwnedProperty", 56, "House 1", 13.89m, null },
+                    { 2, "RentalProperty", 4, "House Number 2", 15.78m, new DateTime(2024, 11, 14, 10, 20, 6, 568, DateTimeKind.Local).AddTicks(9530) }
+                });
 
             migrationBuilder.InsertData(
                 table: "Address",
                 columns: new[] { "Id", "ApartmentId", "Province", "StreetLine1", "StreetLine2", "StreetNumber" },
-                values: new object[] { 2, 2, "Gauteng", "", "", 0 });
+                values: new object[,]
+                {
+                    { 1, 1, "Limpopo", "Wroxham Road", "", 0 },
+                    { 2, 2, "Gauteng", "", "", 0 }
+                });
 
             migrationBuilder.InsertData(
                 table: "People",
                 columns: new[] { "Id", "AddressId", "Age", "BankAccountBalance", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "RefIdNullable", "UpdatedAtDate", "Weight" },
-                values: new object[] { 1, 1, 18, null, "I like water", new DateOnly(2022, 5, 31), new DateTime(2023, 4, 20, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9370), "Johanny", "Male", new DateTime(2023, 4, 20, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9380), "Klein", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 31), 100.0 });
-
-            migrationBuilder.InsertData(
-                table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "BankAccountBalance", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "RefIdNullable", "UpdatedAtDate", "Weight" },
-                values: new object[] { 2, 2, 36, 200.90m, "I like Chocolate", new DateOnly(2022, 5, 30), new DateTime(2023, 4, 19, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9390), "Stacey", "Female", new DateTime(2023, 4, 19, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9400), "Pop", null, true, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 30), 76.0 });
-
-            migrationBuilder.InsertData(
-                table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "BankAccountBalance", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "RefIdNullable", "UpdatedAtDate", "Weight" },
-                values: new object[] { 3, 2, 11, 1000000.90m, "I like toys", new DateOnly(2022, 5, 29), new DateTime(2023, 4, 18, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9400), "Susie", "Female", new DateTime(2023, 4, 18, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9410), "van zyl", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 29), 30.0 });
-
-            migrationBuilder.InsertData(
-                table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "BankAccountBalance", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "RefIdNullable", "UpdatedAtDate", "Weight" },
-                values: new object[] { 4, 1, 55, null, "I like hunting", new DateOnly(2022, 5, 28), new DateTime(2023, 4, 17, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9410), "Johan", "Male", new DateTime(2023, 4, 17, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9420), "Groot", null, true, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 28), 112.0 });
-
-            migrationBuilder.InsertData(
-                table: "People",
-                columns: new[] { "Id", "AddressId", "Age", "BankAccountBalance", "Bio", "CreatedAtDate", "DateOfBirth", "Firstname", "Gender", "IdCardReceivedDate", "Lastname", "MarriageDate", "Married", "NonGraphQlSerialisedId", "RefId", "RefIdNullable", "UpdatedAtDate", "Weight" },
-                values: new object[] { 5, 2, 26, 50.99m, "I like art", new DateOnly(2022, 5, 27), new DateTime(2023, 4, 16, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9420), "Celeste", "Female", new DateTime(2023, 4, 16, 20, 52, 40, 577, DateTimeKind.Local).AddTicks(9430), "Le Roux", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180c"), null, new DateOnly(2022, 5, 27), 74.0 });
+                values: new object[,]
+                {
+                    { 1, 1, 18, null, "I like water", new DateOnly(2022, 5, 31), new DateTime(2024, 11, 14, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(5050), "Johanny", "Male", new DateTime(2024, 11, 14, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(5480), "Klein", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 31), 100.0 },
+                    { 2, 2, 36, 200.90m, "I like Chocolate", new DateOnly(2022, 5, 30), new DateTime(2024, 11, 13, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(5910), "Stacey", "Female", new DateTime(2024, 11, 13, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(5930), "Pop", null, true, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 30), 76.0 },
+                    { 3, 2, 11, 1000000.90m, "I like toys", new DateOnly(2022, 5, 29), new DateTime(2024, 11, 12, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(6040), "Susie", "Female", new DateTime(2024, 11, 12, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(6040), "van zyl", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 29), 30.0 },
+                    { 4, 1, 55, null, "I like hunting", new DateOnly(2022, 5, 28), new DateTime(2024, 11, 11, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(6050), "Johan", "Male", new DateTime(2024, 11, 11, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(6050), "Groot", null, true, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180b"), null, new DateOnly(2022, 5, 28), 112.0 },
+                    { 5, 2, 26, 50.99m, "I like art", new DateOnly(2022, 5, 27), new DateTime(2024, 11, 10, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(6060), "Celeste", "Female", new DateTime(2024, 11, 10, 10, 20, 6, 583, DateTimeKind.Local).AddTicks(6060), "Le Roux", null, false, new Guid("9f1ef691-2c5c-4bde-b0be-635bdd4e180c"), new Guid("9f1ef691-2c4b-4bde-b0ac-635bdd4e180c"), null, new DateOnly(2022, 5, 27), 74.0 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_ApartmentId",
@@ -140,6 +129,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid.Migrations
                 column: "AddressId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

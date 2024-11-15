@@ -23,6 +23,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "contains"),
             },
         };
+
         var sql = dbContext.People.Where(p => p.Address!.Apartment.Name.Contains("Hello")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);

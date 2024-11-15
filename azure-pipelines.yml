@@ -34,9 +34,7 @@ stages:
           - task: UseDotNet@2
             displayName: Install DotNet Core
             inputs:
-              packageType: 'sdk'
-              useGlobalJson: true
-              includePreviewVersions: true
+              version: 9.0.100
           - task: DotNetCoreCLI@2
             displayName: Build Solution
             inputs:
@@ -51,9 +49,7 @@ stages:
           - task: UseDotNet@2
             displayName: Install DotNet Core
             inputs:
-              packageType: 'sdk'
-              useGlobalJson: true
-              includePreviewVersions: true
+              version: 9.0.100
           - task: Bash@3
             displayName: Run Tests
             inputs:
@@ -75,9 +71,7 @@ stages:
               - task: UseDotNet@2
                 displayName: Install DotNet Core
                 inputs:
-                  packageType: 'sdk'
-                  useGlobalJson: true
-                  includePreviewVersions: true
+                  version: 9.0.100
               - task: NuGetToolInstaller@1
                 displayName: Install NuGet Tool
               - task: DotNetCoreCLI@2
@@ -89,7 +83,7 @@ stages:
                 inputs:
                   command: pack
                   versioningScheme: byPrereleaseNumber
-                  majorVersion: '1'
+                  majorVersion: '2'
                   minorVersion: '0'
                   patchVersion: '0'
               - task: DotNetCoreCLI@2

@@ -25,13 +25,13 @@ public record MuiValue
         };
         switch (memberType)
         {
-            case var x when x == typeof(int) || x == typeof(int?):
+            case var _ when memberType == typeof(int) || memberType == typeof(int?):
                 return int.TryParse(
                     this.AsString(),
                     out var i)
                     ? i
                     : 0;
-            case var x when x == typeof(double) || x == typeof(double?):
+            case var _ when memberType == typeof(double) || memberType == typeof(double?):
                 return double.TryParse(
                     this.AsString(),
                     NumberStyles.AllowDecimalPoint,
@@ -39,7 +39,7 @@ public record MuiValue
                     out var d)
                     ? d
                     : 0d;
-            case var x when x == typeof(float) || x == typeof(float?):
+            case var _ when memberType == typeof(float) || memberType == typeof(float?):
                 return float.TryParse(
                     this.AsString(),
                     NumberStyles.AllowDecimalPoint,
@@ -47,13 +47,13 @@ public record MuiValue
                     out var f)
                     ? f
                     : 0f;
-            case var x when x == typeof(short) || x == typeof(short?):
+            case var _ when memberType == typeof(short) || memberType == typeof(short?):
                 return short.TryParse(
                     this.AsString(),
                     out var s)
                     ? s
                     : short.Parse("0");
-            case var x when x == typeof(decimal) || x == typeof(decimal?):
+            case var _ when memberType == typeof(decimal) || memberType == typeof(decimal?):
                 return decimal.TryParse(
                     this.AsString(),
                     NumberStyles.AllowDecimalPoint,

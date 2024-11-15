@@ -13,7 +13,7 @@ public partial class MuiDataGridSQLTests
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        var sorting = new List<MuiDataGridSortItem>()
+        var sorting = new List<MuiDataGridSortItem>
         {
             new("firstname", MuiGridSortDirection.Asc),
         };
@@ -28,7 +28,7 @@ public partial class MuiDataGridSQLTests
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        var sorting = new List<MuiDataGridSortItem>()
+        var sorting = new List<MuiDataGridSortItem>
         {
             new("firstname", MuiGridSortDirection.Asc),
             new("weight", MuiGridSortDirection.Desc),

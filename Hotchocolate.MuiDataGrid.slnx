@@ -1,0 +1,15 @@
+﻿<Solution>
+  <Folder Name="/Solution Files/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="azure-pipelines.yml" />
+    <File Path="dotnet-tools.json" />
+    <File Path="global.json" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests\Hotchocolate.MuiDataGrid.Test\Hotchocolate.MuiDataGrid.Test.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>

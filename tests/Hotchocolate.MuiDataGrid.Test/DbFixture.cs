@@ -13,7 +13,7 @@ using Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
 public class DbFixture : IDisposable
 {
-    private readonly List<TestServer> instances = new();
+    private readonly List<TestServer> instances = [];
 
     public DbFixture()
     {
@@ -82,16 +82,21 @@ public class DbFixture : IDisposable
         services.AddDb();
 
         IRequestExecutorBuilder requestBuilder = services
-            .AddLogging((config) => { config.SetMinimumLevel(LogLevel.Warning); })
+            .AddLogging(config => { config.SetMinimumLevel(LogLevel.Warning); })
             .AddGraphQL()
             .AddMuiDataGrid()
-            .ModifyOptions(o => o.EnableOneOf = true)
-            .RegisterDbContext<MuiDataGridDbContext>()
+            .AddDefaultNodeIdSerializer()
+            .ModifyOptions(o =>
+            {
+                o.EnableOneOf = true;
+            })
+            .RegisterDbContextFactory<MuiDataGridDbContext>()
             .AddQueryType<Query>();
 
         services.AddRouting()
             // .AddHttpResultSerializer(HttpResultSerialization.JsonArray)
-            .AddGraphQLServer();
+            .AddGraphQLServer()
+            .ModifyCostOptions(o => o.EnforceCostLimits = false);
 
         return (services, requestBuilder);
     }

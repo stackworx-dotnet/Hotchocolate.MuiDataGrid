@@ -6,25 +6,18 @@ using HotChocolate.Execution;
 using Snapshooter.Xunit;
 
 [Collection(nameof(DbFixtureCollection))]
-public partial class MuiDataGridGraphQLTests
+public partial class MuiDataGridGraphQLTests(DbFixture fixture)
 {
-    private readonly DbFixture fixture;
-
-    public MuiDataGridGraphQLTests(DbFixture fixture)
-    {
-        this.fixture = fixture;
-    }
-
     [Fact]
     public void TestSchema()
     {
-        this.fixture.RequestExecutor.Schema.Print().MatchSnapshot();
+        fixture.RequestExecutor.Schema.Print().MatchSnapshot();
     }
 
     [Fact]
     public async Task TestOrLinkOperatorExecute()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname } }",
             new Dictionary<string, object?>
             {
@@ -47,14 +40,14 @@ public partial class MuiDataGridGraphQLTests
                         })
                 },
             });
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
         result.MatchSnapshot();
     }
 
     [Fact]
     public async Task TestAndLinkOperatorExecute()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname, lastname } }",
             new Dictionary<string, object?>
             {
@@ -77,14 +70,14 @@ public partial class MuiDataGridGraphQLTests
                         })
                 },
             });
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
         result.MatchSnapshot();
     }
 
     [Fact]
     public async Task TestChainFiltersTogetherExecute()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname, lastname, gender, dateOfBirth } }",
             new Dictionary<string, object?>
             {
@@ -122,23 +115,23 @@ public partial class MuiDataGridGraphQLTests
                         })
                 },
             });
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
         result.MatchSnapshot();
     }
 
     [Fact]
     public async Task TestPersonQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people { people { firstname } }");
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
         result.MatchSnapshot();
     }
 
     [Fact]
     public async Task TestPersonAddressNestedQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { houseNumber name } } } }",
             new Dictionary<string, object?>
             {
@@ -169,13 +162,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestDateTimeNullableQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { sellDate } } } }",
             new Dictionary<string, object?>
             {
@@ -206,13 +199,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestDecimalQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { houseNumber price } } } }",
             new Dictionary<string, object?>
             {
@@ -243,13 +236,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestNullableDecimalQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { bankAccountBalance } }",
             new Dictionary<string, object?>
             {
@@ -280,13 +273,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestNullableDoubleQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { weight } }",
             new Dictionary<string, object?>
             {
@@ -317,13 +310,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestRelayIdIntQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { id } }",
             new Dictionary<string, object?>
             {
@@ -339,7 +332,7 @@ public partial class MuiDataGridGraphQLTests
                                         "field", "id"
                                     },
                                     {
-                                        "value", new MuiValue(new IdSerializer().Serialize("Person", 1)!)
+                                        "value", new MuiValue(new DefaultNodeIdSerializer().Format("Person", 1))
                                     },
                                     {
                                         "operator", "is"
@@ -354,13 +347,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestRelayIdGuidQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { refId } }",
             new Dictionary<string, object?>
             {
@@ -376,7 +369,10 @@ public partial class MuiDataGridGraphQLTests
                                         "field", "refId"
                                     },
                                     {
-                                        "value", new MuiValue(new IdSerializer().Serialize("Ref", "9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C")!)
+                                        "value", new MuiValue(
+                                            new DefaultNodeIdSerializer().Format(
+                                                "Ref",
+                                                Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C")))
                                     },
                                     {
                                         "operator", "is"
@@ -391,13 +387,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestSingleSelectEnumWithQuery()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname address { apartment { apartmentType } } } }",
             new Dictionary<string, object?>
             {
@@ -428,13 +424,13 @@ public partial class MuiDataGridGraphQLTests
                 },
             });
 
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestFilterItemOptionalId()
     {
-        var result = await this.fixture.RequestExecutor.ExecuteAsync(
+        var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname } }",
             new Dictionary<string, object?>
             {
@@ -464,9 +460,9 @@ public partial class MuiDataGridGraphQLTests
                     }.ToImmutableDictionary()
                 },
             });
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
 
-        result = await this.fixture.RequestExecutor.ExecuteAsync(
+        result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname } }",
             new Dictionary<string, object?>
             {
@@ -496,29 +492,31 @@ public partial class MuiDataGridGraphQLTests
                     }.ToImmutableDictionary()
                 },
             });
-        result.ExpectQueryResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNull();
     }
 
     [Fact]
     public async Task TestHttpStaticQuery()
     {
-        var server = this.fixture.CreateTestServer();
-
+        var server = fixture.CreateTestServer();
         var request = new ClientQueryRequest
         {
-            Query = @"query people { 
-                people(filters: {
-                    items: [{
-                        field: ""firstname"",
-                        value: ""Celeste"",
-                        operator: ""equals""
-                    }, {
-                        field: ""age"",
-                        value: [""5"", ""6""],
-                        operator: ""isAnyOf""
-                    }]
-                }) { firstname } 
-            }",
+            Id = "1",
+            Query = """
+                    query people {
+                                    people(filters: {
+                                        items: [{
+                                            field: "firstname",
+                                            value: "Celeste",
+                                            operator: "equals"
+                                        }, {
+                                            field: "age",
+                                            value: [5, 6],
+                                            operator: "isAnyOf"
+                                        }]
+                                    }) { firstname } 
+                                }
+                    """,
         };
         var result = await server.PostAsync(request);
 
@@ -528,13 +526,16 @@ public partial class MuiDataGridGraphQLTests
     [Fact]
     public async Task TestHttpVariableQuery()
     {
-        var server = this.fixture.CreateTestServer();
+        var server = fixture.CreateTestServer();
 
         var request = new ClientQueryRequest
         {
-            Query = @"query people($filters: MuiDataGridFilterInput!) { 
-                people(filters: $filters) { firstname } 
-            }",
+            Id = "1",
+            Query = """
+                    query people($filters: MuiDataGridFilterInput!) { 
+                                    people(filters: $filters) { firstname } 
+                                }
+                    """,
             Variables = new Dictionary<string, object>
             {
                 {
@@ -585,18 +586,21 @@ public partial class MuiDataGridGraphQLTests
     [Fact]
     public async Task TestHttpStaticSingleSelectOptionQuery()
     {
-        var server = this.fixture.CreateTestServer();
+        var server = fixture.CreateTestServer();
         var request = new ClientQueryRequest
         {
-            Query = @"query people { 
-                people(filters: {
-                    items: [{
-                        field: ""nonGraphQlSerialisedId"",
-                        value: {label: ""Reference1"", value: ""9F1EF691-2C5C-4BDE-B0BE-635BDD4E180C""},
-                        operator: ""equals""
-                    }]
-                }) { firstname }
-            }",
+            Id = "1",
+            Query = """
+                    query people { 
+                                    people(filters: {
+                                        items: [{
+                                            field: "nonGraphQlSerialisedId",
+                                            value: {label: "Reference1", value: "9F1EF691-2C5C-4BDE-B0BE-635BDD4E180C"},
+                                            operator: "equals"
+                                        }]
+                                    }) { firstname }
+                                }
+                    """,
         };
         var result = await server.PostAsync(request);
         result.Errors.Should().BeEmpty();

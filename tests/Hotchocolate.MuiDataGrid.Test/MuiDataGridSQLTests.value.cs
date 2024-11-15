@@ -11,8 +11,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: ""s"", field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectQueryResult().Errors.Should().BeNull();
-        result.ExpectQueryResult().Data!["input"]!.ToString().Should().Be(@"s");
+        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Data!["input"]!.ToString().Should().Be(@"s");
     }
 
     [Fact]
@@ -21,8 +21,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: 5, field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectQueryResult().Errors.Should().BeNull();
-        result.ExpectQueryResult().Data!["input"]!.ToString().Should().Be(@"5");
+        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Data!["input"]!.ToString().Should().Be(@"5");
     }
 
     [Fact]
@@ -31,8 +31,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectQueryResult().Errors.Should().BeNull();
-        string? input = result.ExpectQueryResult().Data!["input"]?.ToString();
+        result.ExpectOperationResult().Errors.Should().BeNull();
+        string? input = result.ExpectOperationResult().Data!["input"]?.ToString();
         input.Should().Be(null);
     }
 
@@ -42,8 +42,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: ""2022-06-24"" field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectQueryResult().Errors.Should().BeNull();
-        var input = result.ExpectQueryResult().Data!["input"]?.ToString();
+        result.ExpectOperationResult().Errors.Should().BeNull();
+        var input = result.ExpectOperationResult().Data!["input"]?.ToString();
         input.Should().Be("2022-06-24");
     }
 
@@ -53,8 +53,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: {label: ""Person"", value: ""UHJvZHVjdAppMQ==""}, field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectQueryResult().Errors.Should().BeNull();
-        var input = result.ExpectQueryResult().Data!["input"]?.ToString();
+        result.ExpectOperationResult().Errors.Should().BeNull();
+        var input = result.ExpectOperationResult().Data!["input"]?.ToString();
         input.Should().Be("UHJvZHVjdAppMQ==");
     }
 
@@ -66,7 +66,7 @@ public partial class MuiDataGridSQLTests
             @"query { input(input: {value: [""5"", ""6""] columnField: ""column"", operatorValue: ""equals""} ) }",
             new Dictionary<string, object?>());
         result.Errors.Should().BeNull();
-        var input = result.ExpectQueryResult().Data!["input"]?.ToString();
+        var input = result.ExpectOperationResult().Data!["input"]?.ToString();
         input.Should().Be("\"2022-06-24\"");
     }
     */

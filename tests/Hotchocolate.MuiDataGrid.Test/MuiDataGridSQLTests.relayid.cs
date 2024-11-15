@@ -14,9 +14,9 @@ public partial class MuiDataGridSQLTests
     [Fact]
     public async Task TestRefIdIsEqual()
     {
-        var idSerializer = this.fixture.Services.GetRequiredService<IIdSerializer>();
+        var idSerializer = this.fixture.Services.GetRequiredService<INodeIdSerializer>();
         var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
-        var relayId = idSerializer.Serialize(Schema.DefaultName, "Ref", g);
+        var relayId = idSerializer.Format("Ref", g);
         await using var dbContext = await this.fixture.CreateDbContextAsync();
 
         var filters = new MuiDataGridFilterInput
@@ -41,9 +41,9 @@ public partial class MuiDataGridSQLTests
     [Fact]
     public async Task TestRefIdIsNotEqual()
     {
-        var idSerializer = this.fixture.Services.GetRequiredService<IIdSerializer>();
+        var idSerializer = this.fixture.Services.GetRequiredService<INodeIdSerializer>();
         var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
-        var relayId = idSerializer.Serialize(Schema.DefaultName, "Ref", g);
+        var relayId = idSerializer.Format("Ref", g);
         await using var dbContext = await this.fixture.CreateDbContextAsync();
 
         var filters = new MuiDataGridFilterInput
@@ -68,9 +68,9 @@ public partial class MuiDataGridSQLTests
     [Fact]
     public async Task TestRefIdIsAnyOf()
     {
-        var idSerializer = this.fixture.Services.GetRequiredService<IIdSerializer>();
+        var idSerializer = this.fixture.Services.GetRequiredService<INodeIdSerializer>();
         var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
-        var relayId = idSerializer.Serialize(Schema.DefaultName, "Ref", g);
+        var relayId = idSerializer.Format("Ref", g);
         await using var dbContext = await this.fixture.CreateDbContextAsync();
 
         var filters = new MuiDataGridFilterInput
@@ -78,7 +78,11 @@ public partial class MuiDataGridSQLTests
             Items = new List<MuiDataGridFilterItemInput>
             {
                 new(
-                    Value: new MuiValue(new List<string> { relayId! }),
+                    Value: new MuiValue(
+                        new List<string>
+                        {
+                            relayId,
+                        }),
                     Field: "refId",
                     Operator: "isAnyOf"),
             },
@@ -86,7 +90,12 @@ public partial class MuiDataGridSQLTests
         var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
         builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
 
-        var sql = dbContext.People.Where(p => new List<Guid> { Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B") }.Contains(p.RefId)).ToQueryString();
+        var sql = dbContext.People.Where(
+                p => new List<Guid>
+                {
+                    Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B"),
+                }.Contains(p.RefId))
+            .ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
@@ -95,9 +104,9 @@ public partial class MuiDataGridSQLTests
     [Fact]
     public async Task TestNullableRelayHandler()
     {
-        var idSerializer = this.fixture.Services.GetRequiredService<IIdSerializer>();
+        var idSerializer = this.fixture.Services.GetRequiredService<INodeIdSerializer>();
         var g = Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B");
-        var relayId = idSerializer.Serialize(Schema.DefaultName, "Ref", g);
+        var relayId = idSerializer.Format("Ref", g);
         await using var dbContext = await this.fixture.CreateDbContextAsync();
 
         var filters = new MuiDataGridFilterInput

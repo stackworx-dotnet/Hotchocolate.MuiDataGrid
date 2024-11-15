@@ -15,7 +15,7 @@ public class ClientQueryResult
 
     public Dictionary<string, object> Extensions { get; set; } = new();
 
-    public IReadOnlyList<IQueryResult>? Incremental { get; set; }
+    public IReadOnlyList<IOperationResult>? Incremental { get; set; }
 
     public Dictionary<string, object> ContextData { get; set; } = new();
 

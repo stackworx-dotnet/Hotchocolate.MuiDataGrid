@@ -13,7 +13,7 @@ public static class TestServerExtensions
         string path = "/graphql")
     {
         var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await testServer.CreateClient().PostAsync(CreateUrl(path), content);
+        var response = await testServer.CreateClient().PostAsync(CreateUrl(path), content);
 
         if (response.StatusCode == HttpStatusCode.NotFound)
         {

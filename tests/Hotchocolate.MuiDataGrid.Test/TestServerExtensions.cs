@@ -1,6 +1,7 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.TestHost;
@@ -12,7 +13,8 @@ public static class TestServerExtensions
         ClientQueryRequest request,
         string path = "/graphql")
     {
-        var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+        var jsonRequest = JsonSerializer.Serialize(request);
+        var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
         var response = await testServer.CreateClient().PostAsync(CreateUrl(path), content);
 
         if (response.StatusCode == HttpStatusCode.NotFound)

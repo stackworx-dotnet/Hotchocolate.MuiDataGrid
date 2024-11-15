@@ -369,8 +369,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                                         "field", "refId"
                                     },
                                     {
-                                        "value",
-                                        new MuiValue(
+                                        "value", new MuiValue(
                                             new DefaultNodeIdSerializer().Format(
                                                 "Ref",
                                                 Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180C")))
@@ -500,9 +499,9 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
     public async Task TestHttpStaticQuery()
     {
         var server = fixture.CreateTestServer();
-
         var request = new ClientQueryRequest
         {
+            Id = "1",
             Query = """
                     query people {
                                     people(filters: {
@@ -531,6 +530,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
 
         var request = new ClientQueryRequest
         {
+            Id = "1",
             Query = """
                     query people($filters: MuiDataGridFilterInput!) { 
                                     people(filters: $filters) { firstname } 
@@ -589,6 +589,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
         var server = fixture.CreateTestServer();
         var request = new ClientQueryRequest
         {
+            Id = "1",
             Query = """
                     query people { 
                                     people(filters: {

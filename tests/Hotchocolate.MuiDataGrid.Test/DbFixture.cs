@@ -86,7 +86,10 @@ public class DbFixture : IDisposable
             .AddGraphQL()
             .AddMuiDataGrid()
             .AddDefaultNodeIdSerializer()
-            .ModifyOptions(o => o.EnableOneOf = true)
+            .ModifyOptions(o =>
+            {
+                o.EnableOneOf = true;
+            })
             .RegisterDbContextFactory<MuiDataGridDbContext>()
             .AddQueryType<Query>();
 

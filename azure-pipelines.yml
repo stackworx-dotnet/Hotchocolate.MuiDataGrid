@@ -39,7 +39,6 @@ stages:
             displayName: Build Solution
             inputs:
               command: 'build'
-              projects: 'src/Hotchocolate.MuiDataGrid/Hotchocolate.MuiDataGrid.csproj'
 
   - stage: Test
     dependsOn: Build

@@ -171,6 +171,16 @@ public class ExpressionBuilder<T>(IColumnLookup<T> columnLookup, ExpressionBuild
 
     private class ConvertRemover : ExpressionVisitor
     {
+        protected override Expression VisitUnary(UnaryExpression node)
+        {
+            if (node.NodeType is ExpressionType.Convert or ExpressionType.ConvertChecked)
+            {
+                return this.Visit(node.Operand);
+            }
+
+            return base.VisitUnary(node);
+        }
+
         protected override Expression VisitBinary(BinaryExpression node)
         {
             var left = this.Visit(node.Left);

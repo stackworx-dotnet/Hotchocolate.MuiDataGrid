@@ -74,6 +74,14 @@ public sealed class MuiValueType : ScalarType
                         {
                             items.Add(svn.Value);
                         }
+                        else if (node is IntValueNode ivn)
+                        {
+                            items.Add(ivn.Value);
+                        }
+                        else if (node is FloatValueNode fvn)
+                        {
+                            items.Add(fvn.Value);
+                        }
                         else
                         {
                             // TODO: If object, for option case we need to get the value from the object

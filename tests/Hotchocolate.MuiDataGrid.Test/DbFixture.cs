@@ -3,7 +3,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,12 +12,12 @@ using Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
 public class DbFixture : IDisposable
 {
-    private readonly List<TestServer> instances = [];
+    private readonly List<WebApplication> instances = [];
 
     public DbFixture()
     {
         IServiceCollection services = new ServiceCollection();
-        var (_, requestBuilder) = this.AddServices(services);
+        var requestBuilder = this.AddServices(services);
 
         this.Services = services.BuildServiceProvider();
         this.RequestExecutor = requestBuilder.BuildRequestExecutorAsync().GetAwaiter().GetResult();
@@ -39,7 +38,7 @@ public class DbFixture : IDisposable
 
         foreach (var instance in this.instances)
         {
-            instance.Dispose();
+            instance.DisposeAsync().AsTask().GetAwaiter().GetResult();
         }
     }
 
@@ -51,33 +50,22 @@ public class DbFixture : IDisposable
 
     public TestServer CreateTestServer()
     {
-        IWebHostBuilder builder = new WebHostBuilder()
-            .Configure(
-                app =>
-                {
-                    app
-                        .UseWebSockets()
-                        .UseRouting();
+        var builder = WebApplication.CreateBuilder();
+        builder.WebHost.UseTestServer();
 
-                    app.UseEndpoints(
-                        endpoints =>
-                        {
-                            endpoints.MapGraphQL();
-                        });
-                })
-            .ConfigureServices(
-                services =>
-                {
-                    services.AddHttpContextAccessor();
-                    this.AddServices(services);
-                });
+        builder.Services.AddHttpContextAccessor();
+        this.AddServices(builder.Services);
 
-        var server = new TestServer(builder);
-        this.instances.Add(server);
-        return server;
+        var app = builder.Build();
+        app.UseWebSockets();
+        app.MapGraphQL();
+        app.StartAsync().GetAwaiter().GetResult();
+
+        this.instances.Add(app);
+        return app.GetTestServer();
     }
 
-    private (IServiceCollection services, IRequestExecutorBuilder builder) AddServices(IServiceCollection services)
+    private IRequestExecutorBuilder AddServices(IServiceCollection services)
     {
         services.AddDb();
 
@@ -98,10 +86,9 @@ public class DbFixture : IDisposable
             .AddQueryType<Query>();
 
         services.AddRouting()
-            // .AddHttpResultSerializer(HttpResultSerialization.JsonArray)
             .AddGraphQLServer()
             .ModifyCostOptions(o => o.EnforceCostLimits = false);
 
-        return (services, requestBuilder);
+        return requestBuilder;
     }
 }

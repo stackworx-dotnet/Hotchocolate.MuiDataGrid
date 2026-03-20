@@ -14,9 +14,9 @@ public static class ExpressionBuilderExtensions
         return query.Sort(builder, muiSorts);
     }
 
-    public static Expression<Func<T, bool>> Filter<T>(this ExpressionBuilder<T> builder, MudDataGridFilterInput filters)
+    public static Expression<Func<T, bool>> Filter<T>(this ExpressionBuilder<T> builder, MudDataGridFilterInput filters, IReadOnlyDictionary<string, string>? customOperators = null)
     {
-        var muiFilters = MudToMuiDataGridAdapter.MapFilters(filters.FilterDefinitions);
+        var muiFilters = MudToMuiDataGridAdapter.MapFilters(filters.FilterDefinitions, customOperators);
 
         if (muiFilters.Items.Count == 0)
         {

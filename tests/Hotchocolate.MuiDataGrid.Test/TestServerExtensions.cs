@@ -1,13 +1,25 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.TestHost;
 
 public static class TestServerExtensions
 {
+    private static readonly Regex StackTraceUnixPathRegex = new(
+        @" in /.*?\.cs:line (?<line>\d+)",
+        RegexOptions.Compiled);
+
+    private static readonly Regex StackTraceWindowsPathRegex = new(
+        @" in [A-Za-z]:\\.*?\.cs:line (?<line>\d+)",
+        RegexOptions.Compiled);
+
+    private static readonly Regex LambdaMethodRegex = new(
+        @"lambda_method\d+",
+        RegexOptions.Compiled);
+
     public static async Task<ClientQueryResult> PostAsync(
         this TestServer testServer,
         ClientQueryRequest request,
@@ -31,7 +43,24 @@ public static class TestServerExtensions
 
         result.StatusCode = response.StatusCode;
         result.ContentType = response.Content.Headers.ContentType!.ToString();
+        SanitizeMachinePaths(result);
         return result;
+    }
+
+    private static void SanitizeMachinePaths(ClientQueryResult result)
+    {
+        foreach (var error in result.Errors)
+        {
+            if (!error.Extensions.TryGetValue("stackTrace", out var stackTrace) || string.IsNullOrWhiteSpace(stackTrace))
+            {
+                continue;
+            }
+
+            var sanitized = StackTraceUnixPathRegex.Replace(stackTrace, " in <source>:line ${line}");
+            sanitized = StackTraceWindowsPathRegex.Replace(sanitized, " in <source>:line ${line}");
+            sanitized = LambdaMethodRegex.Replace(sanitized, "lambda_methodX");
+            error.Extensions["stackTrace"] = sanitized;
+        }
     }
 
     public static string CreateUrl(string? path)

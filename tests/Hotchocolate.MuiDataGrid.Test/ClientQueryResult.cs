@@ -11,7 +11,7 @@ public class ClientQueryResult
 
     public Dictionary<string, object> Data { get; set; } = new();
 
-    public IReadOnlyList<IError> Errors { get; set; } = [];
+    public IReadOnlyList<ClientQueryError> Errors { get; set; } = [];
 
     public Dictionary<string, object> Extensions { get; set; } = new();
 

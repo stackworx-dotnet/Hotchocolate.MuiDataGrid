@@ -26,7 +26,7 @@ public static class TestServerExtensions
         }
 
         var json = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<ClientQueryResult>(json);
+        var result = JsonSerializer.Deserialize<ClientQueryResult>(json, new JsonSerializerOptions(JsonSerializerDefaults.Web));
         ArgumentNullException.ThrowIfNull(result);
 
         result.StatusCode = response.StatusCode;

@@ -1,7 +1,6 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid.Types;
 
 using System.Collections;
-using HotChocolate;
 using HotChocolate.Language;
 using HotChocolate.Types;
 

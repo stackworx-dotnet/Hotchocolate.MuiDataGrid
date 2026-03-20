@@ -84,6 +84,10 @@ public class DbFixture : IDisposable
         IRequestExecutorBuilder requestBuilder = services
             .AddLogging(config => { config.SetMinimumLevel(LogLevel.Warning); })
             .AddGraphQL()
+            .ModifyRequestOptions(opts =>
+            {
+                opts.IncludeExceptionDetails = true;
+            })
             .AddMuiDataGrid()
             .AddDefaultNodeIdSerializer()
             .ModifyOptions(o =>

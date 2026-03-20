@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>Stackworx.Hotchocolate.MudDataGrid</RootNamespace>
+        <PackageId>Stackworx.Hotchocolate.MudDataGrid</PackageId>
+        <IsPublishable>false</IsPublishable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="HotChocolate.Abstractions"/>
+        <PackageReference Include="HotChocolate.Types"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj"/>
+    </ItemGroup>
+
+</Project>

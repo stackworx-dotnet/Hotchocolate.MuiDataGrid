@@ -7,9 +7,10 @@
     <File Path="global.json" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj" Type="Classic C#" />
+    <Project Path="src/Hotchocolate.MudDataGrid/Hotchocolate.MudDataGrid.csproj" />
+    <Project Path="src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj" Type="C#" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests\Hotchocolate.MuiDataGrid.Test\Hotchocolate.MuiDataGrid.Test.csproj" Type="Classic C#" />
+    <Project Path="tests\Hotchocolate.MuiDataGrid.Test\Hotchocolate.MuiDataGrid.Test.csproj" Type="C#" />
   </Folder>
 </Solution>

@@ -33,6 +33,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Hotchocolate.MuiDataGrid\Hotchocolate.MuiDataGrid.csproj"/>
+        <ProjectReference Include="..\..\src\Hotchocolate.MudDataGrid\Hotchocolate.MudDataGrid.csproj"/>
     </ItemGroup>
 </Project>

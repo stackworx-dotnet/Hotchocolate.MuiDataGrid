@@ -15,6 +15,19 @@ public static class MudToMuiDataGridAdapter
         return new MudDataGridAdapterResult(MapFilters(input.FilterDefinitions), MapSort(input.SortDefinitions));
     }
 
+    public static MuiDataGridFilterInput MapFilters(IList<MudDataGridFilterDefinitionInput> filterDefinitions, IReadOnlyDictionary<string, string>? customOperators = null)
+    {
+        var items = filterDefinitions
+            .Select(f => MapFilter(f, customOperators))
+            .ToList();
+
+        return new MuiDataGridFilterInput
+        {
+            Items = items,
+            LogicOperator = MuiDataGridLogicOperator.And,
+        };
+    }
+
     public static IList<MuiDataGridSortItem> MapSort(IList<MudDataGridSortDefinitionInput> sortDefinitions)
     {
         return sortDefinitions
@@ -22,14 +35,27 @@ public static class MudToMuiDataGridAdapter
             .ToList();
     }
 
-    private static MuiDataGridFilterItemInput MapFilter(MudDataGridFilterDefinitionInput input)
+    private static MuiDataGridFilterItemInput MapFilter(MudDataGridFilterDefinitionInput input, IReadOnlyDictionary<string, string>? customOperators)
     {
-        var normalizedOperator = NormalizeOperator(input.Operator, input.Field);
+        var normalizedOperator = NormalizeOperator(input.Operator, input.Field, customOperators);
         return new MuiDataGridFilterItemInput(input.Field, input.Value, normalizedOperator, input.Id, "mud");
     }
 
-    private static string NormalizeOperator(string @operator, string field)
+    // MUI Data grid Operartors
+    // https://github.com/mui/mui-x/tree/v8.28.0/packages/x-data-grid/src/colDef
+    private static string NormalizeOperator(
+        string @operator,
+        string field,
+        IReadOnlyDictionary<string, string>? customOperators)
     {
+        if (customOperators is not null)
+        {
+            if (customOperators.TryGetValue(@operator, out var normalizedOperator))
+            {
+                return normalizedOperator;
+            }
+        }
+
         return @operator.Trim().ToLowerInvariant() switch
         {
             "contains" => "contains",
@@ -64,18 +90,5 @@ public static class MudToMuiDataGridAdapter
             .Build();
 
         return new GraphQLException(error);
-    }
-
-    public static MuiDataGridFilterInput MapFilters(IList<MudDataGridFilterDefinitionInput> filterDefinitions)
-    {
-        var items = filterDefinitions
-            .Select(MapFilter)
-            .ToList();
-
-        return new MuiDataGridFilterInput
-        {
-            Items = items,
-            LogicOperator = MuiDataGridLogicOperator.And,
-        };
     }
 }

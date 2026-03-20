@@ -51,6 +51,8 @@ type Query {
 input MuiDataGridFilterInput {
   items: [MuiDataGridFilterItemInput!]!
   logicOperator: MuiDataGridLinkOperator
+  quickFilterValues: MuiValue
+  quickFilterLogicOperator: MuiDataGridLinkOperator
 }
 
 input MuiDataGridFilterItemInput {

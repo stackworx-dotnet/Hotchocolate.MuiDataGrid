@@ -112,6 +112,8 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                                     Operator: "isNotEmpty"),
                             },
                             LogicOperator = MuiDataGridLogicOperator.And,
+                            QuickFilterLogicOperator = MuiDataGridLogicOperator.And,
+                            QuickFilterValues = new MuiValue([]),
                         })
                 },
             });

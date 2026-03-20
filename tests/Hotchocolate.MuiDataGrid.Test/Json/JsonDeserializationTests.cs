@@ -20,7 +20,9 @@ public class JsonDeserializationTests
                                           "value": ["0.5"],
                                           "operator": "isAnyOf"
                                       }],
-                                      "logicOperator": "or"
+                                      "logicOperator": "or",
+                                      "quickFilterValues": [],
+                                      "quickFilterLogicOperator": "and"
                                   }
                                   """;
 
@@ -46,6 +48,8 @@ public class JsonDeserializationTests
                             "isAnyOf"),
                     },
                     LogicOperator = MuiDataGridLogicOperator.Or,
+                    QuickFilterValues = new MuiValue(new List<string>()),
+                    QuickFilterLogicOperator = MuiDataGridLogicOperator.And,
                 });
     }
 

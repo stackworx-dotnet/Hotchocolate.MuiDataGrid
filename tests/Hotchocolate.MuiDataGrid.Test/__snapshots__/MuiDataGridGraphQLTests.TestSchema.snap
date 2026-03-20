@@ -45,7 +45,25 @@ type Person {
 
 type Query {
   people(filters: MuiDataGridFilterInput sorting: [MuiDataGridSortItemInput!]): [Person!]! @cost(weight: "10")
+  mudPeople(filters: MudDataGridFilterInput): [Person!]! @cost(weight: "10")
   input(input: MuiDataGridFilterItemInput!): String
+}
+
+input MudDataGridFilterDefinitionInput {
+  field: String!
+  operator: String!
+  value: MuiValue
+  id: Any
+}
+
+input MudDataGridFilterInput {
+  filterDefinitions: [MudDataGridFilterDefinitionInput!]!
+  sortDefinitions: [MudDataGridSortDefinitionInput!]!
+}
+
+input MudDataGridSortDefinitionInput {
+  field: String!
+  descending: Boolean!
 }
 
 input MuiDataGridFilterInput {

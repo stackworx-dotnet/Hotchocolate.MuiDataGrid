@@ -63,7 +63,7 @@ public static class TestServerExtensions
         }
     }
 
-    public static string CreateUrl(string? path)
+    private static string CreateUrl(string? path)
     {
         var url = "http://localhost:5000";
 

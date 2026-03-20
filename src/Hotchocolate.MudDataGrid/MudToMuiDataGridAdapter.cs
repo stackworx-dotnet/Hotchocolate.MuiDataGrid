@@ -3,16 +3,23 @@ namespace Stackworx.Hotchocolate.MudDataGrid;
 using HotChocolate;
 using Stackworx.Hotchocolate.MuiDataGrid;
 
-public class MudToMuiDataGridAdapter : IMudToMuiDataGridAdapter
+public static class MudToMuiDataGridAdapter
 {
-    public MudDataGridAdapterResult Map(MudDataGridFilterInput? input)
+    public static MudDataGridAdapterResult Map(MudDataGridFilterInput? input)
     {
         if (input is null)
         {
             return new MudDataGridAdapterResult(null, null);
         }
 
-        return new MudDataGridAdapterResult(this.MapFilters(input.FilterDefinitions), this.MapSort(input.SortDefinitions));
+        return new MudDataGridAdapterResult(MapFilters(input.FilterDefinitions), MapSort(input.SortDefinitions));
+    }
+
+    public static IList<MuiDataGridSortItem> MapSort(IList<MudDataGridSortDefinitionInput> sortDefinitions)
+    {
+        return sortDefinitions
+            .Select(s => new MuiDataGridSortItem(s.Field, s.Descending ? MuiGridSortDirection.Desc : MuiGridSortDirection.Asc))
+            .ToList();
     }
 
     private static MuiDataGridFilterItemInput MapFilter(MudDataGridFilterDefinitionInput input)
@@ -59,25 +66,8 @@ public class MudToMuiDataGridAdapter : IMudToMuiDataGridAdapter
         return new GraphQLException(error);
     }
 
-    private IList<MuiDataGridSortItem>? MapSort(IList<MudDataGridSortDefinitionInput> sortDefinitions)
+    public static MuiDataGridFilterInput MapFilters(IList<MudDataGridFilterDefinitionInput> filterDefinitions)
     {
-        if (sortDefinitions.Count == 0)
-        {
-            return null;
-        }
-
-        return sortDefinitions
-            .Select(s => new MuiDataGridSortItem(s.Field, s.Descending ? MuiGridSortDirection.Desc : MuiGridSortDirection.Asc))
-            .ToList();
-    }
-
-    private MuiDataGridFilterInput? MapFilters(IList<MudDataGridFilterDefinitionInput> filterDefinitions)
-    {
-        if (filterDefinitions.Count == 0)
-        {
-            return null;
-        }
-
         var items = filterDefinitions
             .Select(MapFilter)
             .ToList();

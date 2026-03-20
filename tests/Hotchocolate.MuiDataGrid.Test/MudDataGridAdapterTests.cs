@@ -9,8 +9,6 @@ public class MudDataGridAdapterTests
     [Fact]
     public void Map_ShouldConvertMudInputToMuiInput()
     {
-        var sut = new MudToMuiDataGridAdapter();
-
         var input = new MudDataGridFilterInput
         {
             FilterDefinitions =
@@ -25,7 +23,7 @@ public class MudDataGridAdapterTests
             ],
         };
 
-        var result = sut.Map(input);
+        var result = MudToMuiDataGridAdapter.Map(input);
 
         result.Filters.Should().NotBeNull();
         result.Filters!.LogicOperator.Should().Be(MuiDataGridLogicOperator.And);
@@ -45,8 +43,6 @@ public class MudDataGridAdapterTests
     [Fact]
     public void Map_ShouldPreserveSortDefinitionOrder()
     {
-        var sut = new MudToMuiDataGridAdapter();
-
         var input = new MudDataGridFilterInput
         {
             SortDefinitions =
@@ -57,7 +53,7 @@ public class MudDataGridAdapterTests
             ],
         };
 
-        var result = sut.Map(input);
+        var result = MudToMuiDataGridAdapter.Map(input);
 
         result.Sorting!.Select(x => x.Field).Should().Equal("first", "second", "third");
     }
@@ -65,9 +61,7 @@ public class MudDataGridAdapterTests
     [Fact]
     public void Map_ShouldFailFastWithGraphqlError_WhenOperatorIsUnsupported()
     {
-        var sut = new MudToMuiDataGridAdapter();
-
-        var act = () => sut.Map(
+        var act = () => MudToMuiDataGridAdapter.Map(
             new MudDataGridFilterInput
             {
                 FilterDefinitions =

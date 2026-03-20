@@ -1,6 +1,7 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
 using Microsoft.EntityFrameworkCore;
+using Stackworx.Hotchocolate.MudDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
@@ -29,6 +30,26 @@ public class Query
 
         var res = await q.ToListAsync();
 
+        return res;
+    }
+
+    public async Task<List<Person>> MudPeople(
+        MudDataGridFilterInput? filters,
+        MuiDataGridDbContext dbContext)
+    {
+        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
+        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(new DefaultNodeIdSerializer(), "Ref"));
+        builder.AddHandler("id", new DefaultRelayIdSingleSelectHandler<Person>(new DefaultNodeIdSerializer(), "Person"));
+
+        IQueryable<Person> q = dbContext.People;
+        if (filters != null)
+        {
+            q = q.Where(builder.Filter(filters));
+            q = builder.Sort(q, filters);
+        }
+
+        var res = await q.ToListAsync();
         return res;
     }
 

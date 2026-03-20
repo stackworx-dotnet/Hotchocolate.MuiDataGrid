@@ -13,12 +13,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Hotchocolate">
-        <PackageVersion Include="HotChocolate.Abstractions" Version="14.1.0"/>
-        <PackageVersion Include="HotChocolate.Data" Version="14.1.0"/>
-        <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="14.1.0"/>
-        <PackageVersion Include="HotChocolate.Types" Version="14.1.0"/>
-        <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="14.1.0"/>
-        <PackageVersion Include="HotChocolate.AspNetCore" Version="14.1.0"/>
+        <PackageVersion Include="HotChocolate.Abstractions" Version="15.1.12"/>
+        <PackageVersion Include="HotChocolate.Data" Version="15.1.12"/>
+        <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="15.1.12"/>
+        <PackageVersion Include="HotChocolate.Types" Version="15.1.12"/>
+        <PackageVersion Include="HotChocolate.Types.CursorPagination" Version="15.1.12"/>
+        <PackageVersion Include="HotChocolate.AspNetCore" Version="15.1.12"/>
     </ItemGroup>
 
     <ItemGroup Label="Test Dependencies">

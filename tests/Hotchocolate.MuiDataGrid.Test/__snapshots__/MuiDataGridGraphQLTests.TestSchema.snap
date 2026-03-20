@@ -37,8 +37,8 @@ type Person {
   dateOfBirth: DateTime!
   marriageDate: DateTime
   idCardReceivedDate: DateTime
-  createdAtDate: Date!
-  updatedAtDate: Date
+  createdAtDate: LocalDate!
+  updatedAtDate: LocalDate
   addressId: Int
   address: Address
 }
@@ -97,14 +97,14 @@ directive @specifiedBy("The specifiedBy URL points to a human-readable specifica
 
 scalar Any
 
-"The `Date` scalar represents an ISO-8601 compliant date type."
-scalar Date
-
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
 
 "The `Decimal` scalar type represents a decimal floating-point number."
 scalar Decimal
+
+"The `LocalDate` scalar type represents a ISO date string, represented as UTF-8 character sequences YYYY-MM-DD. The scalar follows the specification defined in RFC3339"
+scalar LocalDate
 
 scalar MuiValue
 

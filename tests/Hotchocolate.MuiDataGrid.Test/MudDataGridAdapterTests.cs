@@ -85,4 +85,3 @@ public class MudDataGridAdapterTests
         error.Extensions.Should().ContainKey("operator").WhoseValue.Should().Be("not contains");
     }
 }
-

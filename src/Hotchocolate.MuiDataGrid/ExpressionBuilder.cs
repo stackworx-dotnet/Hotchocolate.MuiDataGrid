@@ -2,31 +2,16 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using HotChocolate.Language;
 
-public class ExpressionBuilder<T>(IColumnLookup<T> columnLookup, ExpressionBuilderFlavour flavour = ExpressionBuilderFlavour.EFCORE)
+internal class ExpressionBuilder<T>(DataType<T> dataType, ExpressionBuilderFlavour flavour = ExpressionBuilderFlavour.EFCORE)
 {
-    private readonly Dictionary<string, IExpressionBuilderHandler<T>> handlers = new();
+    private readonly Dictionary<string, IExpressionBuilderHandler<T>> handlers = new(dataType.Handlers, StringComparer.Ordinal);
 
     private readonly IExpressionBuilderHandler<T> defaultBooleanHandler = new DefaultBooleanHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultStringHandler = new DefaultStringHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultNumberHandler = new DefaultNumberHandler<T>();
-    private readonly IExpressionBuilderHandler<T> defaultSingleSelectHandler = new DefaultSingleSelectHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultDateTimeHandler = new DefaultDateTimeHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultDateOnlyHandler = new DefaultDateOnlyHandler<T>();
     private readonly IExpressionBuilderHandler<T> defaultGuidHandler = new DefaultGuidHandler<T>();
-
-    public void AddHandler(string columnField, IExpressionBuilderHandler<T> handler)
-    {
-        // Validate column
-        if (!columnLookup.CanHandle(columnField))
-        {
-            throw new ArgumentException($"{columnLookup} cannot handle column {columnField}");
-        }
-
-        if (!this.handlers.TryAdd(columnField, handler))
-        {
-            throw new ArgumentException($"Handler for column: {columnField} already registered");
-        }
-    }
 
     public IQueryable<T> Sort(IQueryable<T> query, IList<MuiDataGridSortItem> items)
     {
@@ -108,7 +93,7 @@ public class ExpressionBuilder<T>(IColumnLookup<T> columnLookup, ExpressionBuild
     // MemberExpression memberAccessor,
     private Expression<Func<T, bool>> Build(MuiDataGridFilterItemInput filter)
     {
-        var memberAccessor = columnLookup.Lookup(filter.Field);
+        var memberAccessor = dataType.Lookup(filter.Field);
 
         if (this.handlers.TryGetValue(filter.Field, out var handler))
         {
@@ -143,7 +128,7 @@ public class ExpressionBuilder<T>(IColumnLookup<T> columnLookup, ExpressionBuild
 
     private IQueryable<T> Sort(IQueryable<T> query, MuiDataGridSortItem item)
     {
-        var member = columnLookup.Lookup(item.Field);
+        var member = dataType.Lookup(item.Field);
         var memberAccessor = member.Expression;
 
         dynamic expression;

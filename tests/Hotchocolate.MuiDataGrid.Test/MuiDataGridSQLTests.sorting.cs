@@ -3,7 +3,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Snapshooter.Xunit;
-using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 public partial class MuiDataGridSQLTests
@@ -12,13 +11,13 @@ public partial class MuiDataGridSQLTests
     public async Task TestSingleSorting()
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sorting = new List<MuiDataGridSortItem>
         {
             new("firstname", MuiGridSortDirection.Asc),
         };
         var sql = dbContext.People.OrderBy(p => p.Firstname).ToQueryString();
-        var muiSql = dbContext.People.Sort(builder, sorting).ToQueryString();
+        var muiSql = builder.Sort(dbContext.People, sorting).ToQueryString();
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
     }
@@ -27,7 +26,7 @@ public partial class MuiDataGridSQLTests
     public async Task TestMultiSorting()
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sorting = new List<MuiDataGridSortItem>
         {
             new("firstname", MuiGridSortDirection.Asc),
@@ -36,7 +35,7 @@ public partial class MuiDataGridSQLTests
         var sql = dbContext.People
             .OrderBy(p => p.Firstname)
             .OrderByDescending(p => p.Weight).ToQueryString();
-        var muiSql = dbContext.People.Sort(builder, sorting).ToQueryString();
+        var muiSql = builder.Sort(dbContext.People, sorting).ToQueryString();
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
     }

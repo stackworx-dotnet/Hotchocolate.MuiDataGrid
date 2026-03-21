@@ -12,7 +12,7 @@ public partial class MuiDataGridSQLTests
     public async Task TestNested()
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var filters = new MuiDataGridFilterInput
         {
             Items = new List<MuiDataGridFilterItemInput>

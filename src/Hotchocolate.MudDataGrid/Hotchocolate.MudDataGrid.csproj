@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="HotChocolate.Abstractions"/>
         <PackageReference Include="HotChocolate.Types"/>
+        <PackageReference Include="JetBrains.Annotations" />
     </ItemGroup>
 
     <ItemGroup>

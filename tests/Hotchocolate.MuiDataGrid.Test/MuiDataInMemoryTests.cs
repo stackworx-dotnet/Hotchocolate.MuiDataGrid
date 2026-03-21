@@ -11,7 +11,7 @@ public class MuiDataInMemoryTests(ITestOutputHelper outputHelper)
     [Fact]
     public void TestInMemory()
     {
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup(), ExpressionBuilderFlavour.IN_MEMORY);
+        var builder = new PersonDataType(ExpressionBuilderFlavour.IN_MEMORY);
 
         var people = new List<Person>
         {

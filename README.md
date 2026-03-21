@@ -23,6 +23,63 @@ builder
 
 This repository targets `net9.0`.
 
+## Migrating from the previous version
+
+This release contains a breaking API change: `ExpressionBuilder<T>` now requires a `DataType<T>` instead of a `BaseColumnLookup<T>`, and custom handlers are configured on the data type rather than registered later on the builder.
+
+### What changed
+
+- `new ExpressionBuilder<T>(new PersonColumnLookup())` → `new ExpressionBuilder<T>(new PersonDataType())`
+- `BaseColumnLookup<T>` mappings move into `DataType<T>.Configure(...)`
+- `builder.AddHandler(...)` is removed; use `.SetHandler(...)` on the mapped property instead
+- field names still default to camelCase property names, and `SetName(...)` is available to preserve old field contracts
+
+### Old style
+
+```csharp
+public sealed class PersonColumnLookup : BaseColumnLookup<Person>
+{
+    protected override ColumnLookupMember? InternalLookup(string column)
+    {
+        return column switch
+        {
+            "firstname" => this.GetMemberExpression(p => p.Firstname),
+            "apartmentType" => this.GetMemberExpression(p => p.Address!.Apartment.ApartmentType),
+            _ => null,
+        };
+    }
+}
+
+var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
+```
+
+### New style
+
+```csharp
+public sealed class PersonDataType : DataType<Person>
+{
+    protected override void Configure(DataTypeBuilder<Person> builder)
+    {
+        builder.Property(p => p.Firstname);
+
+        builder.Property(p => p.Address!.Apartment.ApartmentType)
+            .SetName("apartmentType")
+            .SetHandler(new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
+    }
+}
+
+var builder = new ExpressionBuilder<Person>(new PersonDataType());
+```
+
+### Migration checklist
+
+1. Replace each `BaseColumnLookup<T>` with a `DataType<T>`.
+2. Move each `switch` case into `builder.Property(...)` calls.
+3. Add `SetName(...)` where the old field name does not match the inferred property name.
+4. Move each `builder.AddHandler(...)` call into the corresponding property configuration via `SetHandler(...)`.
+5. Update every `ExpressionBuilder<T>` construction site to pass the new data type.
+
 ## Experimental MudBlazor integration
 
 An adapter is available in `src/Hotchocolate.MudDataGrid` to translate MudBlazor DataGrid state into the MUI filter/sort contract used by `ExpressionBuilder<T>`.
@@ -57,34 +114,32 @@ dotnet test ./tests/Hotchocolate.MuiDataGrid.Test --configuration Release
 
 The backend accepts `MuiDataGridFilterInput` and sort items from your GraphQL query, then applies them with `ExpressionBuilder<T>`.
 
-### Sample column mapper
+### Sample data type
 
-Map MUI field names (for example `firstname`) to entity members.
+Map MUI field names (for example `firstname`) to entity members with `DataType<T>`. By default, fields are inferred from property names using camelCase, and you can override names with `SetName(...)` during transitions.
 
 ```csharp
 using Stackworx.Hotchocolate.MuiDataGrid;
 
-public sealed class PersonColumnLookup : BaseColumnLookup<Person>
+public sealed class PersonDataType : DataType<Person>
 {
-    protected override ColumnLookupMember? InternalLookup(string column)
+    protected override void Configure(DataTypeBuilder<Person> builder)
     {
-        return column switch
-        {
-            "id" => this.GetMemberExpression(p => p.Id),
-            "firstname" => this.GetMemberExpression(p => p.Firstname),
-            "lastname" => this.GetMemberExpression(p => p.Lastname),
-            "age" => this.GetMemberExpression(p => p.Age),
-            "createdAtDate" => this.GetMemberExpression(p => p.CreatedAtDate),
-            "apartmentType" => this.GetMemberExpression(p => p.Address!.Apartment.ApartmentType),
-            _ => null,
-        };
+        builder.Property(p => p.Id);
+        builder.Property(p => p.Firstname);
+        builder.Property(p => p.Lastname);
+        builder.Property(p => p.Age);
+        builder.Property(p => p.CreatedAtDate);
+        builder.Property(p => p.Address!.Apartment.ApartmentType)
+            .SetName("apartmentType")
+            .SetHandler(new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
     }
 }
 ```
 
 ### Sample resolver
 
-Create one `ExpressionBuilder<T>` for the resolver, register custom handlers where needed, and apply filter/sort.
+Create one `ExpressionBuilder<T>` for the resolver from your configured `DataType<T>` and apply filter/sort.
 
 ```csharp
 using Microsoft.EntityFrameworkCore;
@@ -97,10 +152,7 @@ public class Query
         IList<MuiDataGridSortItem>? sorting,
         AppDbContext dbContext)
     {
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-
-        // Optional: map non-default types/operators to a specific handler.
-        builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
+        var builder = new ExpressionBuilder<Person>(new PersonDataType());
 
         IQueryable<Person> query = dbContext.People;
 

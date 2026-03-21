@@ -3,7 +3,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Snapshooter.Xunit;
-using Stackworx.Hotchocolate.Muidatagrid.Entities;
 using Stackworx.Hotchocolate.Muidatagrid.GraphQL;
 
 public partial class MuiDataGridSQLTests
@@ -23,7 +22,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "="),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Age == 5).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -44,7 +43,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "!="),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Age != 5).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -65,7 +64,7 @@ public partial class MuiDataGridSQLTests
                     Operator: ">"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Age > 5).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -86,7 +85,7 @@ public partial class MuiDataGridSQLTests
                     Operator: ">="),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Age >= 5).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -107,7 +106,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "<"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Age < 5).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -128,7 +127,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "<="),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Age <= 5).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -149,7 +148,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isEmpty"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Weight == null).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -170,7 +169,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isNotEmpty"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Weight != null).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -191,7 +190,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isAnyOf"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => new List<int> { 5, 6 }.Contains(p.Age)).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);

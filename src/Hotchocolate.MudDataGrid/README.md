@@ -20,6 +20,20 @@ services
     .AddMudDataGridAdapter();
 ```
 
+## Migrating from the previous version
+
+If you were previously constructing the resolver with a `BaseColumnLookup<T>`, update it to use a `DataType<T>` instead:
+
+```csharp
+// old
+var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+
+// new
+var builder = new ExpressionBuilder<Person>(new PersonDataType());
+```
+
+If the old resolver also registered handlers after construction, move that configuration into `PersonDataType.Configure(...)` by using `SetHandler(...)` on the relevant property. Use `SetName(...)` when you need to preserve an existing field name exposed to the Mud/MUI payload.
+
 ## GraphQL input types
 
 `MudDataGridFilterInput` mirrors the flat shape sent from Blazor over the wire:
@@ -55,7 +69,7 @@ public async Task<List<Person>> People(
     IMudToMuiDataGridAdapter adapter,      // injected from DI
     MuiDataGridDbContext dbContext)
 {
-    var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+    var builder = new ExpressionBuilder<Person>(new PersonDataType());
 
     var mapped = adapter.Map(state);
 

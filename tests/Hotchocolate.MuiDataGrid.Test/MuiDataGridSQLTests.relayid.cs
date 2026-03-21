@@ -2,7 +2,6 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using FluentAssertions;
 using HotChocolate;
-using HotChocolate.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Snapshooter.Xunit;
@@ -29,8 +28,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "is"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(p => p.RefId == Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
@@ -56,8 +54,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "not"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(p => p.RefId != Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
@@ -87,8 +84,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isAnyOf"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(
                 p => new List<Guid>
@@ -119,9 +115,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "is"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
-        builder.AddHandler("refIdNullable", new DefaultRelayIdSingleSelectHandler<Person>(idSerializer, "Ref"));
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(p => p.RefIdNullable == Guid.Parse("9F1EF691-2C4B-4BDE-B0AC-635BDD4E180B")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();

@@ -23,8 +23,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "is"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("gender", new PersonGenderHandler());
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(p => p.Gender == Gender.Male).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
@@ -47,8 +46,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "not"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("gender", new PersonGenderHandler());
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(p => p.Gender != Gender.Male).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
@@ -71,8 +69,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "is"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("apartmentType", new PersonApartmentTypeHandler());
+        var builder = new PersonDataType();
 
         var sql = dbContext.People
             .Where(p => p.Address!.Apartment.ApartmentType == ApartmentType.RentalProperty)
@@ -101,8 +98,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isAnyOf"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("gender", new PersonGenderHandler());
+        var builder = new PersonDataType();
 
         var sql = dbContext.People.Where(p => new List<Gender>
         {
@@ -112,13 +108,5 @@ public partial class MuiDataGridSQLTests
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
         muiSql.MatchSnapshot();
-    }
-
-    private class PersonGenderHandler : DefaultEnumSingleSelectHandler<Person, Gender>
-    {
-    }
-
-    private class PersonApartmentTypeHandler : DefaultEnumSingleSelectHandler<Person, ApartmentType>
-    {
     }
 }

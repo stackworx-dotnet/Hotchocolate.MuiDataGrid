@@ -1,5 +1,6 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid.GraphQL;
 
+using HotChocolate.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 using Stackworx.Hotchocolate.MudDataGrid;
 using Stackworx.Hotchocolate.Muidatagrid.Entities;
@@ -10,12 +11,10 @@ public class Query
     public async Task<List<Person>> People(
         MuiDataGridFilterInput? filters,
         IList<MuiDataGridSortItem>? sorting,
-        MuiDataGridDbContext dbContext)
+        MuiDataGridDbContext dbContext,
+        INodeIdSerializer idSerializer)
     {
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
-        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(new DefaultNodeIdSerializer(), "Ref"));
-        builder.AddHandler("id", new DefaultRelayIdSingleSelectHandler<Person>(new DefaultNodeIdSerializer(), "Person"));
+        var builder = new PersonDataType(idSerializer);
 
         IQueryable<Person> q = dbContext.People;
         if (filters != null)
@@ -35,12 +34,10 @@ public class Query
 
     public async Task<List<Person>> MudPeople(
         MudDataGridFilterInput? filters,
-        MuiDataGridDbContext dbContext)
+        MuiDataGridDbContext dbContext,
+        INodeIdSerializer idSerializer)
     {
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
-        builder.AddHandler("apartmentType", new DefaultEnumSingleSelectHandler<Person, ApartmentType>());
-        builder.AddHandler("refId", new DefaultRelayIdSingleSelectHandler<Person>(new DefaultNodeIdSerializer(), "Ref"));
-        builder.AddHandler("id", new DefaultRelayIdSingleSelectHandler<Person>(new DefaultNodeIdSerializer(), "Person"));
+        var builder = new PersonDataType(idSerializer);
 
         IQueryable<Person> q = dbContext.People;
         if (filters != null)

@@ -23,7 +23,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "is"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.CreatedAtDate == DateOnly.Parse("2022-05-31T10:08")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -45,7 +45,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "not"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.CreatedAtDate != DateOnly.Parse("2022-05-31T10:08")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -67,7 +67,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "after"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.CreatedAtDate > DateOnly.Parse("2022-05-31")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -89,7 +89,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "onOrAfter"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.CreatedAtDate >= DateOnly.Parse("2022-05-31")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -111,7 +111,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "before"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.CreatedAtDate < DateOnly.Parse("2022-05-31")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -133,7 +133,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "onOrBefore"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.CreatedAtDate <= DateOnly.Parse("2022-05-31")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -155,7 +155,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isEmpty"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.UpdatedAtDate == null).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -177,7 +177,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isNotEmpty"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.UpdatedAtDate != null).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);

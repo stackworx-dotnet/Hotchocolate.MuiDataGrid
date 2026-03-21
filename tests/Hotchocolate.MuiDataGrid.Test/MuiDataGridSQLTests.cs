@@ -23,7 +23,7 @@ public partial class MuiDataGridSQLTests
     public async Task TestEmpty()
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(new MuiDataGridFilterInput())).ToQueryString();
         muiSql.Should().Be(sql);
@@ -34,7 +34,7 @@ public partial class MuiDataGridSQLTests
     public async Task TestStringEquals()
     {
         await using var dbContext = await this.fixture.CreateDbContextAsync();
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var filters = new MuiDataGridFilterInput
         {
             Items = new List<MuiDataGridFilterItemInput>
@@ -65,7 +65,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "contains"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Firstname.Contains("Ciaran")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -86,7 +86,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "startsWith"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Firstname.StartsWith("Ciaran")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -107,7 +107,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "endsWith"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => p.Firstname.EndsWith("Ciaran")).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -128,7 +128,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isEmpty"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => string.IsNullOrEmpty(p.Bio)).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -149,7 +149,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isNotEmpty"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         var sql = dbContext.People.Where(p => !string.IsNullOrEmpty(p.Bio)).ToQueryString();
         var muiSql = dbContext.People.Where(builder.Filter(filters)).ToQueryString();
         muiSql.Should().Be(sql);
@@ -175,7 +175,7 @@ public partial class MuiDataGridSQLTests
                     Operator: "isAnyOf"),
             },
         };
-        var builder = new ExpressionBuilder<Person>(new PersonColumnLookup());
+        var builder = new PersonDataType();
         // TODO: figure out why this resolves to different sql than the same contains value. json_each has something to do with it
         // https://github.com/jOOQ/jOOQ/issues/11349
         var sql = dbContext.People.Where(p => values.Contains(p.Firstname)).ToQueryString();

@@ -1,5 +1,9 @@
 # Hotchocolate MuiDataGrid
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![.NET](https://img.shields.io/badge/.NET-net9.0-512BD4?logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-Language-239120?logo=csharp&logoColor=white)
+
 ## Setup
 
 `Stackworx.Hotchocolate.MuiDataGrid` builds filter/sort expressions from MUI DataGrid model payloads.

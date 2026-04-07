@@ -3,6 +3,7 @@
     <PropertyGroup>
         <RootNamespace>Stackworx.Hotchocolate.MudDataGrid</RootNamespace>
         <PackageId>Stackworx.Hotchocolate.MudDataGrid</PackageId>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IsPublishable>false</IsPublishable>
     </PropertyGroup>
 

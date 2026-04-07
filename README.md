@@ -4,6 +4,22 @@
 
 `Stackworx.Hotchocolate.MuiDataGrid` builds filter/sort expressions from MUI DataGrid model payloads.
 
+## License
+
+This project is licensed under the MIT License. See `LICENSE`.
+
+## CI/CD
+
+GitHub Actions runs formatting, build, and test checks on pull requests and pushes to `main`.
+
+NuGet publishing is a local operation.
+
+To publish packages to NuGet.org locally:
+
+```bash
+VERSION=2.0.0 NUGET_API_KEY=your_key_here ./scripts/release.sh
+```
+
 1. Add a reference to the library.
 
 ```xml

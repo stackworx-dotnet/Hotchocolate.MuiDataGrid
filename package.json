@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "dprint": "0.41.0"
   },

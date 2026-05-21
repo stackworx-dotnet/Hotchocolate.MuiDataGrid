@@ -82,9 +82,22 @@ public sealed class MuiValueType : ScalarType
                         {
                             items.Add(fvn.Value);
                         }
+                        else if (node is ObjectValueNode optionNode)
+                        {
+                            var optionValueField = optionNode.Fields.SingleOrDefault(f => f.Name.Value == "value")
+                                             ?? throw new ArgumentException("Expected field with name 'value'");
+
+                            if (optionValueField.Value is StringValueNode valueSvn)
+                            {
+                                items.Add(valueSvn.Value);
+                            }
+                            else
+                            {
+                                throw new ArgumentException($"Expected StringValueNode for 'value' field, got {optionValueField.Value.Kind}");
+                            }
+                        }
                         else
                         {
-                            // TODO: If object, for option case we need to get the value from the object
                             throw new ArgumentException($"Expected a string node. Got: {node.GetType()}");
                         }
                     }

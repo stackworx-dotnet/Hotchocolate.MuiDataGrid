@@ -245,3 +245,16 @@ getGridSingleSelectOperators().filter(({ value }) =>
   ['equals', 'isEmpty', 'isNotEmpty', 'isAnyOf'].includes(value)
 );
 ```
+
+### Enum collection (`DefaultEnumMultiSelectHandler`)
+
+`isAnyOf` — matches rows where the entity's enum collection contains **any** of the filter values.
+
+Register explicitly on the property; auto-detection is not performed:
+
+```csharp
+// Works for IList<TEnum>, ICollection<TEnum>, IEnumerable<TEnum>, and List<TEnum>
+builder.Property(u => u.Roles).SetEnumMultiSelectHandler();
+```
+
+Filter values are enum name strings normalised via Humanizer, e.g. `SUPER_USER`, `Super User`, and `SuperUser` all resolve to the same member. Unknown values throw `ArgumentException` immediately.

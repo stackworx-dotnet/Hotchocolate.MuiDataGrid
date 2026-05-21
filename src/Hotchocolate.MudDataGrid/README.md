@@ -105,7 +105,31 @@ Operators are matched **case-insensitively** after trimming. The table below sho
 | `is not` / `not`                 | `not`          | DateTime, SingleSelect |
 | `empty`                          | `isEmpty`      | String, Number, DateTime, Guid |
 | `not empty`                      | `isNotEmpty`   | String, Number, DateTime, Guid |
-| `any of` / `is any of`           | `isAnyOf`      | String, Number, Guid, SingleSelect |
+| `any of` / `is any of`           | `isAnyOf`      | String, Number, Guid, SingleSelect, **EnumMultiSelect** |
+
+### Enum collection filtering (isAnyOf)
+
+Use `SetEnumMultiSelectHandler` to filter entity properties that hold a collection of enum values (e.g. `IList<Role>`, `ICollection<Permission>`). A row is returned when its collection contains **at least one** of the selected values.
+
+**Data type configuration:**
+
+```csharp
+builder.Property(u => u.Roles).SetEnumMultiSelectHandler();
+```
+
+**Mud / MUI filter payload:**
+
+```graphql
+filterDefinitions: [{
+    field: "roles",
+    operator: "any of",        // or "is any of"
+    value: ["ADMIN", "SUPER_USER"]
+}]
+```
+
+Enum string values are normalised with [Humanizer](https://github.com/Humanizr/Humanizer) before parsing, so `SUPER_USER`, `Super User`, and `SuperUser` all resolve to the same enum member. Unknown enum strings throw an `ArgumentException` immediately (fail-fast, consistent with `DefaultEnumSingleSelectHandler`).
+
+`SetEnumMultiSelectHandler` is available for: `IEnumerable<TEnum>`, `ICollection<TEnum>`, `IList<TEnum>`, and `List<TEnum>`. It **does not auto-register** — you must call it explicitly on the relevant property.
 
 Any operator not listed above throws a `GraphQLException` immediately (fail-fast).
 

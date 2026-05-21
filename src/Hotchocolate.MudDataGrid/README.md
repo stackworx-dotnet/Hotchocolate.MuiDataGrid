@@ -109,7 +109,7 @@ Operators are matched **case-insensitively** after trimming. The table below sho
 
 ### Enum collection filtering (isAnyOf)
 
-Use `SetEnumMultiSelectHandler` to filter entity properties that hold a collection of enum values (e.g. `IList<Role>`, `ICollection<Permission>`). A row is returned when its collection contains **at least one** of the selected values.
+Use `SetEnumMultiSelectHandler` to filter entity properties that hold a collection of enum values. Configure it for `IEnumerable<TEnum>` and it will also apply to `IList<TEnum>` and `ICollection<TEnum>` because they implement `IEnumerable<TEnum>`. A row is returned when its collection contains **at least one** of the selected values.
 
 **Data type configuration:**
 
@@ -129,7 +129,7 @@ filterDefinitions: [{
 
 Enum string values are normalised with [Humanizer](https://github.com/Humanizr/Humanizer) before parsing, so `SUPER_USER`, `Super User`, and `SuperUser` all resolve to the same enum member. Unknown enum strings throw an `ArgumentException` immediately (fail-fast, consistent with `DefaultEnumSingleSelectHandler`).
 
-`SetEnumMultiSelectHandler` is available for: `IEnumerable<TEnum>`, `ICollection<TEnum>`, `IList<TEnum>`, and `List<TEnum>`. It **does not auto-register** — you must call it explicitly on the relevant property.
+`SetEnumMultiSelectHandler` is defined for `IEnumerable<TEnum>`. This also covers `IList<TEnum>`, `ICollection<TEnum>`, and `List<TEnum>` implementations. It **does not auto-register** — you must call it explicitly on the relevant property.
 
 Any operator not listed above throws a `GraphQLException` immediately (fail-fast).
 

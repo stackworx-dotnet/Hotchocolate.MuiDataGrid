@@ -253,7 +253,7 @@ getGridSingleSelectOperators().filter(({ value }) =>
 Register explicitly on the property; auto-detection is not performed:
 
 ```csharp
-// Works for IList<TEnum>, ICollection<TEnum>, IEnumerable<TEnum>, and List<TEnum>
+// Configure once for IEnumerable<TEnum>; this also covers IList<TEnum> and ICollection<TEnum>
 builder.Property(u => u.Roles).SetEnumMultiSelectHandler();
 ```
 

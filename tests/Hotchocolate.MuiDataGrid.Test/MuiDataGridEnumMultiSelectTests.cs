@@ -225,19 +225,21 @@ public class MuiDataGridEnumMultiSelectTests
     {
         protected override void Configure(DataTypeBuilder<ResourceWithPermissions> builder)
         {
-            builder.Property(r => r.RequiredPermissions).SetEnumMultiSelectHandler(); // ICollection<TEnum>
-            builder.Property(r => r.GrantedPermissions).SetEnumMultiSelectHandler(); // IEnumerable<TEnum>
-            builder.Property(r => r.DeniedPermissions).SetEnumMultiSelectHandler(); // List<TEnum>
+            builder.Property(r => r.RequiredPermissions).SetEnumMultiSelectHandler(); // ICollection<Permission>
+            builder.Property(r => r.GrantedPermissions).SetEnumMultiSelectHandler(); // IEnumerable<Permission>
+            builder.Property(r => r.DeniedPermissions).SetEnumMultiSelectHandler(); // List<Permission>
         }
     }
 
     private class UserWithRoles
     {
+#pragma warning disable CA1822 // Mark members as static
         public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
 
         public IList<Role> Roles { get; set; } = new List<Role>();
+#pragma warning restore CA1822 // Mark members as static
     }
 
     private class ResourceWithPermissions

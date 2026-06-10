@@ -1,0 +1,15 @@
+﻿{
+  "ContentType": "application/graphql-response+json; charset=utf-8",
+  "StatusCode": "OK",
+  "Data": {
+    "people": {
+      "ValueKind": "Array"
+    }
+  },
+  "Errors": [],
+  "Extensions": {},
+  "Incremental": null,
+  "ContextData": {},
+  "HasNext": null,
+  "IsDataSet": false
+}

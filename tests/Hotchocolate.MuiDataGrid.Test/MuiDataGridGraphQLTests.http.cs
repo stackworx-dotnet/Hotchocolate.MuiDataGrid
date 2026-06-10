@@ -118,6 +118,73 @@ public partial class MuiDataGridGraphQLTests
     }
 
     [Fact]
+    public async Task TestHttpStaticEnumIsAnyOfWithObjectsQuery()
+    {
+        var server = fixture.CreateTestServer();
+        var request = new ClientQueryRequest
+        {
+            Id = "1",
+            Query = """
+                    query people {
+                                    people(filters: {
+                                        items: [{
+                                            field: "gender",
+                                            value: [{label: "Male", value: "MALE"}, {label: "Female", value: "FEMALE"}],
+                                            operator: "isAnyOf"
+                                        }]
+                                    }) { firstname gender }
+                                }
+                    """,
+        };
+        var result = await server.PostAsync(request);
+        result.Errors.Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
+    public async Task TestHttpVariableEnumIsAnyOfWithObjectsQuery()
+    {
+        var server = fixture.CreateTestServer();
+        var request = new ClientQueryRequest
+        {
+            Id = "1",
+            Query = """
+                    query people($filters: MuiDataGridFilterInput!) {
+                                    people(filters: $filters) { firstname gender }
+                                }
+                    """,
+            Variables = new Dictionary<string, object>
+            {
+                {
+                    "filters", new Dictionary<string, object>
+                    {
+                        {
+                            "items", new List<object>
+                            {
+                                new Dictionary<string, object>
+                                {
+                                    { "field", "gender" },
+                                    {
+                                        "value", new List<object>
+                                        {
+                                            new Dictionary<string, object> { { "label", "Male" }, { "value", "MALE" } },
+                                            new Dictionary<string, object> { { "label", "Female" }, { "value", "FEMALE" } },
+                                        }
+                                    },
+                                    { "operator", "isAnyOf" },
+                                },
+                            }
+                        },
+                    }
+                },
+            },
+        };
+        var result = await server.PostAsync(request);
+        result.Errors.Should().BeEmpty();
+        result.MatchSnapshot();
+    }
+
+    [Fact]
     public async Task TestHttpStaticQueryReturnsDeserializedError()
     {
         var server = fixture.CreateTestServer();

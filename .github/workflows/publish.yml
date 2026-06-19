@@ -1,0 +1,80 @@
+# Publishes Hotchocolate.MuiDataGrid packages to nuget.org using Trusted Publishing (OIDC).
+# No long-lived NuGet API key is stored — NuGet/login exchanges a short-lived
+# GitHub OIDC token for a temporary API key.
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Package version to publish (e.g. 1.2.3 or 1.2.3-preview.1)"
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write   # required for the GitHub OIDC token exchange
+      contents: write  # required to create the release tag
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Resolve version
+        id: version
+        run: |
+          VERSION="${{ inputs.version }}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Publishing version $VERSION"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack
+        run: |
+          dotnet pack src/Hotchocolate.MuiDataGrid/Hotchocolate.MuiDataGrid.csproj \
+            --configuration Release --no-build \
+            --include-symbols --include-source \
+            -p:SymbolPackageFormat=snupkg \
+            -p:Version=${{ steps.version.outputs.version }} \
+            --output ${{ github.workspace }}/artifacts
+          dotnet pack src/Hotchocolate.MudDataGrid/Hotchocolate.MudDataGrid.csproj \
+            --configuration Release --no-build \
+            --include-symbols --include-source \
+            -p:SymbolPackageFormat=snupkg \
+            -p:Version=${{ steps.version.outputs.version }} \
+            --output ${{ github.workspace }}/artifacts
+
+      # Request a short-lived NuGet API key via OIDC. Set the NUGET_USER repo
+      # variable to your nuget.org username (profile name, NOT your email).
+      - name: NuGet login (OIDC -> temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ vars.NUGET_USER }}
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "${{ github.workspace }}/artifacts/*.nupkg"
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Create release tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"

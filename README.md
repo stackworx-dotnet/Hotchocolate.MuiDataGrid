@@ -1,5 +1,6 @@
 # Hotchocolate MuiDataGrid
 
+[![CI](https://github.com/stackworx-dotnet/Hotchocolate.MuiDataGrid/actions/workflows/ci.yml/badge.svg)](https://github.com/stackworx-dotnet/Hotchocolate.MuiDataGrid/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/Stackworx.Hotchocolate.MuiDataGrid.svg)](https://www.nuget.org/packages/Stackworx.Hotchocolate.MuiDataGrid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 ![.NET](https://img.shields.io/badge/.NET-net10.0-512BD4?logo=dotnet&logoColor=white)

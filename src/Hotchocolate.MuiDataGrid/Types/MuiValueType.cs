@@ -1,10 +1,17 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid.Types;
 
-using System.Collections;
+using System.Text.Json;
+using HotChocolate.Features;
 using HotChocolate.Language;
+using HotChocolate.Text.Json;
 using HotChocolate.Types;
 
-public sealed class MuiValueType : ScalarType
+/// <summary>
+/// A flexible ("Any"-like) scalar for MUI DataGrid filter values, which may be a string, number,
+/// boolean, or a list thereof. Ported to the HotChocolate 16 <see cref="ScalarType{T}"/> coercion
+/// model (CoerceInputLiteral / CoerceInputValue / OnCoerceOutputValue / OnValueToLiteral).
+/// </summary>
+public sealed class MuiValueType : ScalarType<MuiValue>
 {
     public MuiValueType()
         : this("MuiValue")
@@ -20,34 +27,35 @@ public sealed class MuiValueType : ScalarType
         this.Description = description;
     }
 
-    public override Type RuntimeType => typeof(MuiValue);
+    /// <inheritdoc />
+    public override ScalarSerializationType SerializationType => ScalarSerializationType.Any;
 
-    public override bool IsInstanceOfType(IValueNode literal)
+    /// <inheritdoc />
+    public override bool IsValueCompatible(IValueNode valueLiteral)
+        => valueLiteral.Kind is
+            SyntaxKind.StringValue or
+            SyntaxKind.IntValue or
+            SyntaxKind.FloatValue or
+            SyntaxKind.BooleanValue or
+            SyntaxKind.ListValue or
+            SyntaxKind.ObjectValue or
+            SyntaxKind.NullValue;
+
+    /// <inheritdoc />
+    public override bool IsValueCompatible(JsonElement inputValue)
+        => inputValue.ValueKind is
+            JsonValueKind.String or
+            JsonValueKind.Number or
+            JsonValueKind.True or
+            JsonValueKind.False or
+            JsonValueKind.Array or
+            JsonValueKind.Object or
+            JsonValueKind.Null;
+
+    /// <inheritdoc />
+    public override object CoerceInputLiteral(IValueNode valueLiteral)
     {
-        if (literal is null)
-        {
-            throw new ArgumentNullException(nameof(literal));
-        }
-
-        switch (literal)
-        {
-            case StringValueNode:
-            case IntValueNode:
-            case FloatValueNode:
-            case BooleanValueNode:
-            case ListValueNode:
-            case ObjectValueNode:
-            case NullValueNode:
-                return true;
-
-            default:
-                return false;
-        }
-    }
-
-    public override object? ParseLiteral(IValueNode literal)
-    {
-        switch (literal)
+        switch (valueLiteral)
         {
             case StringValueNode svn:
                 return new MuiValue(svn.Value);
@@ -55,10 +63,11 @@ public sealed class MuiValueType : ScalarType
                 return new MuiValue(ivn.Value);
             case FloatValueNode fvn:
                 return new MuiValue(fvn.Value);
+            case BooleanValueNode bvn:
+                return new MuiValue(bvn.Value ? "true" : "false");
             case ObjectValueNode ovn:
                 var valueField = ovn.Fields.SingleOrDefault(f => f.Name.Value == "value")
-                                 ?? throw new ArgumentException("Expected field with name 'value'");
-
+                    ?? throw new ArgumentException("Expected field with name 'value'");
                 if (valueField.Value is StringValueNode n)
                 {
                     return new MuiValue(n.Value);
@@ -66,165 +75,94 @@ public sealed class MuiValueType : ScalarType
 
                 throw new ArgumentException($"Expected StringValueNode, got {valueField.Value.Kind}");
             case ListValueNode lvn:
+                var items = new List<string>();
+                foreach (var node in lvn.Items)
                 {
-                    var items = new List<string>();
-                    foreach (var node in lvn.Items)
+                    items.Add(node switch
                     {
-                        if (node is StringValueNode svn)
-                        {
-                            items.Add(svn.Value);
-                        }
-                        else if (node is IntValueNode ivn)
-                        {
-                            items.Add(ivn.Value);
-                        }
-                        else if (node is FloatValueNode fvn)
-                        {
-                            items.Add(fvn.Value);
-                        }
-                        else
-                        {
-                            // TODO: If object, for option case we need to get the value from the object
-                            throw new ArgumentException($"Expected a string node. Got: {node.GetType()}");
-                        }
-                    }
-
-                    return new MuiValue(items);
+                        StringValueNode s => s.Value,
+                        IntValueNode i => i.Value,
+                        FloatValueNode f => f.Value,
+                        BooleanValueNode b => b.Value ? "true" : "false",
+                        _ => throw new ArgumentException($"Expected a scalar node. Got: {node.GetType()}"),
+                    });
                 }
 
-            case NullValueNode:
-                return null;
+                return new MuiValue(items);
             default:
-                throw new ArgumentException($"{this.Name} cannot parse the given literal of type {literal.GetType()}");
+                throw new ArgumentException(
+                    $"{this.Name} cannot parse the given literal of type {valueLiteral.GetType()}");
         }
     }
 
-    public override IValueNode ParseValue(object? value)
+    /// <inheritdoc />
+    public override object CoerceInputValue(JsonElement inputValue, IFeatureProvider context)
     {
-        return value is null
-            ? NullValueNode.Default
-            : this.ParseValue(value, new HashSet<object>());
-    }
-
-    public override IValueNode ParseResult(object? resultValue) =>
-        this.ParseValue(resultValue);
-
-    public override bool TrySerialize(object? runtimeValue, out object? resultValue)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override bool TryDeserialize(object? resultValue, out object? runtimeValue)
-    {
-        object? elementValue;
-        runtimeValue = null;
-        switch (resultValue)
+        switch (inputValue.ValueKind)
         {
-            case IDictionary<string, object> dictionary:
+            case JsonValueKind.String:
+                return new MuiValue(inputValue.GetString()!);
+            case JsonValueKind.Number:
+                return new MuiValue(inputValue.GetRawText());
+            case JsonValueKind.True:
+                return new MuiValue("true");
+            case JsonValueKind.False:
+                return new MuiValue("false");
+            case JsonValueKind.Array:
+                var items = new List<string>();
+                foreach (var element in inputValue.EnumerateArray())
                 {
-                    var result = new Dictionary<string, object?>();
-                    foreach (KeyValuePair<string, object> element in dictionary)
-                    {
-                        if (this.TryDeserialize(element.Value, out elementValue))
-                        {
-                            result[element.Key] = elementValue;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-
-                    runtimeValue = result;
-                    return true;
+                    items.Add(element.ValueKind == JsonValueKind.String
+                        ? element.GetString()!
+                        : element.GetRawText());
                 }
 
-            case IList list:
+                return new MuiValue(items);
+            case JsonValueKind.Object:
+                if (inputValue.TryGetProperty("value", out var valueProp)
+                    && valueProp.ValueKind == JsonValueKind.String)
                 {
-                    var result = new object?[list.Count];
-                    for (var i = 0; i < list.Count; i++)
-                    {
-                        if (this.TryDeserialize(list[i], out elementValue))
-                        {
-                            result[i] = elementValue;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-
-                    runtimeValue = result;
-                    return true;
+                    return new MuiValue(valueProp.GetString()!);
                 }
 
-            // TODO: this is only done for a bug in schema stitching and needs to be removed
-            // once we have release stitching 2.
-            case IValueNode literal:
-                runtimeValue = this.ParseLiteral(literal);
-                return true;
-
+                throw new ArgumentException("Expected an object with a string 'value' field.");
             default:
-                runtimeValue = resultValue;
-                return true;
+                throw new ArgumentException(
+                    $"{this.Name} cannot parse the given JSON value of kind {inputValue.ValueKind}");
         }
     }
 
-    private IValueNode ParseValue(object? value, ISet<object> set)
+    /// <inheritdoc />
+    protected override void OnCoerceOutputValue(MuiValue runtimeValue, ResultElement resultValue)
     {
-        if (value is null)
+        // MuiValue is an input scalar (filter values); output coercion emits its string form.
+        if (runtimeValue.Value is null)
+        {
+            resultValue.SetNullValue();
+            return;
+        }
+
+        resultValue.SetStringValue(runtimeValue.AsString());
+    }
+
+    /// <inheritdoc />
+    protected override IValueNode OnValueToLiteral(MuiValue runtimeValue)
+    {
+        if (runtimeValue.Value is null)
         {
             return NullValueNode.Default;
         }
 
-        if (value is MuiValue muiValue)
+        if (runtimeValue.Value is string s)
         {
-            switch (muiValue.Value)
-            {
-                case string s:
-                    return new StringValueNode(s);
-                case short s:
-                    return new IntValueNode(s);
-                case int i:
-                    return new IntValueNode(i);
-                case long l:
-                    return new IntValueNode(l);
-                case float f:
-                    return new FloatValueNode(f);
-                case double d:
-                    return new FloatValueNode(d);
-                case decimal d:
-                    return new FloatValueNode(d);
-                case bool b:
-                    return new BooleanValueNode(b);
-                    // TODO: list
-                    // case sbyte s:
-                    //     return new IntValueNode(s);
-                    // case byte b:
-                    //     return new IntValueNode(b);
-            }
-        }
-        else
-        {
-            throw new ArgumentException($"Expected MuiValue. got: {value.GetType()}");
+            return new StringValueNode(s);
         }
 
-        if (set.Add(value))
+        if (runtimeValue.Value is IEnumerable<MuiValue> list)
         {
-            if (value is IReadOnlyList<object> list)
-            {
-                var valueList = new List<IValueNode>();
-                foreach (object element in list)
-                {
-                    valueList.Add(this.ParseValue(element, set));
-                }
-
-                return new ListValueNode(valueList);
-            }
-
-            // return ParseValue(_objectToDictConverter.Convert(value), set);
+            return new ListValueNode(list.Select(this.OnValueToLiteral).ToList());
         }
 
-        throw new ArgumentException("cycle in object graphql");
+        return new StringValueNode(runtimeValue.AsString());
     }
 }

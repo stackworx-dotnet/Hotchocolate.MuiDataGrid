@@ -1,7 +1,8 @@
 # Hotchocolate MuiDataGrid
 
+[![NuGet](https://img.shields.io/nuget/v/Stackworx.Hotchocolate.MuiDataGrid.svg)](https://www.nuget.org/packages/Stackworx.Hotchocolate.MuiDataGrid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![.NET](https://img.shields.io/badge/.NET-net9.0-512BD4?logo=dotnet&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-net10.0-512BD4?logo=dotnet&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-Language-239120?logo=csharp&logoColor=white)
 
 ## Setup
@@ -41,7 +42,7 @@ builder
     .AddMuiDataGrid();
 ```
 
-This repository targets `net9.0`.
+This repository targets `net10.0`.
 
 ## Migrating from the previous version
 

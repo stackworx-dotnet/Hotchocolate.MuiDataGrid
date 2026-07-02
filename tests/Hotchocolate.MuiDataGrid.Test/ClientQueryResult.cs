@@ -1,7 +1,6 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using System.Net;
-using HotChocolate.Execution;
 
 public class ClientQueryResult
 {
@@ -15,7 +14,8 @@ public class ClientQueryResult
 
     public Dictionary<string, object> Extensions { get; set; } = new();
 
-    public IReadOnlyList<IOperationResult>? Incremental { get; set; }
+    // Incremental delivery (defer/stream) payloads — unused by the filter/sort tests.
+    public IReadOnlyList<object>? Incremental { get; set; }
 
     public Dictionary<string, object> ContextData { get; set; } = new();
 

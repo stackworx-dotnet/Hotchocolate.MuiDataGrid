@@ -13,7 +13,9 @@ public partial class MuiDataGridGraphQLTests
                 "items", input.Items
             },
             {
-                "logicOperator", input.LogicOperator
+                // HC16 coerces enums by their GraphQL name; passing the raw CLR enum serialises
+                // to a Number the enum type rejects. Send the mapped name ("or"/"and").
+                "logicOperator", input.LogicOperator == MuiDataGridLogicOperator.Or ? "or" : "and"
             },
         }.ToImmutableDictionary();
     }

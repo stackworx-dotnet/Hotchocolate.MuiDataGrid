@@ -1,18 +1,34 @@
 namespace Stackworx.Hotchocolate.MuiDataGrid;
 
+using System.Text.Json;
 using FluentAssertions;
+using HotChocolate;
 using HotChocolate.Execution;
 
 public partial class MuiDataGridSQLTests
 {
+    // HC16: the result data model changed (OperationResultData is not indexable). Read the
+    // "input" field back from the JSON-serialised result instead.
+    private static string? InputValue(IExecutionResult result)
+    {
+        using var document = JsonDocument.Parse(result.ToJson());
+        var input = document.RootElement.GetProperty("data").GetProperty("input");
+        return input.ValueKind switch
+        {
+            JsonValueKind.Null => null,
+            JsonValueKind.String => input.GetString(),
+            _ => input.GetRawText(),
+        };
+    }
+
     [Fact]
     public async Task TestStringMuiValue()
     {
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: ""s"", field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        result.ExpectOperationResult().Data!["input"]!.ToString().Should().Be(@"s");
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        InputValue(result).Should().Be("s");
     }
 
     [Fact]
@@ -21,8 +37,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: 5, field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        result.ExpectOperationResult().Data!["input"]!.ToString().Should().Be(@"5");
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        InputValue(result).Should().Be("5");
     }
 
     [Fact]
@@ -31,8 +47,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        string? input = result.ExpectOperationResult().Data!["input"]?.ToString();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        var input = InputValue(result);
         input.Should().Be(null);
     }
 
@@ -42,8 +58,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: ""2022-06-24"" field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        var input = result.ExpectOperationResult().Data!["input"]?.ToString();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        var input = InputValue(result);
         input.Should().Be("2022-06-24");
     }
 
@@ -53,8 +69,8 @@ public partial class MuiDataGridSQLTests
         var result = await this.fixture.RequestExecutor.ExecuteAsync(
             @"query { input(input: {value: {label: ""Person"", value: ""UHJvZHVjdAppMQ==""}, field: ""column"", operator: ""equals""} ) }",
             new Dictionary<string, object?>());
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        var input = result.ExpectOperationResult().Data!["input"]?.ToString();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        var input = InputValue(result);
         input.Should().Be("UHJvZHVjdAppMQ==");
     }
 
@@ -66,7 +82,7 @@ public partial class MuiDataGridSQLTests
             @"query { input(input: {value: [""5"", ""6""] columnField: ""column"", operatorValue: ""equals""} ) }",
             new Dictionary<string, object?>());
         result.Errors.Should().BeNull();
-        var input = result.ExpectOperationResult().Data!["input"]?.ToString();
+        var input = InputValue(result);
         input.Should().Be("\"2022-06-24\"");
     }
     */

@@ -2,6 +2,7 @@ namespace Stackworx.Hotchocolate.MuiDataGrid;
 
 using System.Collections.Immutable;
 using FluentAssertions;
+using HotChocolate;
 using HotChocolate.Execution;
 using Snapshooter.Xunit;
 
@@ -11,7 +12,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
     [Fact]
     public void TestSchema()
     {
-        fixture.RequestExecutor.Schema.Print().MatchSnapshot();
+        fixture.RequestExecutor.Schema.ToString().MatchSnapshot();
     }
 
     [Fact]
@@ -40,8 +41,8 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                         })
                 },
             });
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        result.MatchSnapshot();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
     }
 
     [Fact]
@@ -70,8 +71,8 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                         })
                 },
             });
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        result.MatchSnapshot();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
     }
 
     [Fact]
@@ -117,8 +118,8 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                         })
                 },
             });
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        result.MatchSnapshot();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
     }
 
     [Fact]
@@ -126,8 +127,8 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
     {
         var result = await fixture.RequestExecutor.ExecuteAsync(
             "query people { people { firstname } }");
-        result.ExpectOperationResult().Errors.Should().BeNull();
-        result.MatchSnapshot();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
+        result.ToJson().MatchSnapshot();
     }
 
     [Fact]
@@ -164,7 +165,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -201,7 +202,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -238,7 +239,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -275,7 +276,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -312,7 +313,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -349,7 +350,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -389,7 +390,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -426,7 +427,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                 },
             });
 
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -462,7 +463,7 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                     }.ToImmutableDictionary()
                 },
             });
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
 
         result = await fixture.RequestExecutor.ExecuteAsync(
             "query people($filters: MuiDataGridFilterInput!) { people(filters: $filters) { firstname } }",
@@ -494,6 +495,6 @@ public partial class MuiDataGridGraphQLTests(DbFixture fixture)
                     }.ToImmutableDictionary()
                 },
             });
-        result.ExpectOperationResult().Errors.Should().BeNull();
+        result.ExpectOperationResult().Errors.Should().BeNullOrEmpty();
     }
 }
